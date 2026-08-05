@@ -163,6 +163,9 @@ def _workspaces():
 				("Page", "Management", "rmc-manage"),
 				("Page", "Report Hub", "rmc-reports"),
 				("Page", "How to Use RMC", "rmc-guide"),
+				("Report", "RMC Profit and Loss", "RMC Profit and Loss"),
+				("URL", "Public Dashboard", "/rmc"),
+				("URL", "Public P&L", "/rmc/pl"),
 				("Report", "Grade Profitability", "Grade Profitability"),
 				("Report", "Monthly Plant Summary", "Monthly Plant Summary"),
 				("Report", "Customer Wise Sales", "Customer Wise Sales"),
@@ -179,6 +182,7 @@ def _workspaces():
 					("DocType", "Sales Invoice"), ("DocType", "Purchase Receipt"),
 					("DocType", "Customer"), ("DocType", "Supplier")]),
 				("Management Reports", [
+					("Report", "RMC Profit and Loss"),
 					("Report", "Monthly Plant Summary"),
 					("Report", "Grade Profitability"),
 					("Report", "Customer Wise Sales"),
@@ -320,6 +324,7 @@ def _workspaces():
 			"roles": ["Quality Engineer", "Plant Operator", "RMC Manager"],
 			"shortcuts": [
 				("Page", "Quality Board", "rmc-quality-board"),
+				("Page", "Live PLC Board", "rmc-plc-board"),
 				("DocType", "Cube Test", "Cube Test"),
 				("DocType", "Plant Status Log", "Plant Status Log"),
 				("DocType", "Breakdown Log", "Breakdown Log"),
@@ -331,6 +336,10 @@ def _workspaces():
 			"charts": ["cube_result", "plant_status", "breakdown_equip"],
 			"links": [
 				("Quality", [("DocType", "Cube Test")]),
+				("Live Signals", [
+					("Page", "rmc-plc-board", "Live PLC Board"),
+					("DocType", "RMC PLC Tag", "PLC Tags"),
+					("DocType", "RMC PLC Reading", "PLC Readings")]),
 				("Plant Operations", [
 					("DocType", "Plant Status Log"), ("DocType", "Breakdown Log"),
 					("DocType", "RMC Maintenance Task"), ("DocType", "Power Log")]),
@@ -400,7 +409,11 @@ def _make_workspace(spec, card_ids, chart_ids, seq):
 	ws_shortcuts = []
 	for sc in spec["shortcuts"]:
 		stype, label, link_to = sc[0], sc[1], sc[2]
-		if stype == "Page":
+		if stype == "URL":
+			# a public web page — the desk links straight out to it
+			ws_shortcuts.append({"type": "URL", "label": label, "url": link_to,
+			                     "color": "Green"})
+		elif stype == "Page":
 			if frappe.db.exists("Page", link_to):
 				ws_shortcuts.append({"type": "Page", "label": label, "link_to": link_to,
 				                     "color": "Green"})
@@ -419,6 +432,10 @@ def _make_workspace(spec, card_ids, chart_ids, seq):
 		links.append({"type": "Card Break", "label": grp})
 		for it in items:
 			ltype, lname = it[0], it[1]
+			if ltype == "URL":
+				# Workspace Link only accepts DocType / Page / Report; a public
+				# page belongs in shortcuts, which do take a URL.
+				continue
 			llabel = it[2] if len(it) > 2 else lname
 			if ltype == "DocType" and frappe.db.exists("DocType", lname):
 				links.append({"type": "Link", "link_type": "DocType", "link_to": lname,

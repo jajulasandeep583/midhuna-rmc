@@ -29,6 +29,8 @@ DOCTYPE_ICONS = {
 	"Breakdown Log": "rmc-breakdown",
 	"RMC Maintenance Task": "rmc-maintenance",
 	"Power Log": "rmc-power",
+	"RMC PLC Tag": "rmc-plc",
+	"RMC PLC Reading": "rmc-gauge",
 }
 
 WORKSPACE_ICONS = {
@@ -61,6 +63,14 @@ EXTRA_ICONS = {
 	"Silo & Stock Board": "rmc-silo",
 	"Quality Board": "rmc-quality",
 	"How to Use RMC": "rmc-guide",
+	"Live PLC Board": "rmc-plc",
+	"PLC Tags": "rmc-plc",
+	"PLC Readings": "rmc-gauge",
+	"Live Signals": "rmc-plc",
+	"Public Dashboard": "rmc-web",
+	"Public P&L": "rmc-web",
+	"Plant Wall Screen": "rmc-web",
+	"RMC Profit and Loss": "rmc-invoice",
 	"Management": "rmc-invoice",
 	"Management view": "rmc-invoice",
 	"Report Hub": "rmc-report",
@@ -136,7 +146,8 @@ def install():
 		n_ws += 1
 
 	# desk pages get the app icon in the sidebar / awesomebar
-	for page, icon in (("rmc-manage", "rmc-invoice"),
+	for page, icon in (("rmc-plc-board", "rmc-plc"),
+	                   ("rmc-manage", "rmc-invoice"),
 	                   ("rmc-reports", "rmc-report"),
 	                   ("rmc-live-dashboard", "rmc-dashboard"),
 	                   ("rmc-control-tower", "rmc-dashboard"),

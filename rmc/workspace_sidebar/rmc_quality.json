@@ -33,6 +33,42 @@
   {
    "child": 0,
    "collapsible": 1,
+   "icon": "rmc-plc",
+   "indent": 0,
+   "keep_closed": 0,
+   "label": "Live PLC Board",
+   "link_to": "rmc-plc-board",
+   "link_type": "Page",
+   "show_arrow": 0,
+   "type": "Link"
+  },
+  {
+   "child": 0,
+   "collapsible": 1,
+   "icon": "rmc-plc",
+   "indent": 0,
+   "keep_closed": 0,
+   "label": "PLC Tags",
+   "link_to": "RMC PLC Tag",
+   "link_type": "DocType",
+   "show_arrow": 0,
+   "type": "Link"
+  },
+  {
+   "child": 0,
+   "collapsible": 1,
+   "icon": "rmc-gauge",
+   "indent": 0,
+   "keep_closed": 0,
+   "label": "PLC Readings",
+   "link_to": "RMC PLC Reading",
+   "link_type": "DocType",
+   "show_arrow": 0,
+   "type": "Link"
+  },
+  {
+   "child": 0,
+   "collapsible": 1,
    "icon": "rmc-cube-test",
    "indent": 0,
    "keep_closed": 0,
@@ -139,7 +175,7 @@
    "type": "Link"
   }
  ],
- "modified": "2026-08-06 01:42:13.570902",
+ "modified": "2026-08-06 01:58:01.659615",
  "modified_by": "Administrator",
  "module": "RMC Plant Ops",
  "name": "RMC Quality",

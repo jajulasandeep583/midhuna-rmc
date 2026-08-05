@@ -1,0 +1,33 @@
+{
+ "content": null,
+ "creation": "2026-08-06 00:00:00.000000",
+ "docstatus": 0,
+ "doctype": "Page",
+ "idx": 0,
+ "modified": "2026-08-06 00:00:00.000000",
+ "modified_by": "Administrator",
+ "module": "RMC Plant Ops",
+ "name": "rmc-plc-board",
+ "owner": "Administrator",
+ "page_name": "rmc-plc-board",
+ "roles": [
+  {
+   "role": "RMC Manager"
+  },
+  {
+   "role": "Plant Operator"
+  },
+  {
+   "role": "Quality Engineer"
+  },
+  {
+   "role": "Dispatch Incharge"
+  },
+  {
+   "role": "System Manager"
+  }
+ ],
+ "standard": "Yes",
+ "system_page": 0,
+ "title": "Live PLC Board"
+}

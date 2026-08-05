@@ -28,6 +28,11 @@ GLYPHS = {
 	           '<path d="M9 12l2.2 2.2L15.5 10"/>',
 	"order": '<path d="M9 3h6v3H9z"/><path d="M15 4.5h3V21H6V4.5h3"/><path d="M9 13l2 2 4-4"/>',
 	"report": '<path d="M4 21V4"/><path d="M4 21h17"/><path d="M8 17V11M13 17V6M18 17v-8"/>',
+	"plc": '<rect x="2.5" y="5" width="19" height="14" rx="2"/>'
+	       '<path d="M5.5 13l2.5-3.5L10.5 15l2-6 2 4.5 1.5-2h2.5"/>'
+	       '<path d="M6 2.5v2.5M12 2.5v2.5M18 2.5v2.5"/>',
+	"web": '<circle cx="12" cy="12" r="9"/><path d="M3 12h18"/>'
+	       '<path d="M12 3c2.6 2.6 4 5.7 4 9s-1.4 6.4-4 9c-2.6-2.6-4-5.7-4-9s1.4-6.4 4-9z"/>',
 	"guide": '<path d="M4 4.5A2.5 2.5 0 0 1 6.5 2H20v16H6.5A2.5 2.5 0 0 0 4 20.5z"/>'
 	         '<path d="M4 4.5v16A2.5 2.5 0 0 0 6.5 23H20v-5"/><path d="M8 7h8M8 11h6"/>',
 	"settings": '<circle cx="12" cy="12" r="3"/>'
@@ -44,6 +49,8 @@ TILES = [
 	("Silo & Stock", "Levels and days of cover", "/app/rmc-silo-board", "silo", "#B45309"),
 	("Quality", "Cube tests and slump", "/app/rmc-quality-board", "quality", "#15803D"),
 	("Order 360", "One order end to end", "/app/rmc-order-360", "order", "#DB2777"),
+	("Live PLC", "Plant signals, 24/7", "/app/rmc-plc-board", "plc", "#0EA5E9"),
+	("Web Pages", "Public plant dashboards", "/rmc", "web", "#2563EB"),
 	("Reports", "Every MIS report", "/app/rmc-reports", "report", "#6D28D9"),
 	("How to Use", "The full guide", "/app/rmc-guide", "guide", "#BE185D"),
 ]

@@ -7,7 +7,21 @@
 <style>
 	.sig { display: grid; grid-template-columns: repeat(auto-fit, minmax(215px, 1fr)); gap: 11px; }
 	.sig .t { background: var(--rmc-card); border: 1px solid var(--rmc-line);
-		border-radius: 11px; padding: 12px 14px; }
+		border-radius: 11px; padding: 12px 14px; display: flex; gap: 11px; align-items: center; }
+	.sig .t.block { display: block; }
+	.silo { position: relative; width: 34px; height: 62px; flex: none;
+		border: 2px solid var(--rmc-line); border-radius: 6px 6px 3px 3px;
+		overflow: hidden; background: rgba(125,140,155,.10); }
+	.silo .fill { position: absolute; left: 0; right: 0; bottom: 0; background: #1a7f4b;
+		transition: height .4s; }
+	.silo .fill.low { background: #d93a2b; }
+	.silo .fill.mid { background: #c98a12; }
+	.silo span { position: absolute; inset: 0; display: grid; place-items: center;
+		font-size: 11px; font-weight: 800; }
+	.lamp { width: 26px; height: 26px; border-radius: 50%; flex: none; background: #9aa6b2;
+		box-shadow: 0 0 0 4px rgba(154,166,178,.18); }
+	.lamp.on { background: #21c05b; box-shadow: 0 0 0 4px rgba(33,192,91,.22); }
+	.sig .meta { min-width: 0; }
 	.sig .t.alarm { border-color: var(--rmc-red); box-shadow: inset 3px 0 0 var(--rmc-red); }
 	.sig .t.stale { opacity: .55; }
 	.sig .nm { font-size: 11.5px; color: var(--rmc-muted); text-transform: uppercase;
@@ -101,17 +115,42 @@
 		<h3>{{ category }}</h3>
 		<div class="sig">
 			{% for r in rows %}
+			{% set lvl = [[r.pct, 0] | max, 100] | min %}
+			{% if category == 'Silo Level' %}
 			<div class="t {{ 'alarm' if r.alarm else '' }} {{ 'stale' if r.stale else '' }}">
+				<div class="silo">
+					<div class="fill {{ 'low' if r.alarm else ('mid' if lvl < 35 else '') }}"
+					     style="height:{{ lvl }}%"></div>
+					<span>{{ lvl }}%</span>
+				</div>
+				<div class="meta">
+					<div class="nm">{{ r.tag_name }}</div>
+					<div class="v">{{ r.value if r.value is not none else "—" }}<small>{{ r.unit }}</small></div>
+					<div class="code">{{ r.tag_code }}</div>
+				</div>
+			</div>
+			{% elif category == 'Status' %}
+			<div class="t {{ 'stale' if r.stale else '' }}">
+				<div class="lamp {{ 'on' if r.value and r.value >= 1 else '' }}"></div>
+				<div class="meta">
+					<div class="nm">{{ r.tag_name }}</div>
+					<div class="v">{{ "ON" if r.value and r.value >= 1 else "OFF" }}</div>
+					<div class="code">{{ r.tag_code }}</div>
+				</div>
+			</div>
+			{% else %}
+			<div class="t block {{ 'alarm' if r.alarm else '' }} {{ 'stale' if r.stale else '' }}">
 				<div class="nm">{{ r.tag_name }}</div>
 				<div class="v">{{ r.value if r.value is not none else "—" }}<small>{{ r.unit }}</small></div>
 				{% if r.max_value %}
 				<div class="bar {{ '' if r.alarm else 'g' }}">
-					<span style="width:{{ [[r.pct, 0] | max, 100] | min }}%"></span>
+					<span style="width:{{ lvl }}%"></span>
 				</div>
 				{% endif %}
 				<div class="code" style="margin-top:6px">{{ r.tag_code }}
 					{% if r.quality != 'Good' %} · {{ r.quality }}{% endif %}</div>
 			</div>
+			{% endif %}
 			{% endfor %}
 		</div>
 	</div>
