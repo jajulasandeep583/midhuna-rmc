@@ -1,0 +1,22 @@
+{
+ "app": "rmc",
+ "bg_color": "gray",
+ "creation": "2026-08-05 23:23:24.630388",
+ "docstatus": 0,
+ "doctype": "Desktop Icon",
+ "hidden": 0,
+ "icon": "rmc-settings",
+ "icon_type": "Link",
+ "idx": 0,
+ "label": "RMC Setup",
+ "link_to": "RMC Setup",
+ "link_type": "Workspace Sidebar",
+ "modified": "2026-08-05 23:23:24.630388",
+ "modified_by": "Administrator",
+ "name": "RMC Setup",
+ "owner": "Administrator",
+ "restrict_removal": 0,
+ "roles": [],
+ "sidebar": "RMC Setup",
+ "standard": 1
+}

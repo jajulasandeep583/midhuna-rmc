@@ -26,30 +26,44 @@ def make_roles():
 	print("  + roles: %d" % len(ROLES))
 
 
+def _desk_objects():
+	"""Everything that has to be rebuilt whenever the code changes.
+
+	Order matters: sidebars must exist before the desktop icons that link
+	through them, and the workspaces before either.
+	"""
+	from rmc.setup import (custom_fields, desktop_icons, icons, permissions,
+	                       print_formats, script_reports, sidebar, workspaces)
+
+	custom_fields.install()
+	print_formats.install()
+	script_reports.install()
+	workspaces.install()
+	sidebar.install()
+	desktop_icons.install()
+	icons.install()
+	permissions.install()
+
+
 def after_install():
 	print("Setting up RMC Plant Management...")
 	make_roles()
 
-	from rmc.setup import custom_fields, masters, workspaces, print_formats
+	from rmc.setup import masters, site_setup
 
 	masters.install()
-	custom_fields.install()
-	print_formats.install()
-	workspaces.install()
+	_desk_objects()
+	site_setup.run()
 
 	frappe.db.commit()
-	print("RMC Plant Management is ready. Open the RMC Plant workspace.")
+	print("RMC Plant Management is ready. Open the RMC Dashboard workspace.")
 
 
 def after_migrate():
 	"""Keep desk objects in step with the code on every migrate."""
-	from rmc.setup import custom_fields, print_formats, workspaces
-
 	try:
 		make_roles()
-		custom_fields.install()
-		print_formats.install()
-		workspaces.install()
+		_desk_objects()
 		frappe.db.commit()
 	except Exception:
 		frappe.log_error(frappe.get_traceback(), "RMC: after_migrate rebuild failed")

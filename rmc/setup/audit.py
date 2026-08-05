@@ -292,6 +292,45 @@ def _ui():
 	              and not frappe.db.get_value("Workspace", w, "icon")]
 	_check(not no_ws_icon, "Every workspace carries an icon", str(no_ws_icon))
 
+	# --- the three separate icon surfaces v16 renders from ---
+	# 1. the sprite (doctype lists, sidebar links, shortcuts) — checked above
+	# 2. Workspace Sidebar (the left nav)
+	from rmc.setup.sidebar import SIDEBARS
+
+	for name, cfg in SIDEBARS.items():
+		if not frappe.db.exists("Workspace", name):
+			continue
+		if not frappe.db.exists("Workspace Sidebar", name):
+			_fail("Workspace Sidebar %s" % name)
+			continue
+		sb = frappe.get_doc("Workspace Sidebar", name)
+		no_icon = [i.label for i in sb.items if not i.icon]
+		_check(sb.header_icon and sb.items and not no_icon,
+		       "Sidebar %s has header icon and item icons" % name,
+		       "%d items, header=%s, missing=%s" % (len(sb.items), sb.header_icon, no_icon))
+
+	# 3. Desktop Icon + its tile files (the /apps home screen)
+	from rmc.setup.desktop_icons import TILES
+
+	for label, (symbol, _colour) in TILES.items():
+		if not frappe.db.exists("Workspace", label):
+			continue
+		di = frappe.db.get_value("Desktop Icon", {"label": label},
+		                         ["icon", "icon_type", "link_type", "sidebar", "hidden"],
+		                         as_dict=True)
+		_check(di and di.icon == symbol and di.icon_type == "Link"
+		       and di.link_type == "Workspace Sidebar" and not di.hidden,
+		       "Desktop icon record: %s" % label, str(di))
+		for variant in ("solid", "subtle"):
+			f = os.path.join(frappe.get_app_path("rmc", "public", "icons",
+			                                     "desktop_icons", variant),
+			                 frappe.scrub(label) + ".svg")
+			_check(os.path.exists(f), "Desktop tile file %s/%s" % (variant, label))
+			built = os.path.join(frappe.utils.get_bench_path(), "sites", "assets", "rmc",
+			                     "icons", "desktop_icons", variant,
+			                     frappe.scrub(label) + ".svg")
+			_check(os.path.exists(built), "Desktop tile built: %s/%s" % (variant, label))
+
 	pages = ["rmc-control-tower", "rmc-live-dashboard", "rmc-batch-board",
 	         "rmc-dispatch-board", "rmc-silo-board", "rmc-quality-board",
 	         "rmc-order-360"]
