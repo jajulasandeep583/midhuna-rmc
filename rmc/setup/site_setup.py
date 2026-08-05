@@ -100,9 +100,11 @@ def _complete_wizard():
 		if frappe.db.exists("Installed Application", {"app_name": app}):
 			frappe.db.set_value("Installed Application", {"app_name": app},
 			                    "is_setup_complete", 1)
-	frappe.db.set_single_value("System Settings", "setup_complete", 1)
-
+	# Set the flag ON the document, not with a separate db write: a later
+	# settings.save() reloads the cached single and writes the stale 0 straight
+	# back, which leaves the desk bouncing every login into the setup wizard.
 	settings = frappe.get_single("System Settings")
+	settings.setup_complete = 1
 	settings.country = "India"
 	settings.time_zone = "Asia/Kolkata"
 	settings.currency = "INR"
@@ -120,7 +122,11 @@ def _complete_wizard():
 	frappe.db.set_default("country", "India")
 	frappe.db.set_default("currency", "INR")
 	frappe.db.commit()
-	print("  + setup wizard marked complete (frappe + erpnext)")
+	frappe.clear_cache()          # boot info caches setup_complete
+
+	check = frappe.db.get_single_value("System Settings", "setup_complete")
+	print("  + setup wizard marked complete (frappe, erpnext, rmc); "
+	      "System Settings.setup_complete = %s" % check)
 
 
 def _company_profile():
