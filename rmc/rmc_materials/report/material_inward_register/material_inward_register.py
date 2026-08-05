@@ -12,7 +12,7 @@ from rmc.report_utils import build_conditions, col
 def execute(filters=None):
 	filters = frappe._dict(filters or {})
 	where, params = build_conditions(
-		filters, {"supplier": "mi.supplier", "item_code": "mi.item_code",
+		filters, {"plant": "mi.plant", "vehicle_no": "mi.vehicle_no", "supplier": "mi.supplier", "item_code": "mi.item_code",
 		          "silo": "mi.silo", "material_type": "mi.material_type"},
 		date_field="inward_date", alias="mi")
 

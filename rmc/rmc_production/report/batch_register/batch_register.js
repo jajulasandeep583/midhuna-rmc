@@ -15,5 +15,7 @@ frappe.query_reports["Batch Register"] = {
 		{ fieldname: "grade", label: __("Grade"), fieldtype: "Link", options: "Concrete Grade" },
 		{ fieldname: "concrete_order", label: __("Concrete Order"), fieldtype: "Link", options: "Concrete Order" },
 		{ fieldname: "shift", label: __("Shift"), fieldtype: "Select", options: "\nShift A\nShift B\nShift C" },
+		{ fieldname: "operator", label: __("Operator"), fieldtype: "Data" },
+		{ fieldname: "status", label: __("Status"), fieldtype: "Select", options: "\nDraft\nProduced\nDispatched\nCancelled" },
 	],
 };

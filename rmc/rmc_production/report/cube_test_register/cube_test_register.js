@@ -14,5 +14,6 @@ frappe.query_reports["Cube Test Register"] = {
 		{ fieldname: "grade", label: __("Grade"), fieldtype: "Link", options: "Concrete Grade" },
 		{ fieldname: "age_days", label: __("Age (days)"), fieldtype: "Select", options: "\n7\n14\n28" },
 		{ fieldname: "result", label: __("Result"), fieldtype: "Select", options: "\nPass\nFail" },
+		{ fieldname: "batch_production", label: __("Batch"), fieldtype: "Link", options: "Batch Production" },
 	],
 };

@@ -15,5 +15,7 @@ frappe.query_reports["Dispatch Register"] = {
 		{ fieldname: "grade", label: __("Grade"), fieldtype: "Link", options: "Concrete Grade" },
 		{ fieldname: "transit_mixer", label: __("Transit Mixer"), fieldtype: "Link", options: "Transit Mixer" },
 		{ fieldname: "status", label: __("Status"), fieldtype: "Select", options: "\nDispatched\nDelivered\nReturned\nCancelled" },
+		{ fieldname: "construction_site", label: __("Site"), fieldtype: "Link", options: "Construction Site" },
+		{ fieldname: "driver", label: __("Driver"), fieldtype: "Link", options: "Driver" },
 	],
 };

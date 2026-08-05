@@ -13,5 +13,6 @@ frappe.query_reports["Vehicle Utilisation and Trips"] = {
 		},
 		{ fieldname: "transit_mixer", label: __("Transit Mixer"), fieldtype: "Link", options: "Transit Mixer" },
 		{ fieldname: "vehicle_type", label: __("Vehicle Type"), fieldtype: "Select", options: "\nTransit Mixer\nConcrete Pump\nLoader\nTipper" },
+		{ fieldname: "customer", label: __("Customer"), fieldtype: "Link", options: "Customer" },
 	],
 };

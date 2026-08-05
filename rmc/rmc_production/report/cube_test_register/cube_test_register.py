@@ -12,7 +12,7 @@ from rmc.report_utils import build_conditions, col
 def execute(filters=None):
 	filters = frappe._dict(filters or {})
 	where, params = build_conditions(
-		filters, {"grade": "ct.grade", "age_days": "ct.age_days", "result": "ct.result"},
+		filters, {"batch_production": "ct.batch_production", "grade": "ct.grade", "age_days": "ct.age_days", "result": "ct.result"},
 		date_field="casting_date", alias="ct")
 
 	rows = frappe.db.sql("""

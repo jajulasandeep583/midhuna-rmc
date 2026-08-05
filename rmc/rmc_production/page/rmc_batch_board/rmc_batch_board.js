@@ -12,8 +12,11 @@ class BatchBoard {
 		this.$body.html(`<div class="rmcp">
 			<div class="hero" id="bb-hero"><h2>Loading…</h2></div>
 			<div class="grid">
-				<div class="card" style="grid-column:span 2"><h4>Batches</h4><div id="bb-batches"></div></div>
-				<div class="card"><h4>Material consumed — actual vs recipe</h4><div id="bb-materials"></div></div>
+				<div class="card" style="grid-column:span 2"><h4>Batches</h4>
+					<div id="bb-batches"></div></div>
+				<div class="card"><h4>Material consumed — actual vs recipe</h4>
+					<div id="bb-materials"></div>
+					<h4 style="margin-top:16px">By day</h4><div id="bb-days"></div></div>
 			</div></div>` + `
 <style>
 	.rmcp{max-width:1200px;margin:0 auto}
@@ -47,28 +50,66 @@ class BatchBoard {
 	.rmcp .empty{color:var(--text-muted,#6c7680);font-size:13px;padding:8px 0}
 </style>
 `);
-		this.date_field = this.page.add_field({
-			fieldtype: 'Date', fieldname: 'date', label: __('Production Date'),
-			default: frappe.datetime.get_today(),
-			change: () => this.refresh(),
+
+		this.from_f = this.page.add_field({
+			fieldtype: 'Date', fieldname: 'from_date', label: __('From'),
+			default: frappe.datetime.add_days(frappe.datetime.get_today(), -6), change: () => this.refresh(),
+		});
+		this.to_f = this.page.add_field({
+			fieldtype: 'Date', fieldname: 'to_date', label: __('To'),
+			default: frappe.datetime.get_today(), change: () => this.refresh(),
+		});
+		this.shift_f = this.page.add_field({
+			fieldtype: 'Select', fieldname: 'shift', label: __('Shift'),
+			options: ['', 'Shift A', 'Shift B', 'Shift C'], change: () => this.refresh(),
+		});
+		this.grade_f = this.page.add_field({
+			fieldtype: 'Link', fieldname: 'grade', label: __('Grade'),
+			options: 'Concrete Grade', change: () => this.refresh(),
+		});
+		this.plant_f = this.page.add_field({
+			fieldtype: 'Link', fieldname: 'plant', label: __('Plant'),
+			options: 'RMC Plant', change: () => this.refresh(),
 		});
 		this.page.set_primary_action(__('New Batch'), () =>
-			frappe.new_doc('Batch Production', { production_date: this.date_field.get_value() }));
+			frappe.new_doc('Batch Production', { production_date: this.to_f.get_value() }));
+		this.page.add_menu_item(__('Today'), () => {
+			this.from_f.set_value(frappe.datetime.get_today());
+			this.to_f.set_value(frappe.datetime.get_today());
+		});
+		this.page.add_menu_item(__('Last 7 days'), () => {
+			this.from_f.set_value(frappe.datetime.add_days(frappe.datetime.get_today(), -6));
+			this.to_f.set_value(frappe.datetime.get_today());
+		});
+		this.page.add_menu_item(__('This month'), () => {
+			this.from_f.set_value(frappe.datetime.month_start());
+			this.to_f.set_value(frappe.datetime.get_today());
+		});
+		this.page.add_menu_item(__('Last 30 days'), () => {
+			this.from_f.set_value(frappe.datetime.add_days(frappe.datetime.get_today(), -29));
+			this.to_f.set_value(frappe.datetime.get_today());
+		});
 		this.refresh();
 	}
 
 	refresh() {
-		frappe.call({ method: 'rmc.dashboard.batch_board',
-			args: { date: this.date_field.get_value() } })
-			.then((r) => this.draw(r.message || {}));
+		frappe.call({
+			method: 'rmc.dashboard.batch_board',
+			args: {
+				from_date: this.from_f.get_value(), to_date: this.to_f.get_value(),
+				shift: this.shift_f.get_value() || null,
+				grade: this.grade_f.get_value() || null,
+				plant: this.plant_f.get_value() || null,
+			},
+		}).then((r) => this.draw(r.message || {}));
 	}
 
 	draw(d) {
-		const shifts = (d.shifts || []).map(s =>
+		const shifts = (d.shifts || []).map((s) =>
 			`<div class="stat"><div class="n">${s.qty.toFixed(2)}</div>
 			 <div class="l">${frappe.utils.escape_html(s.shift)} · ${s.loads} loads</div></div>`).join('');
 		$('#bb-hero').html(`
-			<h2>Batching — ${frappe.datetime.str_to_user(d.date)}</h2>
+			<h2>Batching — ${frappe.datetime.str_to_user(d.from_date)} to ${frappe.datetime.str_to_user(d.to_date)}</h2>
 			<div class="strip">
 				<div class="stat"><div class="n">${d.total_qty || 0}</div><div class="l">Total m³</div></div>
 				<div class="stat"><div class="n">${(d.batches || []).length}</div><div class="l">Loads</div></div>
@@ -76,21 +117,22 @@ class BatchBoard {
 				${shifts}
 			</div>`);
 
-		const rows = (d.batches || []).map(b => `<tr>
+		const rows = (d.batches || []).map((b) => `<tr>
 			<td><a href="/app/batch-production/${encodeURIComponent(b.name)}">${b.name}</a></td>
+			<td>${frappe.datetime.str_to_user(b.production_date)}</td>
 			<td>${b.shift || ''}</td><td>${b.grade || ''}</td>
 			<td class="num">${b.qty_m3}</td>
-			<td>${frappe.utils.escape_html(b.customer || '—')}</td>
+			<td>${frappe.utils.escape_html((b.customer || '—').substring(0, 26))}</td>
 			<td>${frappe.utils.escape_html(b.operator || '')}</td>
 			<td class="num">${format_currency(b.cost_per_m3 || 0)}</td>
 			<td>${b.stock_entry ? `<a href="/app/stock-entry/${encodeURIComponent(b.stock_entry)}">SE</a>` : '—'}</td>
 			</tr>`).join('');
-		$('#bb-batches').html(rows ? `<table><thead><tr><th>Batch</th><th>Shift</th><th>Grade</th>
-			<th class="num">m³</th><th>Customer</th><th>Operator</th><th class="num">Cost/m³</th><th>Stock</th>
-			</tr></thead><tbody>${rows}</tbody></table>`
-			: '<div class="empty">Nothing batched on this date.</div>');
+		$('#bb-batches').html(rows ? `<table><thead><tr><th>Batch</th><th>Date</th><th>Shift</th>
+			<th>Grade</th><th class="num">m³</th><th>Customer</th><th>Operator</th>
+			<th class="num">Cost/m³</th><th>Stock</th></tr></thead><tbody>${rows}</tbody></table>`
+			: '<div class="empty">Nothing batched in this period.</div>');
 
-		const mrows = (d.materials || []).map(m => {
+		const mrows = (d.materials || []).map((m) => {
 			const cls = Math.abs(m.variance_pct) > 2 ? 'bad' : 'ok';
 			return `<tr><td>${m.item_code}</td>
 				<td class="num">${Number(m.target).toFixed(1)}</td>
@@ -101,5 +143,12 @@ class BatchBoard {
 		$('#bb-materials').html(mrows ? `<table><thead><tr><th>Item</th><th class="num">Target</th>
 			<th class="num">Actual</th><th class="num">Var</th><th class="num">Cost</th></tr></thead>
 			<tbody>${mrows}</tbody></table>` : '<div class="empty">No consumption recorded.</div>');
+
+		const days = d.days || [];
+		const max = Math.max(1, ...days.map((x) => x.qty));
+		$('#bb-days').html(days.length
+			? `<div class="spark">${days.map((x) =>
+				`<i title="${x.date}: ${x.qty} m³" style="height:${Math.round(100 * x.qty / max)}%"></i>`).join('')}</div>`
+			: '<div class="empty">—</div>');
 	}
 }

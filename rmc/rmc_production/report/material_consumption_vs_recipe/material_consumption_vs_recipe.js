@@ -15,5 +15,7 @@ frappe.query_reports["Material Consumption vs Recipe"] = {
 		{ fieldname: "item_code", label: __("Item"), fieldtype: "Link", options: "Item" },
 		{ fieldname: "material_type", label: __("Material Type"), fieldtype: "Select", options: "\nCement\nSand\nAggregate\nFly Ash\nGGBS\nAdmixture\nWater" },
 		{ fieldname: "only_variance", label: __("Only rows beyond 2% variance"), fieldtype: "Check" },
+		{ fieldname: "plant", label: __("Plant"), fieldtype: "Link", options: "RMC Plant" },
+		{ fieldname: "shift", label: __("Shift"), fieldtype: "Select", options: "\nShift A\nShift B\nShift C" },
 	],
 };

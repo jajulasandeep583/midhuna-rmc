@@ -13,5 +13,6 @@ frappe.query_reports["Customer Wise Sales"] = {
 		},
 		{ fieldname: "customer", label: __("Customer"), fieldtype: "Link", options: "Customer" },
 		{ fieldname: "grade", label: __("Grade"), fieldtype: "Link", options: "Concrete Grade" },
+		{ fieldname: "construction_site", label: __("Site"), fieldtype: "Link", options: "Construction Site" },
 	],
 };

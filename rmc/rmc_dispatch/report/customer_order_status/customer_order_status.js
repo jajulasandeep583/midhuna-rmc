@@ -13,5 +13,6 @@ frappe.query_reports["Customer Order Status"] = {
 		},
 		{ fieldname: "customer", label: __("Customer"), fieldtype: "Link", options: "Customer" },
 		{ fieldname: "status", label: __("Status"), fieldtype: "Select", options: "\nOpen\nIn Progress\nCompleted\nClosed\nCancelled" },
+		{ fieldname: "grade", label: __("Grade"), fieldtype: "Link", options: "Concrete Grade" },
 	],
 };

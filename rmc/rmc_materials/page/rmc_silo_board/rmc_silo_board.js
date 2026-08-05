@@ -45,13 +45,28 @@ class SiloBoard {
 	.rmcp .empty{color:var(--text-muted,#6c7680);font-size:13px;padding:8px 0}
 </style>
 `);
+		this.mat_f = this.page.add_field({
+			fieldtype: 'Select', fieldname: 'material_type', label: __('Material'),
+			options: ['', 'Cement', 'Sand', 'Aggregate', 'Fly Ash', 'GGBS', 'Admixture', 'Water'],
+			change: () => this.refresh(),
+		});
+		this.low_f = this.page.add_field({
+			fieldtype: 'Check', fieldname: 'only_low', label: __('Only low silos'),
+			change: () => this.refresh(),
+		});
 		this.page.set_primary_action(__('New Inward'), () => frappe.new_doc('Material Inward'));
 		this.page.add_menu_item(__('Refresh'), () => this.refresh());
 		this.refresh();
 	}
 
 	refresh() {
-		frappe.call({ method: 'rmc.dashboard.silo_board' }).then((r) => this.draw(r.message || []));
+		frappe.call({
+			method: 'rmc.dashboard.silo_board',
+			args: {
+				material_type: this.mat_f.get_value() || null,
+				only_low: this.low_f.get_value() ? 1 : null,
+			},
+		}).then((r) => this.draw(r.message || []));
 	}
 
 	draw(rows) {

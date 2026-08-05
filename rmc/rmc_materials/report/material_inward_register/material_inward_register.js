@@ -15,5 +15,7 @@ frappe.query_reports["Material Inward Register"] = {
 		{ fieldname: "item_code", label: __("Item"), fieldtype: "Link", options: "Item" },
 		{ fieldname: "silo", label: __("Silo"), fieldtype: "Link", options: "Silo" },
 		{ fieldname: "material_type", label: __("Material Type"), fieldtype: "Select", options: "\nCement\nSand\nAggregate\nFly Ash\nGGBS\nAdmixture\nWater" },
+		{ fieldname: "plant", label: __("Plant"), fieldtype: "Link", options: "RMC Plant" },
+		{ fieldname: "vehicle_no", label: __("Vehicle No"), fieldtype: "Data" },
 	],
 };

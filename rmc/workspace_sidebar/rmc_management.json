@@ -1,5 +1,6 @@
 {
  "app": "rmc",
+ "creation": "2026-08-05 23:42:59.221740",
  "docstatus": 0,
  "doctype": "Workspace Sidebar",
  "header_icon": "rmc-invoice",
@@ -138,8 +139,9 @@
    "type": "Link"
   }
  ],
- "modified": "2026-08-05 23:42:59.142412",
+ "modified": "2026-08-05 23:54:03.719199",
  "modified_by": "Administrator",
+ "module": "RMC Plant Ops",
  "name": "RMC Management",
  "owner": "Administrator",
  "standard": 1,

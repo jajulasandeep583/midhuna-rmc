@@ -14,5 +14,6 @@ frappe.query_reports["Production Target vs Actual"] = {
 		{ fieldname: "customer", label: __("Customer"), fieldtype: "Link", options: "Customer" },
 		{ fieldname: "grade", label: __("Grade"), fieldtype: "Link", options: "Concrete Grade" },
 		{ fieldname: "status", label: __("Status"), fieldtype: "Select", options: "\nOpen\nIn Progress\nCompleted\nClosed\nCancelled" },
+		{ fieldname: "construction_site", label: __("Site"), fieldtype: "Link", options: "Construction Site" },
 	],
 };

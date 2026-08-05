@@ -13,7 +13,8 @@ class DispatchBoard {
 			<div class="hero" id="db-hero"><h2>Loading…</h2></div>
 			<div class="grid">
 				<div class="card" style="grid-column:span 2"><h4>Trips</h4><div id="db-trips"></div></div>
-				<div class="card"><h4>Fleet</h4><div id="db-fleet"></div></div>
+				<div class="card"><h4>Fleet</h4><div id="db-fleet"></div>
+					<h4 style="margin-top:16px">Dispatched by day</h4><div id="db-days"></div></div>
 			</div></div>` + `
 <style>
 	.rmcp{max-width:1200px;margin:0 auto}
@@ -47,24 +48,69 @@ class DispatchBoard {
 	.rmcp .empty{color:var(--text-muted,#6c7680);font-size:13px;padding:8px 0}
 </style>
 `);
-		this.date_field = this.page.add_field({
-			fieldtype: 'Date', fieldname: 'date', label: __('Challan Date'),
+
+		this.from_f = this.page.add_field({
+			fieldtype: 'Date', fieldname: 'from_date', label: __('From'),
+			default: frappe.datetime.add_days(frappe.datetime.get_today(), -6), change: () => this.refresh(),
+		});
+		this.to_f = this.page.add_field({
+			fieldtype: 'Date', fieldname: 'to_date', label: __('To'),
 			default: frappe.datetime.get_today(), change: () => this.refresh(),
 		});
+		this.cust_f = this.page.add_field({
+			fieldtype: 'Link', fieldname: 'customer', label: __('Customer'),
+			options: 'Customer', change: () => this.refresh(),
+		});
+		this.grade_f = this.page.add_field({
+			fieldtype: 'Link', fieldname: 'grade', label: __('Grade'),
+			options: 'Concrete Grade', change: () => this.refresh(),
+		});
+		this.mixer_f = this.page.add_field({
+			fieldtype: 'Link', fieldname: 'transit_mixer', label: __('Transit Mixer'),
+			options: 'Transit Mixer', change: () => this.refresh(),
+		});
+		this.status_f = this.page.add_field({
+			fieldtype: 'Select', fieldname: 'status', label: __('Status'),
+			options: ['', 'Dispatched', 'Delivered', 'Returned', 'Cancelled'],
+			change: () => this.refresh(),
+		});
 		this.page.set_primary_action(__('New Challan'), () =>
-			frappe.new_doc('Delivery Challan', { challan_date: this.date_field.get_value() }));
+			frappe.new_doc('Delivery Challan', { challan_date: this.to_f.get_value() }));
+		this.page.add_menu_item(__('Today'), () => {
+			this.from_f.set_value(frappe.datetime.get_today());
+			this.to_f.set_value(frappe.datetime.get_today());
+		});
+		this.page.add_menu_item(__('Last 7 days'), () => {
+			this.from_f.set_value(frappe.datetime.add_days(frappe.datetime.get_today(), -6));
+			this.to_f.set_value(frappe.datetime.get_today());
+		});
+		this.page.add_menu_item(__('This month'), () => {
+			this.from_f.set_value(frappe.datetime.month_start());
+			this.to_f.set_value(frappe.datetime.get_today());
+		});
+		this.page.add_menu_item(__('Last 30 days'), () => {
+			this.from_f.set_value(frappe.datetime.add_days(frappe.datetime.get_today(), -29));
+			this.to_f.set_value(frappe.datetime.get_today());
+		});
 		this.refresh();
 	}
 
 	refresh() {
-		frappe.call({ method: 'rmc.dashboard.dispatch_board',
-			args: { date: this.date_field.get_value() } })
-			.then((r) => this.draw(r.message || {}));
+		frappe.call({
+			method: 'rmc.dashboard.dispatch_board',
+			args: {
+				from_date: this.from_f.get_value(), to_date: this.to_f.get_value(),
+				customer: this.cust_f.get_value() || null,
+				grade: this.grade_f.get_value() || null,
+				transit_mixer: this.mixer_f.get_value() || null,
+				status: this.status_f.get_value() || null,
+			},
+		}).then((r) => this.draw(r.message || {}));
 	}
 
 	draw(d) {
 		$('#db-hero').html(`
-			<h2>Dispatch — ${frappe.datetime.str_to_user(d.date)}</h2>
+			<h2>Dispatch — ${frappe.datetime.str_to_user(d.from_date)} to ${frappe.datetime.str_to_user(d.to_date)}</h2>
 			<div class="strip">
 				<div class="stat"><div class="n">${(d.trips || []).length}</div><div class="l">Trips</div></div>
 				<div class="stat"><div class="n">${d.total_qty || 0}</div><div class="l">Dispatched m³</div></div>
@@ -73,28 +119,36 @@ class DispatchBoard {
 				<div class="stat"><div class="n">${d.available || 0}/${(d.fleet || []).length}</div><div class="l">Mixers free</div></div>
 			</div>`);
 
-		const cls = (s) => s === 'Returned' ? 'ok' : (s === 'Cancelled' ? 'bad' : 'warn');
-		const rows = (d.trips || []).map(t => `<tr>
+		const cls = (s) => (s === 'Returned' ? 'ok' : (s === 'Cancelled' ? 'bad' : 'warn'));
+		const rows = (d.trips || []).map((t) => `<tr>
 			<td><a href="/app/delivery-challan/${encodeURIComponent(t.name)}">${t.name}</a></td>
-			<td>${frappe.utils.escape_html((t.customer || '').substring(0, 26))}</td>
-			<td>${frappe.utils.escape_html((t.site_name || '').substring(0, 24))}</td>
+			<td>${frappe.datetime.str_to_user(t.challan_date)}</td>
+			<td>${frappe.utils.escape_html((t.customer || '').substring(0, 24))}</td>
+			<td>${frappe.utils.escape_html((t.site_name || '').substring(0, 22))}</td>
 			<td>${t.grade || ''}</td><td class="num">${t.qty_m3}</td>
 			<td>${t.transit_mixer || ''}</td>
-			<td>${t.dispatch_time ? frappe.datetime.str_to_user(t.dispatch_time).split(' ')[1] || '' : ''}</td>
 			<td class="num">${t.cycle_time_min || '—'}</td>
 			<td class="num">${t.slump_mm || '—'}</td>
 			<td><span class="pill ${cls(t.status)}">${t.status}</span></td>
 			<td>${t.sales_invoice ? `<a href="/app/sales-invoice/${encodeURIComponent(t.sales_invoice)}">bill</a>` : '—'}</td>
 			</tr>`).join('');
-		$('#db-trips').html(rows ? `<table><thead><tr><th>Challan</th><th>Customer</th><th>Site</th>
-			<th>Grade</th><th class="num">m³</th><th>Vehicle</th><th>Out</th><th class="num">Cycle</th>
-			<th class="num">Slump</th><th>Status</th><th>Invoice</th></tr></thead><tbody>${rows}</tbody></table>`
-			: '<div class="empty">No dispatches on this date.</div>');
+		$('#db-trips').html(rows ? `<table><thead><tr><th>Challan</th><th>Date</th><th>Customer</th>
+			<th>Site</th><th>Grade</th><th class="num">m³</th><th>Vehicle</th>
+			<th class="num">Cycle</th><th class="num">Slump</th><th>Status</th><th>Invoice</th>
+			</tr></thead><tbody>${rows}</tbody></table>`
+			: '<div class="empty">No dispatches in this period.</div>');
 
 		const fcls = { 'Available': 'ok', 'On Trip': 'warn', 'Under Maintenance': 'bad' };
-		$('#db-fleet').html(`<table><tbody>${(d.fleet || []).map(f => `<tr>
+		$('#db-fleet').html(`<table><tbody>${(d.fleet || []).map((f) => `<tr>
 			<td>${f.name}</td><td class="num">${f.capacity_m3} m³</td>
 			<td><span class="pill ${fcls[f.status] || 'mute'}">${f.status}</span></td>
 			</tr>`).join('')}</tbody></table>`);
+
+		const days = d.days || [];
+		const max = Math.max(1, ...days.map((x) => x.qty));
+		$('#db-days').html(days.length
+			? `<div class="spark">${days.map((x) =>
+				`<i class="d" title="${x.date}: ${x.qty} m³" style="height:${Math.round(100 * x.qty / max)}%"></i>`).join('')}</div>`
+			: '<div class="empty">—</div>');
 	}
 }

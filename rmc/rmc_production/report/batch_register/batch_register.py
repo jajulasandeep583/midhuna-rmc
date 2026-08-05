@@ -12,7 +12,7 @@ from rmc.report_utils import build_conditions, col
 def execute(filters=None):
 	filters = frappe._dict(filters or {})
 	where, params = build_conditions(
-		filters, {"plant": "bp.plant", "grade": "bp.grade", "shift": "bp.shift",
+		filters, {"operator": "bp.operator", "status": "bp.status", "plant": "bp.plant", "grade": "bp.grade", "shift": "bp.shift",
 		          "concrete_order": "bp.concrete_order"},
 		date_field="production_date", alias="bp")
 

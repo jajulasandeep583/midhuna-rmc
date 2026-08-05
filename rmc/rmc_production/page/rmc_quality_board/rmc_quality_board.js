@@ -15,6 +15,10 @@ class QualityBoard {
 				<div class="card"><h4>Pass rate by grade</h4><div id="qb-grades"></div></div>
 				<div class="card"><h4>Failed cubes</h4><div id="qb-fails"></div></div>
 				<div class="card"><h4>28-day break pending</h4><div id="qb-pending"></div></div>
+			</div>
+			<div class="grid" style="margin-top:14px">
+				<div class="card" style="grid-column:span 3"><h4>Slump spread at site</h4>
+					<div id="qb-slump"></div></div>
 			</div></div>` + `
 <style>
 	.rmcp{max-width:1200px;margin:0 auto}
@@ -48,17 +52,52 @@ class QualityBoard {
 	.rmcp .empty{color:var(--text-muted,#6c7680);font-size:13px;padding:8px 0}
 </style>
 `);
+
+		this.from_f = this.page.add_field({
+			fieldtype: 'Date', fieldname: 'from_date', label: __('From'),
+			default: frappe.datetime.add_days(frappe.datetime.get_today(), -89), change: () => this.refresh(),
+		});
+		this.to_f = this.page.add_field({
+			fieldtype: 'Date', fieldname: 'to_date', label: __('To'),
+			default: frappe.datetime.get_today(), change: () => this.refresh(),
+		});
+		this.grade_f = this.page.add_field({
+			fieldtype: 'Link', fieldname: 'grade', label: __('Grade'),
+			options: 'Concrete Grade', change: () => this.refresh(),
+		});
 		this.page.set_primary_action(__('New Cube Test'), () => frappe.new_doc('Cube Test'));
+		this.page.add_menu_item(__('Today'), () => {
+			this.from_f.set_value(frappe.datetime.get_today());
+			this.to_f.set_value(frappe.datetime.get_today());
+		});
+		this.page.add_menu_item(__('Last 7 days'), () => {
+			this.from_f.set_value(frappe.datetime.add_days(frappe.datetime.get_today(), -6));
+			this.to_f.set_value(frappe.datetime.get_today());
+		});
+		this.page.add_menu_item(__('This month'), () => {
+			this.from_f.set_value(frappe.datetime.month_start());
+			this.to_f.set_value(frappe.datetime.get_today());
+		});
+		this.page.add_menu_item(__('Last 30 days'), () => {
+			this.from_f.set_value(frappe.datetime.add_days(frappe.datetime.get_today(), -29));
+			this.to_f.set_value(frappe.datetime.get_today());
+		});
 		this.refresh();
 	}
 
 	refresh() {
-		frappe.call({ method: 'rmc.dashboard.quality_board' })
-			.then((r) => this.draw(r.message || {}));
+		frappe.call({
+			method: 'rmc.dashboard.quality_board',
+			args: {
+				from_date: this.from_f.get_value(), to_date: this.to_f.get_value(),
+				grade: this.grade_f.get_value() || null,
+			},
+		}).then((r) => this.draw(r.message || {}));
 	}
 
 	draw(d) {
-		$('#qb-hero').html(`<h2>Quality — last 90 days</h2>
+		$('#qb-hero').html(`<h2>Quality — ${frappe.datetime.str_to_user(d.from_date)} to
+			${frappe.datetime.str_to_user(d.to_date)}</h2>
 			<div class="strip">
 				<div class="stat"><div class="n">${d.total_tests || 0}</div><div class="l">Cube tests</div></div>
 				<div class="stat"><div class="n">${d.total_fails || 0}</div><div class="l">Failed</div></div>
@@ -68,15 +107,16 @@ class QualityBoard {
 		$('#qb-grades').html((d.by_grade || []).length ? `<table>
 			<thead><tr><th>Grade</th><th class="num">Tests</th><th class="num">Pass %</th>
 			<th class="num">Avg MPa</th><th class="num">Of required</th></tr></thead>
-			<tbody>${d.by_grade.map(g => `<tr><td><b>${g.grade}</b></td>
+			<tbody>${d.by_grade.map((g) => `<tr><td><b>${g.grade}</b></td>
 				<td class="num">${g.tests}</td>
 				<td class="num"><span class="pill ${g.pass_rate === 100 ? 'ok' : 'warn'}">${g.pass_rate}%</span></td>
 				<td class="num">${g.avg_strength}</td><td class="num">${g.avg_pct}%</td></tr>`).join('')}
-			</tbody></table>` : '<div class="empty">No tests recorded.</div>');
+			</tbody></table>` : '<div class="empty">No tests in this period.</div>');
 
 		$('#qb-fails').html((d.fails || []).length ? `<table>
-			<thead><tr><th>Test</th><th>Cast</th><th>Grade</th><th class="num">Got</th><th class="num">Needed</th></tr></thead>
-			<tbody>${d.fails.map(f => `<tr>
+			<thead><tr><th>Test</th><th>Cast</th><th>Grade</th><th class="num">Got</th>
+			<th class="num">Needed</th></tr></thead>
+			<tbody>${d.fails.map((f) => `<tr>
 				<td><a href="/app/cube-test/${encodeURIComponent(f.name)}">${f.name}</a></td>
 				<td>${frappe.datetime.str_to_user(f.casting_date)}</td>
 				<td>${f.grade}</td><td class="num">${f.avg_strength_mpa}</td>
@@ -85,10 +125,20 @@ class QualityBoard {
 
 		$('#qb-pending').html((d.pending_28day || []).length ? `<table>
 			<thead><tr><th>Challan</th><th>Cast</th><th>Grade</th><th class="num">m³</th></tr></thead>
-			<tbody>${d.pending_28day.map(p => `<tr>
+			<tbody>${d.pending_28day.map((p) => `<tr>
 				<td><a href="/app/delivery-challan/${encodeURIComponent(p.name)}">${p.name}</a></td>
 				<td>${frappe.datetime.str_to_user(p.challan_date)}</td>
 				<td>${p.grade}</td><td class="num">${p.qty_m3}</td></tr>`).join('')}
 			</tbody></table>` : '<div class="empty">Nothing pending.</div>');
+
+		const sl = d.slumps || [];
+		const max = Math.max(1, ...sl.map((x) => x.n));
+		$('#qb-slump').html(sl.length ? `<div class="spark" style="height:70px">
+			${sl.map((x) => `<i title="${x.slump_mm} mm: ${x.n} loads"
+				style="height:${Math.round(100 * x.n / max)}%"></i>`).join('')}</div>
+			<div style="font-size:11.5px;opacity:.7;margin-top:6px">
+				${sl[0].slump_mm} mm to ${sl[sl.length - 1].slump_mm} mm across
+				${sl.reduce((a, x) => a + x.n, 0)} measured loads</div>`
+			: '<div class="empty">No slump recorded.</div>');
 	}
 }
