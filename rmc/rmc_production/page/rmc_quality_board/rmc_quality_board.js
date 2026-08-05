@@ -53,14 +53,9 @@ class QualityBoard {
 </style>
 `);
 
-		this.from_f = this.page.add_field({
-			fieldtype: 'Date', fieldname: 'from_date', label: __('From'),
-			default: frappe.datetime.add_days(frappe.datetime.get_today(), -89), change: () => this.refresh(),
-		});
-		this.to_f = this.page.add_field({
-			fieldtype: 'Date', fieldname: 'to_date', label: __('To'),
-			default: frappe.datetime.get_today(), change: () => this.refresh(),
-		});
+		this.range = rmc.add_period_fields(this.page, () => this.refresh(), "Last 90 Days");
+		this.from_f = this.range.from;
+		this.to_f = this.range.to;
 		this.grade_f = this.page.add_field({
 			fieldtype: 'Link', fieldname: 'grade', label: __('Grade'),
 			options: 'Concrete Grade', change: () => this.refresh(),
@@ -95,6 +90,18 @@ class QualityBoard {
 		}).then((r) => this.draw(r.message || {}));
 	}
 
+	empty(msg) {
+		return `<div class="empty">${msg}
+			<a href="#" class="widen" style="margin-left:6px">Show last 30 days</a></div>`;
+	}
+
+	bind_widen() {
+		this.$body.find('a.widen').off('click').on('click', (e) => {
+			e.preventDefault();
+			this.range.period.set_value('Last 30 Days');
+		});
+	}
+
 	draw(d) {
 		$('#qb-hero').html(`<h2>Quality — ${frappe.datetime.str_to_user(d.from_date)} to
 			${frappe.datetime.str_to_user(d.to_date)}</h2>
@@ -111,7 +118,7 @@ class QualityBoard {
 				<td class="num">${g.tests}</td>
 				<td class="num"><span class="pill ${g.pass_rate === 100 ? 'ok' : 'warn'}">${g.pass_rate}%</span></td>
 				<td class="num">${g.avg_strength}</td><td class="num">${g.avg_pct}%</td></tr>`).join('')}
-			</tbody></table>` : '<div class="empty">No tests in this period.</div>');
+			</tbody></table>` : this.empty('No cube tests were cast in this window.'));
 
 		$('#qb-fails').html((d.fails || []).length ? `<table>
 			<thead><tr><th>Test</th><th>Cast</th><th>Grade</th><th class="num">Got</th>
@@ -140,5 +147,6 @@ class QualityBoard {
 				${sl[0].slump_mm} mm to ${sl[sl.length - 1].slump_mm} mm across
 				${sl.reduce((a, x) => a + x.n, 0)} measured loads</div>`
 			: '<div class="empty">No slump recorded.</div>');
+		this.bind_widen();
 	}
 }

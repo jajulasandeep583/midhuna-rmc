@@ -49,14 +49,9 @@ class DispatchBoard {
 </style>
 `);
 
-		this.from_f = this.page.add_field({
-			fieldtype: 'Date', fieldname: 'from_date', label: __('From'),
-			default: frappe.datetime.add_days(frappe.datetime.get_today(), -6), change: () => this.refresh(),
-		});
-		this.to_f = this.page.add_field({
-			fieldtype: 'Date', fieldname: 'to_date', label: __('To'),
-			default: frappe.datetime.get_today(), change: () => this.refresh(),
-		});
+		this.range = rmc.add_period_fields(this.page, () => this.refresh(), "Last 7 Days");
+		this.from_f = this.range.from;
+		this.to_f = this.range.to;
 		this.cust_f = this.page.add_field({
 			fieldtype: 'Link', fieldname: 'customer', label: __('Customer'),
 			options: 'Customer', change: () => this.refresh(),
@@ -108,6 +103,18 @@ class DispatchBoard {
 		}).then((r) => this.draw(r.message || {}));
 	}
 
+	empty(msg) {
+		return `<div class="empty">${msg}
+			<a href="#" class="widen" style="margin-left:6px">Show last 30 days</a></div>`;
+	}
+
+	bind_widen() {
+		this.$body.find('a.widen').off('click').on('click', (e) => {
+			e.preventDefault();
+			this.range.period.set_value('Last 30 Days');
+		});
+	}
+
 	draw(d) {
 		$('#db-hero').html(`
 			<h2>Dispatch — ${frappe.datetime.str_to_user(d.from_date)} to ${frappe.datetime.str_to_user(d.to_date)}</h2>
@@ -136,7 +143,7 @@ class DispatchBoard {
 			<th>Site</th><th>Grade</th><th class="num">m³</th><th>Vehicle</th>
 			<th class="num">Cycle</th><th class="num">Slump</th><th>Status</th><th>Invoice</th>
 			</tr></thead><tbody>${rows}</tbody></table>`
-			: '<div class="empty">No dispatches in this period.</div>');
+			: this.empty('No loads went out between these dates.'));
 
 		const fcls = { 'Available': 'ok', 'On Trip': 'warn', 'Under Maintenance': 'bad' };
 		$('#db-fleet').html(`<table><tbody>${(d.fleet || []).map((f) => `<tr>
@@ -150,5 +157,6 @@ class DispatchBoard {
 			? `<div class="spark">${days.map((x) =>
 				`<i class="d" title="${x.date}: ${x.qty} m³" style="height:${Math.round(100 * x.qty / max)}%"></i>`).join('')}</div>`
 			: '<div class="empty">—</div>');
+		this.bind_widen();
 	}
 }

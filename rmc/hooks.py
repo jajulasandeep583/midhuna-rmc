@@ -11,6 +11,11 @@ required_apps = ["erpnext"]
 # RMC plant rather than sharing one generic glyph.
 app_include_icons = ["/assets/rmc/icons/rmc-icons.svg"]
 
+# Shared desk helpers — the Period picker every board and report uses.
+# The file must exist before this hook is added: a missing bundle 404s and
+# takes the rest of the desk bundle down with it.
+app_include_js = ["rmc.bundle.js"]
+
 app_home = "/app/rmc-dashboard"
 
 add_to_apps_screen = [

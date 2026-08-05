@@ -3,6 +3,7 @@
 
 frappe.query_reports["Order Book and Pour Schedule"] = {
 	filters: [
+		rmc.period_filter("Last 30 Days"),
 		{
 			fieldname: "from_date", label: __("From Date"), fieldtype: "Date",
 			default: frappe.datetime.add_days(frappe.datetime.get_today(), -30), reqd: 1,

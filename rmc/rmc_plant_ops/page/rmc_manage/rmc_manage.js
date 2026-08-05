@@ -11,6 +11,7 @@ class Management {
 		this.$body = $(page.body);
 		this.$body.html(`<div class="rmcp">
 			<div class="hero" id="mg-hero"><h2>Loading…</h2></div>
+			<div id="mg-note"></div>
 			<div class="kpis" id="mg-kpis"></div>
 			<div class="grid">
 				<div class="card" style="grid-column:span 2"><h4>Produced vs dispatched</h4>
@@ -71,15 +72,9 @@ class Management {
 </style>
 `);
 
-		this.from_f = this.page.add_field({
-			fieldtype: 'Date', fieldname: 'from_date', label: __('From'),
-			default: frappe.datetime.add_days(frappe.datetime.get_today(), -29),
-			change: () => this.refresh(),
-		});
-		this.to_f = this.page.add_field({
-			fieldtype: 'Date', fieldname: 'to_date', label: __('To'),
-			default: frappe.datetime.get_today(), change: () => this.refresh(),
-		});
+		this.range = rmc.add_period_fields(this.page, () => this.refresh(), "This Month");
+		this.from_f = this.range.from;
+		this.to_f = this.range.to;
 		this.plant_f = this.page.add_field({
 			fieldtype: 'Link', fieldname: 'plant', label: __('Plant'),
 			options: 'RMC Plant', change: () => this.refresh(),
@@ -121,6 +116,15 @@ class Management {
 				<div class="stat"><div class="n">${d.open_orders || 0}</div><div class="l">Open orders</div></div>
 				<div class="stat"><div class="n">${d.pending_m3 || 0}</div><div class="l">Pending m³</div></div>
 			</div>`);
+
+		$('#mg-note').html((s.loads || 0) || (b.trucks || 0) ? '' :
+			`<div class="card" style="margin-bottom:12px;border-left:4px solid #B45309">
+				Nothing was sold or bought between these dates.
+				<a href="#" id="mg-widen">Show the last 30 days</a> instead.</div>`);
+		$('#mg-widen').off('click').on('click', (e) => {
+			e.preventDefault();
+			this.range.period.set_value('Last 30 Days');
+		});
 
 		const kpi = (cls, n, l, x) => `<div class="kpi ${cls}"><div class="n">${n}</div>
 			<div class="l">${l}</div><div class="x">${x}</div></div>`;

@@ -36,6 +36,10 @@ REPORTS = [
 	("Slump Compliance", "RMC Production", "Delivery Challan"),
 	("Grade Profitability", "RMC Production", "Delivery Challan"),
 	("Monthly Plant Summary", "RMC Plant Ops", "Batch Production"),
+	# third wave — productivity, the sales register and the purchase manager's page
+	("Plant Productivity", "RMC Plant Ops", "Batch Production"),
+	("Concrete Sales Register", "RMC Dispatch", "Sales Invoice"),
+	("Raw Material Consumption Summary", "RMC Materials", "Batch Production"),
 ]
 
 ROLES = ("System Manager", "RMC Manager", "Plant Operator",

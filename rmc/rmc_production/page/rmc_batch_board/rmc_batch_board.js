@@ -51,14 +51,9 @@ class BatchBoard {
 </style>
 `);
 
-		this.from_f = this.page.add_field({
-			fieldtype: 'Date', fieldname: 'from_date', label: __('From'),
-			default: frappe.datetime.add_days(frappe.datetime.get_today(), -6), change: () => this.refresh(),
-		});
-		this.to_f = this.page.add_field({
-			fieldtype: 'Date', fieldname: 'to_date', label: __('To'),
-			default: frappe.datetime.get_today(), change: () => this.refresh(),
-		});
+		this.range = rmc.add_period_fields(this.page, () => this.refresh(), "Last 7 Days");
+		this.from_f = this.range.from;
+		this.to_f = this.range.to;
 		this.shift_f = this.page.add_field({
 			fieldtype: 'Select', fieldname: 'shift', label: __('Shift'),
 			options: ['', 'Shift A', 'Shift B', 'Shift C'], change: () => this.refresh(),
@@ -104,6 +99,18 @@ class BatchBoard {
 		}).then((r) => this.draw(r.message || {}));
 	}
 
+	empty(msg) {
+		return `<div class="empty">${msg}
+			<a href="#" class="widen" style="margin-left:6px">Show last 30 days</a></div>`;
+	}
+
+	bind_widen() {
+		this.$body.find('a.widen').off('click').on('click', (e) => {
+			e.preventDefault();
+			this.range.period.set_value('Last 30 Days');
+		});
+	}
+
 	draw(d) {
 		const shifts = (d.shifts || []).map((s) =>
 			`<div class="stat"><div class="n">${s.qty.toFixed(2)}</div>
@@ -130,7 +137,7 @@ class BatchBoard {
 		$('#bb-batches').html(rows ? `<table><thead><tr><th>Batch</th><th>Date</th><th>Shift</th>
 			<th>Grade</th><th class="num">m³</th><th>Customer</th><th>Operator</th>
 			<th class="num">Cost/m³</th><th>Stock</th></tr></thead><tbody>${rows}</tbody></table>`
-			: '<div class="empty">Nothing batched in this period.</div>');
+			: this.empty('Nothing was batched between these dates.'));
 
 		const mrows = (d.materials || []).map((m) => {
 			const cls = Math.abs(m.variance_pct) > 2 ? 'bad' : 'ok';
@@ -142,7 +149,7 @@ class BatchBoard {
 		}).join('');
 		$('#bb-materials').html(mrows ? `<table><thead><tr><th>Item</th><th class="num">Target</th>
 			<th class="num">Actual</th><th class="num">Var</th><th class="num">Cost</th></tr></thead>
-			<tbody>${mrows}</tbody></table>` : '<div class="empty">No consumption recorded.</div>');
+			<tbody>${mrows}</tbody></table>` : this.empty('No material consumption in this window.'));
 
 		const days = d.days || [];
 		const max = Math.max(1, ...days.map((x) => x.qty));
@@ -150,5 +157,6 @@ class BatchBoard {
 			? `<div class="spark">${days.map((x) =>
 				`<i title="${x.date}: ${x.qty} m³" style="height:${Math.round(100 * x.qty / max)}%"></i>`).join('')}</div>`
 			: '<div class="empty">—</div>');
+		this.bind_widen();
 	}
 }

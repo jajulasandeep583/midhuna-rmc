@@ -52,18 +52,30 @@ class ControlTower {
 	.rmcp .empty{color:var(--text-muted,#6c7680);font-size:13px;padding:8px 0}
 </style>
 `);
-		this.page.add_field({
+		this.period_f = this.page.add_field({
 			fieldtype: 'Select', fieldname: 'days', label: __('Period'),
-			options: ['7', '14', '30'], default: '7',
-			change: () => { this.days = this.page.fields_dict.days.get_value(); this.refresh(); },
+			options: ['Today', 'Yesterday', 'Last 7 Days', 'Last 30 Days', 'Last 90 Days'],
+			default: 'Last 7 Days',
+			change: () => this.refresh(),
+		});
+		this.plant_f = this.page.add_field({
+			fieldtype: 'Link', fieldname: 'plant', label: __('Plant'),
+			options: 'RMC Plant', change: () => this.refresh(),
 		});
 		this.page.set_primary_action(__('Refresh'), () => this.refresh(), 'refresh');
 		this.refresh();
 	}
 
 	refresh() {
-		frappe.call({ method: 'rmc.dashboard.control_tower', args: { days: this.days } })
-			.then((r) => this.draw(r.message || {}));
+		const map = { 'Today': 1, 'Yesterday': 2, 'Last 7 Days': 7,
+			'Last 30 Days': 30, 'Last 90 Days': 90 };
+		frappe.call({
+			method: 'rmc.dashboard.control_tower',
+			args: {
+				days: map[this.period_f.get_value()] || 7,
+				plant: this.plant_f.get_value() || null,
+			},
+		}).then((r) => this.draw(r.message || {}));
 	}
 
 	draw(d) {
