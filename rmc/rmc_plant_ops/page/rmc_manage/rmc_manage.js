@@ -10,6 +10,7 @@ class Management {
 		this.page = page;
 		this.$body = $(page.body);
 		this.$body.html(`<div class="rmcp">
+			<div id="chipbar"></div>
 			<div class="hero" id="mg-hero"><h2>Loading…</h2></div>
 			<div id="mg-note"></div>
 			<div class="kpis" id="mg-kpis"></div>
@@ -65,6 +66,15 @@ class Management {
 	.rmcp .bar{height:8px;border-radius:5px;background:var(--bg-light-gray,#eef0f2);overflow:hidden}
 	.rmcp .bar span{display:block;height:100%;background:#1a7f4b}
 	.rmcp .bar.low span{background:#d93a2b}
+
+	.rmcp .chips{display:flex;gap:7px;flex-wrap:wrap;margin:0 0 14px}
+	.rmcp .chips button{border:1px solid var(--border-color,#dde3ea);background:var(--card-bg,#fff);
+		color:inherit;border-radius:999px;padding:5px 14px;font-size:12.5px;font-weight:650;
+		cursor:pointer;transition:.12s}
+	.rmcp .chips button:hover{border-color:#12508f}
+	.rmcp .chips button.on{background:#12508f;border-color:#12508f;color:#fff}
+	.rmcp .chips .lbl{font-size:11px;text-transform:uppercase;letter-spacing:.6px;
+		opacity:.6;align-self:center;margin-right:3px}
 	.rmcp .empty{color:var(--text-muted,#6c7680);font-size:13px;padding:8px 0}
 	.rmcp .spark{display:flex;align-items:flex-end;gap:2px;height:54px;margin-top:6px}
 	.rmcp .spark i{flex:1;background:#2563EB;border-radius:2px 2px 0 0;min-height:2px;opacity:.85}
@@ -99,6 +109,24 @@ class Management {
 				plant: this.plant_f.get_value() || null,
 			},
 		}).then((r) => this.draw(r.message || {}));
+	}
+
+	chip_bar() {
+		const periods = ['Today', 'Yesterday', 'This Week', 'This Month', 'Last Month',
+			'Last 30 Days', 'Last 90 Days', 'This Quarter', 'This Year'];
+		return `<div class="chips"><span class="lbl">Period</span>` +
+			periods.map((p) => `<button data-period="${p}">${p}</button>`).join('') +
+			`</div>`;
+	}
+
+	bind_chips() {
+		const current = this.range.period.get_value();
+		this.$body.find('.chips button').each((i, el) => {
+			$(el).toggleClass('on', $(el).data('period') === current);
+		});
+		this.$body.find('.chips button').off('click').on('click', (e) => {
+			this.range.period.set_value($(e.currentTarget).data('period'));
+		});
 	}
 
 	draw(d) {
@@ -203,5 +231,7 @@ class Management {
 			<a class="btn btn-default btn-sm" href="/app/rmc-reports">All reports</a>
 			<a class="btn btn-default btn-sm" href="/app/query-report/Customer Wise Sales">Customer sales</a>
 			<a class="btn btn-default btn-sm" href="/app/accounts-receivable">Receivables</a>`);
+		$('#chipbar').html(this.chip_bar());
+		this.bind_chips();
 	}
 }

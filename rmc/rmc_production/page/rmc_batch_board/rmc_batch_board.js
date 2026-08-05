@@ -10,6 +10,7 @@ class BatchBoard {
 		this.page = page;
 		this.$body = $(page.body);
 		this.$body.html(`<div class="rmcp">
+			<div id="chipbar"></div>
 			<div class="hero" id="bb-hero"><h2>Loading…</h2></div>
 			<div class="grid">
 				<div class="card" style="grid-column:span 2"><h4>Batches</h4>
@@ -47,6 +48,15 @@ class BatchBoard {
 	.rmcp .bar{height:8px;border-radius:5px;background:var(--bg-light-gray,#eef0f2);overflow:hidden}
 	.rmcp .bar span{display:block;height:100%;background:#1a7f4b}
 	.rmcp .bar.low span{background:#d93a2b}
+
+	.rmcp .chips{display:flex;gap:7px;flex-wrap:wrap;margin:0 0 14px}
+	.rmcp .chips button{border:1px solid var(--border-color,#dde3ea);background:var(--card-bg,#fff);
+		color:inherit;border-radius:999px;padding:5px 14px;font-size:12.5px;font-weight:650;
+		cursor:pointer;transition:.12s}
+	.rmcp .chips button:hover{border-color:#12508f}
+	.rmcp .chips button.on{background:#12508f;border-color:#12508f;color:#fff}
+	.rmcp .chips .lbl{font-size:11px;text-transform:uppercase;letter-spacing:.6px;
+		opacity:.6;align-self:center;margin-right:3px}
 	.rmcp .empty{color:var(--text-muted,#6c7680);font-size:13px;padding:8px 0}
 </style>
 `);
@@ -111,6 +121,24 @@ class BatchBoard {
 		});
 	}
 
+	chip_bar() {
+		const periods = ['Today', 'Yesterday', 'This Week', 'This Month', 'Last Month',
+			'Last 30 Days', 'Last 90 Days', 'This Quarter', 'This Year'];
+		return `<div class="chips"><span class="lbl">Period</span>` +
+			periods.map((p) => `<button data-period="${p}">${p}</button>`).join('') +
+			`</div>`;
+	}
+
+	bind_chips() {
+		const current = this.range.period.get_value();
+		this.$body.find('.chips button').each((i, el) => {
+			$(el).toggleClass('on', $(el).data('period') === current);
+		});
+		this.$body.find('.chips button').off('click').on('click', (e) => {
+			this.range.period.set_value($(e.currentTarget).data('period'));
+		});
+	}
+
 	draw(d) {
 		const shifts = (d.shifts || []).map((s) =>
 			`<div class="stat"><div class="n">${s.qty.toFixed(2)}</div>
@@ -158,5 +186,7 @@ class BatchBoard {
 				`<i title="${x.date}: ${x.qty} m³" style="height:${Math.round(100 * x.qty / max)}%"></i>`).join('')}</div>`
 			: '<div class="empty">—</div>');
 		this.bind_widen();
+		$('#chipbar').html(this.chip_bar());
+		this.bind_chips();
 	}
 }
