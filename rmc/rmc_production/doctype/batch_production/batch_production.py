@@ -96,6 +96,12 @@ class BatchProduction(Document):
 			se.posting_time = str(self.end_time).split(" ")[-1]
 		se.rmc_batch_production = self.name
 
+		# NB: never set allow_zero_valuation_rate here. ERPNext reads that flag as
+		# "value this line at zero", not "zero is acceptable if unknown" — it
+		# silently posts the stock at 0, and every rupee of real cost then lands
+		# in Stock Adjustment instead of Cost of Goods Sold, which quietly ruins
+		# the P&L. Let the raw materials leave at their own moving-average
+		# valuation and let ERPNext value the concrete from what it consumed.
 		for r in self.materials or []:
 			if flt(r.actual_qty) <= 0:
 				continue
@@ -103,8 +109,6 @@ class BatchProduction(Document):
 				"item_code": r.item_code,
 				"qty": flt(r.actual_qty),
 				"s_warehouse": r.warehouse or source_warehouse(r.item_code) or plant.store_warehouse,
-				"basic_rate": flt(r.rate),
-				"allow_zero_valuation_rate": 1,
 			})
 
 		se.append("items", {
@@ -112,9 +116,12 @@ class BatchProduction(Document):
 			"qty": flt(self.qty_m3),
 			"t_warehouse": plant.finished_warehouse,
 			"is_finished_item": 1,
-			"basic_rate": flt(self.cost_per_m3),
-			"allow_zero_valuation_rate": 1,
 		})
+
+		if plant.cost_center:
+			se.cost_center = plant.cost_center
+			for row in se.items:
+				row.cost_center = plant.cost_center
 
 		se.flags.ignore_permissions = True
 		se.insert()

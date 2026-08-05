@@ -1,0 +1,140 @@
+{% extends "templates/web.html" %}
+{% block title %}Live Plant Signals · MIDHUNATECH RMC{% endblock %}
+
+{% block head_include %}
+<meta http-equiv="refresh" content="60">
+<style>{% include "rmc/www/rmc/rmc.css" %}</style>
+<style>
+	.sig { display: grid; grid-template-columns: repeat(auto-fit, minmax(215px, 1fr)); gap: 11px; }
+	.sig .t { background: var(--rmc-card); border: 1px solid var(--rmc-line);
+		border-radius: 11px; padding: 12px 14px; }
+	.sig .t.alarm { border-color: var(--rmc-red); box-shadow: inset 3px 0 0 var(--rmc-red); }
+	.sig .t.stale { opacity: .55; }
+	.sig .nm { font-size: 11.5px; color: var(--rmc-muted); text-transform: uppercase;
+		letter-spacing: .5px; }
+	.sig .v { font-size: 21px; font-weight: 800; margin: 3px 0 6px; }
+	.sig .v small { font-size: 12px; font-weight: 600; opacity: .65; margin-left: 3px; }
+	.sig .code { font-size: 10.5px; color: var(--rmc-muted); font-family: ui-monospace, monospace; }
+	.live { display: inline-flex; align-items: center; gap: 7px; font-weight: 700; }
+	.dot { width: 9px; height: 9px; border-radius: 50%; background: #21c05b;
+		box-shadow: 0 0 0 3px rgba(33,192,91,.22); }
+	.dot.off { background: #9aa6b2; box-shadow: 0 0 0 3px rgba(154,166,178,.2); }
+	.trace { display: flex; align-items: flex-end; gap: 1px; height: 60px; margin-top: 8px; }
+	.trace i { flex: 1; min-height: 1px; background: var(--rmc-blue); border-radius: 1px 1px 0 0;
+		opacity: .8; }
+</style>
+{% endblock %}
+
+{% block page_content %}
+<div class="wrap">
+
+	<div class="top">
+		<div class="brand">MIDHUNATECH · RMC PLANT SMART ERP</div>
+		<h1>Live Plant Signals</h1>
+		<div class="sub">
+			{{ selected_plant or "No plant" }} ·
+			<span class="live"><span class="dot {{ '' if running else 'off' }}"></span>
+				{{ "RUNNING" if running else "IDLE" }}</span> ·
+			last signal {{ last_seen_h }} · page refreshes every 60s
+		</div>
+	</div>
+
+	<nav class="tabs">
+		<a href="/rmc">Overview</a>
+		<a href="/rmc/pl">Profit &amp; Loss</a>
+		<a href="/rmc/production">Production</a>
+		<a href="/rmc/stock">Stock</a>
+		<a class="on" href="/rmc/plc">Live PLC</a>
+	</nav>
+
+	<div class="periods">
+		<span class="lbl">Plant</span>
+		{% for p in plants %}
+			<a class="{{ 'on' if p.name == selected_plant else '' }}"
+			   href="/rmc/plc?plant={{ p.name | urlencode }}">{{ p.name }}</a>
+		{% endfor %}
+	</div>
+
+	<div class="kpis">
+		<div class="kpi {{ 'prod' if running else '' }}">
+			<div class="n">{{ "RUNNING" if running else "IDLE" }}</div>
+			<div class="l">Plant status</div>
+			<div class="x">{{ plant_row.location if plant_row else "" }}</div>
+		</div>
+		<div class="kpi sale">
+			<div class="n">{{ tags | length }}</div>
+			<div class="l">Live tags</div>
+			<div class="x">polled every 15 minutes</div>
+		</div>
+		<div class="kpi {{ 'buy' if alarms else 'prod' }}">
+			<div class="n">{{ alarms | length }}</div>
+			<div class="l">Signals out of band</div>
+			<div class="x">{{ "check the red cards" if alarms else "all within limits" }}</div>
+		</div>
+		<div class="kpi pl">
+			<div class="n">{{ "{:,}".format(reading_count) }}</div>
+			<div class="l">Readings stored</div>
+			<div class="x">this plant, rolling 7 days</div>
+		</div>
+	</div>
+
+	{% if alarms %}
+	<div class="card" style="margin-top:16px;border-left:4px solid var(--rmc-red)">
+		<h3>Out of band right now</h3>
+		<table>
+			<tr><th>Signal</th><th class="num">Value</th><th class="num">Limit</th><th>Category</th></tr>
+			{% for a in alarms %}
+			<tr>
+				<td>{{ a.tag_name }} <span class="code">{{ a.tag_code }}</span></td>
+				<td class="num"><span class="pill bad">{{ a.value }} {{ a.unit }}</span></td>
+				<td class="num">{% if a.warn_low %}min {{ a.warn_low }}{% endif %}
+					{% if a.warn_high %}max {{ a.warn_high }}{% endif %}</td>
+				<td>{{ a.category }}</td>
+			</tr>
+			{% endfor %}
+		</table>
+	</div>
+	{% endif %}
+
+	{% for category, rows in groups %}
+	<div class="card" style="margin-top:14px">
+		<h3>{{ category }}</h3>
+		<div class="sig">
+			{% for r in rows %}
+			<div class="t {{ 'alarm' if r.alarm else '' }} {{ 'stale' if r.stale else '' }}">
+				<div class="nm">{{ r.tag_name }}</div>
+				<div class="v">{{ r.value if r.value is not none else "—" }}<small>{{ r.unit }}</small></div>
+				{% if r.max_value %}
+				<div class="bar {{ '' if r.alarm else 'g' }}">
+					<span style="width:{{ [[r.pct, 0] | max, 100] | min }}%"></span>
+				</div>
+				{% endif %}
+				<div class="code" style="margin-top:6px">{{ r.tag_code }}
+					{% if r.quality != 'Good' %} · {{ r.quality }}{% endif %}</div>
+			</div>
+			{% endfor %}
+		</div>
+	</div>
+	{% endfor %}
+
+	{% if traces %}
+	<div class="grid" style="margin-top:14px">
+		{% for t in traces %}
+		<div class="card">
+			<h3>{{ t.name }} — last 24 hours</h3>
+			<div style="font-size:19px;font-weight:800">{{ t.now }}
+				<small style="font-size:12px;opacity:.6">{{ t.unit }} now · peak {{ t.peak }}</small></div>
+			<div class="trace">
+				{% for b in t.bars %}<i style="height:{{ b }}%"></i>{% endfor %}
+			</div>
+		</div>
+		{% endfor %}
+	</div>
+	{% endif %}
+
+	<div class="foot">
+		<b>MIDHUNATECH</b> · Monitor · Manage · Produce · Deliver<br>
+		Signals shown are the plant PLC feed stored in ERP · generated {{ now }}
+	</div>
+</div>
+{% endblock %}

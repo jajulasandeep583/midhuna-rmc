@@ -469,6 +469,51 @@ def doctypes():
 			],
 		},
 		{
+			# One row per signal the batching plant's PLC exposes. The plant link
+			# is what keeps two plants' tags apart — every screen filters by it.
+			"name": "RMC PLC Tag", "module": "RMC Plant Ops",
+			"autoname": "format:TAG-{plant_code}-{tag_code}", "title_field": "tag_name",
+			"fields": [
+				F("tag_name", "Tag Name", "Data", reqd=1, in_list_view=1),
+				F("tag_code", "Tag Code", "Data", reqd=1, in_list_view=1,
+				  description="The address or symbol the PLC publishes, e.g. CEM_SILO1_LVL."),
+				F("plant", "Plant", "Link", options="RMC Plant", reqd=1, in_list_view=1),
+				F("plant_code", "Plant Code", "Data", reqd=1,
+				  description="Short code used in the tag name, e.g. VSKP."),
+				CB("cb1"),
+				F("category", "Category", "Select",
+				  options="Silo Level\nWeigh Hopper\nMotor\nProcess\nPower\nCounter\nStatus",
+				  reqd=1, in_list_view=1),
+				F("unit", "Unit", "Data", in_list_view=1),
+				F("min_value", "Min", "Float"),
+				F("max_value", "Max", "Float"),
+				SB("sb_alarm", "Alarm Band"),
+				F("warn_low", "Warn Below", "Float"),
+				F("warn_high", "Warn Above", "Float"),
+				CB("cb2"),
+				F("display_order", "Display Order", "Int", default="0"),
+				F("is_active", "Is Active", "Check", default="1"),
+			],
+		},
+		{
+			# The 24/7 feed itself. One row per tag per poll; the web page reads
+			# the latest per tag and the last 24 hours for the trend.
+			"name": "RMC PLC Reading", "module": "RMC Plant Ops",
+			"autoname": "hash",
+			"fields": [
+				F("plant", "Plant", "Link", options="RMC Plant", reqd=1, in_list_view=1),
+				F("tag", "Tag", "Link", options="RMC PLC Tag", reqd=1, in_list_view=1),
+				F("tag_name", "Tag Name", "Data", fetch_from="tag.tag_name", read_only=1,
+				  in_list_view=1),
+				CB("cb1"),
+				F("reading_time", "Reading Time", "Datetime", reqd=1, in_list_view=1),
+				F("value", "Value", "Float", reqd=1, in_list_view=1, precision="2"),
+				F("unit", "Unit", "Data", read_only=1),
+				F("quality", "Quality", "Select", options="Good\nUncertain\nBad",
+				  default="Good", in_list_view=1),
+			],
+		},
+		{
 			"name": "Power Log", "module": "RMC Plant Ops",
 			"autoname": "format:PL-{YY}{MM}-{####}",
 			"fields": [

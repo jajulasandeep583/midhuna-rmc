@@ -1,0 +1,94 @@
+{% extends "templates/web.html" %}
+{% block title %}Profit &amp; Loss · MIDHUNATECH RMC{% endblock %}
+
+{% block head_include %}
+<style>{% include "rmc/www/rmc/rmc.css" %}</style>
+{% endblock %}
+
+{% block page_content %}
+<div class="wrap">
+
+	<div class="top">
+		<div class="brand">MIDHUNATECH · RMC PLANT SMART ERP</div>
+		<h1>Profit &amp; Loss</h1>
+		<div class="sub">{{ company }} · {{ period_label }}
+			({{ frappe.utils.formatdate(from_date, "dd MMM") }} –
+			 {{ frappe.utils.formatdate(to_date, "dd MMM yyyy") }})
+			· read from the general ledger</div>
+	</div>
+
+	<nav class="tabs">
+		<a href="/rmc">Overview</a>
+		<a class="on" href="/rmc/pl">Profit &amp; Loss</a>
+		<a href="/rmc/production">Production</a>
+		<a href="/rmc/stock">Stock</a>
+		<a href="/rmc/plc">Live PLC</a>
+	</nav>
+
+	<div class="periods">
+		<span class="lbl">Period</span>
+		{% for key, label in periods %}
+			<a class="{{ 'on' if key == period else '' }}" href="/rmc/pl?period={{ key }}">{{ label }}</a>
+		{% endfor %}
+	</div>
+
+	<div class="kpis">
+		<div class="kpi sale"><div class="n">₹ {{ revenue_h }}</div>
+			<div class="l">Income</div><div class="x">all income accounts</div></div>
+		<div class="kpi buy"><div class="n">₹ {{ cost_h }}</div>
+			<div class="l">Expenses</div><div class="x">all expense accounts</div></div>
+		<div class="kpi {{ 'prod' if profit_positive else 'buy' }}">
+			<div class="n">₹ {{ profit_h }}</div>
+			<div class="l">{{ "Profit" if profit_positive else "Loss" }}</div>
+			<div class="x">{{ margin }}% of income</div></div>
+		<div class="kpi pl"><div class="n">₹ {{ outstanding_h }}</div>
+			<div class="l">Receivables</div><div class="x">outstanding on all invoices</div></div>
+	</div>
+
+	<div class="grid">
+		<div class="card">
+			<h3>Income</h3>
+			<table>
+				<tr><th>Account</th><th class="num">Amount</th><th class="num">Share</th></tr>
+				{% for r in income %}
+				<tr><td>{{ r.account_name }}</td>
+					<td class="num">₹ {{ r.amount_h }}</td>
+					<td class="num">{{ r.pct }}%</td></tr>
+				{% else %}<tr><td colspan="3" style="color:var(--rmc-muted)">No income posted.</td></tr>{% endfor %}
+				<tr class="total"><td>Total Income</td>
+					<td class="num">₹ {{ revenue_h }}</td><td class="num">100%</td></tr>
+			</table>
+		</div>
+
+		<div class="card">
+			<h3>Expenses</h3>
+			<table>
+				<tr><th>Account</th><th class="num">Amount</th><th class="num">Share</th></tr>
+				{% for r in expense %}
+				<tr><td>{{ r.account_name }}</td>
+					<td class="num">₹ {{ r.amount_h }}</td>
+					<td class="num">{{ r.pct }}%</td></tr>
+				{% else %}<tr><td colspan="3" style="color:var(--rmc-muted)">No expenses posted.</td></tr>{% endfor %}
+				<tr class="total"><td>Total Expenses</td>
+					<td class="num">₹ {{ cost_h }}</td><td class="num">100%</td></tr>
+			</table>
+		</div>
+
+		<div class="card">
+			<h3>Per cubic metre</h3>
+			<table>
+				{% for label, value in ops %}
+				<tr><td>{{ label }}</td><td class="num">{{ value }}</td></tr>
+				{% endfor %}
+				<tr class="total"><td>{{ "Profit" if profit_positive else "Loss" }}</td>
+					<td class="num">₹ {{ profit_h }}</td></tr>
+			</table>
+		</div>
+	</div>
+
+	<div class="foot">
+		<b>MIDHUNATECH</b> · Monitor · Manage · Produce · Deliver<br>
+		Same ledger as ERPNext's own Profit and Loss statement · {{ now }}
+	</div>
+</div>
+{% endblock %}

@@ -40,6 +40,8 @@ REPORTS = [
 	("Plant Productivity", "RMC Plant Ops", "Batch Production"),
 	("Concrete Sales Register", "RMC Dispatch", "Sales Invoice"),
 	("Raw Material Consumption Summary", "RMC Materials", "Batch Production"),
+	# reads the GL directly, so it ties to ERPNext own P&L to the paisa
+	("RMC Profit and Loss", "RMC Plant Ops", "GL Entry"),
 ]
 
 ROLES = ("System Manager", "RMC Manager", "Plant Operator",

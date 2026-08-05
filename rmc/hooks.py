@@ -46,8 +46,13 @@ doc_events = {
 }
 
 scheduler_events = {
+	# the PLC feed: a reading of every tag, around the clock
+	"cron": {
+		"*/15 * * * *": ["rmc.plc.poll"],
+	},
 	"daily": [
 		"rmc.tasks.refresh_order_status",
 		"rmc.tasks.flag_due_maintenance",
+		"rmc.plc.purge",
 	],
 }

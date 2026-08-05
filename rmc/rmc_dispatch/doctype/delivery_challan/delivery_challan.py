@@ -138,6 +138,10 @@ class DeliveryChallan(Document):
 			"description": "Ready Mix Concrete %s delivered at %s (Challan %s)"
 			               % (self.grade, self.construction_site, self.name),
 		})
+		if plant and plant.cost_center:
+			si.cost_center = plant.cost_center
+			for row in si.items:
+				row.cost_center = plant.cost_center
 		si.flags.ignore_permissions = True
 		si.insert()
 		si.submit()

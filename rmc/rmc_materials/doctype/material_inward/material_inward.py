@@ -85,6 +85,10 @@ class MaterialInward(Document):
 			"rate": rate,
 			"warehouse": self.warehouse or plant.store_warehouse,
 		})
+		if plant.cost_center:
+			pr.cost_center = plant.cost_center
+			for row in pr.items:
+				row.cost_center = plant.cost_center
 		pr.flags.ignore_permissions = True
 		pr.insert()
 		pr.submit()

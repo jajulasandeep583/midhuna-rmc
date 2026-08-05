@@ -1,0 +1,90 @@
+{% extends "templates/web.html" %}
+{% block title %}RMC Plant Overview · MIDHUNATECH{% endblock %}
+
+{% block head_include %}
+<style>{% include "rmc/www/rmc/rmc.css" %}</style>
+{% endblock %}
+
+{% block page_content %}
+<div class="wrap">
+
+	<div class="top">
+		<div class="brand">MIDHUNATECH · RMC PLANT SMART ERP</div>
+		<h1>{{ company }}</h1>
+		<div class="sub">{{ plant }} · {{ period_label }}
+			({{ frappe.utils.formatdate(from_date, "dd MMM") }} –
+			 {{ frappe.utils.formatdate(to_date, "dd MMM yyyy") }})</div>
+	</div>
+
+	<nav class="tabs">
+		<a class="on" href="/rmc">Overview</a>
+		<a href="/rmc/pl">Profit &amp; Loss</a>
+		<a href="/rmc/production">Production</a>
+		<a href="/rmc/stock">Stock</a>
+		<a href="/rmc/plc">Live PLC</a>
+	</nav>
+
+	<div class="periods">
+		<span class="lbl">Period</span>
+		{% for key, label in periods %}
+			<a class="{{ 'on' if key == period else '' }}" href="/rmc?period={{ key }}">{{ label }}</a>
+		{% endfor %}
+	</div>
+
+	<div class="kpis">
+		{% for label, value, extra, kind in kpis %}
+		<div class="kpi {{ kind }}">
+			<div class="n">{{ value }}</div>
+			<div class="l">{{ label }}</div>
+			<div class="x">{{ extra }}</div>
+		</div>
+		{% endfor %}
+	</div>
+
+	<div class="grid">
+		<div class="card wide">
+			<h3>Dispatched per day</h3>
+			{% if daily %}
+			<div class="spark">
+				{% for d in daily %}<i title="{{ d.d }} — {{ d.qty }} m³" style="height:{{ d.pct }}%"></i>{% endfor %}
+			</div>
+			<div style="font-size:11.5px;color:var(--rmc-muted);margin-top:8px">
+				{{ daily | length }} days · peak
+				{{ daily | map(attribute='qty') | max }} m³ in a day
+			</div>
+			{% else %}<p style="color:var(--rmc-muted)">Nothing dispatched in this period.</p>{% endif %}
+		</div>
+
+		<div class="card">
+			<h3>Sales by grade</h3>
+			{% for g in by_grade %}
+			<div style="margin-bottom:9px">
+				<div style="display:flex;justify-content:space-between;font-size:13px">
+					<b>{{ g.grade }}</b><span>{{ g.qty }} m³ · ₹ {{ g.value_h }}</span>
+				</div>
+				<div class="bar"><span style="width:{{ g.pct }}%"></span></div>
+			</div>
+			{% else %}<p style="color:var(--rmc-muted)">No sales.</p>{% endfor %}
+		</div>
+
+		<div class="card">
+			<h3>Top customers</h3>
+			<table>
+				<tr><th>Customer</th><th class="num">m³</th><th class="num">Value</th></tr>
+				{% for c in customers %}
+				<tr>
+					<td>{{ c.customer[:26] }}</td>
+					<td class="num">{{ c.qty }}</td>
+					<td class="num">₹ {{ c.value_h }}</td>
+				</tr>
+				{% else %}<tr><td colspan="3" style="color:var(--rmc-muted)">No sales.</td></tr>{% endfor %}
+			</table>
+		</div>
+	</div>
+
+	<div class="foot">
+		<b>MIDHUNATECH</b> · Monitor · Manage · Produce · Deliver<br>
+		Every figure is read live from the ERP — nothing on this page is stored twice · {{ now }}
+	</div>
+</div>
+{% endblock %}

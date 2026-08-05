@@ -1,0 +1,172 @@
+{
+ "actions": [],
+ "allow_bulk_edit": 1,
+ "allow_rename": 1,
+ "autoname": "format:TAG-{plant_code}-{tag_code}",
+ "creation": "2026-08-06 01:36:45.807140",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "tag_name",
+  "tag_code",
+  "plant",
+  "plant_code",
+  "cb1",
+  "category",
+  "unit",
+  "min_value",
+  "max_value",
+  "sb_alarm",
+  "warn_low",
+  "warn_high",
+  "cb2",
+  "display_order",
+  "is_active"
+ ],
+ "fields": [
+  {
+   "fieldname": "tag_name",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Tag Name",
+   "reqd": 1
+  },
+  {
+   "description": "The address or symbol the PLC publishes, e.g. CEM_SILO1_LVL.",
+   "fieldname": "tag_code",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Tag Code",
+   "reqd": 1
+  },
+  {
+   "fieldname": "plant",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Plant",
+   "options": "RMC Plant",
+   "reqd": 1
+  },
+  {
+   "description": "Short code used in the tag name, e.g. VSKP.",
+   "fieldname": "plant_code",
+   "fieldtype": "Data",
+   "label": "Plant Code",
+   "reqd": 1
+  },
+  {
+   "fieldname": "cb1",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "category",
+   "fieldtype": "Select",
+   "in_list_view": 1,
+   "label": "Category",
+   "options": "Silo Level\nWeigh Hopper\nMotor\nProcess\nPower\nCounter\nStatus",
+   "reqd": 1
+  },
+  {
+   "fieldname": "unit",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Unit"
+  },
+  {
+   "fieldname": "min_value",
+   "fieldtype": "Float",
+   "label": "Min"
+  },
+  {
+   "fieldname": "max_value",
+   "fieldtype": "Float",
+   "label": "Max"
+  },
+  {
+   "fieldname": "sb_alarm",
+   "fieldtype": "Section Break",
+   "label": "Alarm Band"
+  },
+  {
+   "fieldname": "warn_low",
+   "fieldtype": "Float",
+   "label": "Warn Below"
+  },
+  {
+   "fieldname": "warn_high",
+   "fieldtype": "Float",
+   "label": "Warn Above"
+  },
+  {
+   "fieldname": "cb2",
+   "fieldtype": "Column Break"
+  },
+  {
+   "default": "0",
+   "fieldname": "display_order",
+   "fieldtype": "Int",
+   "label": "Display Order"
+  },
+  {
+   "default": "1",
+   "fieldname": "is_active",
+   "fieldtype": "Check",
+   "label": "Is Active"
+  }
+ ],
+ "grid_page_length": 50,
+ "index_web_pages_for_search": 1,
+ "links": [],
+ "modified": "2026-08-06 01:36:45.807140",
+ "modified_by": "Administrator",
+ "module": "RMC Plant Ops",
+ "name": "RMC PLC Tag",
+ "naming_rule": "Expression (old style)",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  },
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "RMC Manager",
+   "share": 1,
+   "write": 1
+  },
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "Plant Operator",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "row_format": "Dynamic",
+ "rows_threshold_for_grid_search": 20,
+ "sort_field": "creation",
+ "sort_order": "DESC",
+ "states": [],
+ "title_field": "tag_name",
+ "track_changes": 1
+}

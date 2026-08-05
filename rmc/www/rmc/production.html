@@ -1,0 +1,114 @@
+{% extends "templates/web.html" %}
+{% block title %}Production · MIDHUNATECH RMC{% endblock %}
+
+{% block head_include %}
+<style>{% include "rmc/www/rmc/rmc.css" %}</style>
+{% endblock %}
+
+{% block page_content %}
+<div class="wrap">
+
+	<div class="top">
+		<div class="brand">MIDHUNATECH · RMC PLANT SMART ERP</div>
+		<h1>Production</h1>
+		<div class="sub">{{ plant }} · {{ period_label }}
+			({{ frappe.utils.formatdate(from_date, "dd MMM") }} –
+			 {{ frappe.utils.formatdate(to_date, "dd MMM yyyy") }})</div>
+	</div>
+
+	<nav class="tabs">
+		<a href="/rmc">Overview</a>
+		<a href="/rmc/pl">Profit &amp; Loss</a>
+		<a class="on" href="/rmc/production">Production</a>
+		<a href="/rmc/stock">Stock</a>
+		<a href="/rmc/plc">Live PLC</a>
+	</nav>
+
+	<div class="periods">
+		<span class="lbl">Period</span>
+		{% for key, label in periods %}
+			<a class="{{ 'on' if key == period else '' }}"
+			   href="/rmc/production?period={{ key }}">{{ label }}</a>
+		{% endfor %}
+	</div>
+
+	<div class="kpis">
+		{% for label, value, extra, kind in kpis %}
+		<div class="kpi {{ kind }}">
+			<div class="n">{{ value }}</div><div class="l">{{ label }}</div>
+			<div class="x">{{ extra }}</div>
+		</div>
+		{% endfor %}
+	</div>
+
+	<div class="grid">
+		<div class="card wide">
+			<h3>Produced per day</h3>
+			{% if daily %}
+			<div class="spark">
+				{% for d in daily %}<i title="{{ d.d }} — {{ d.qty }} m³" style="height:{{ d.pct }}%"></i>{% endfor %}
+			</div>
+			{% else %}<p style="color:var(--rmc-muted)">Nothing produced in this period.</p>{% endif %}
+		</div>
+
+		<div class="card">
+			<h3>By grade</h3>
+			{% for g in by_grade %}
+			<div style="margin-bottom:9px">
+				<div style="display:flex;justify-content:space-between;font-size:13px">
+					<b>{{ g.grade }}</b>
+					<span>{{ g.qty }} m³ · ₹ {{ g.cost_h }}/m³</span>
+				</div>
+				<div class="bar g"><span style="width:{{ g.pct }}%"></span></div>
+			</div>
+			{% else %}<p style="color:var(--rmc-muted)">No production.</p>{% endfor %}
+		</div>
+
+		<div class="card">
+			<h3>By shift</h3>
+			<table>
+				<tr><th>Shift</th><th class="num">Loads</th><th class="num">m³</th></tr>
+				{% for s in by_shift %}
+				<tr><td>{{ s.shift }}</td><td class="num">{{ s.loads }}</td>
+					<td class="num">{{ s.qty }}</td></tr>
+				{% else %}<tr><td colspan="3" style="color:var(--rmc-muted)">—</td></tr>{% endfor %}
+			</table>
+		</div>
+
+		<div class="card">
+			<h3>Cube tests</h3>
+			<table>
+				<tr><th>Grade</th><th class="num">Tests</th><th class="num">Pass</th><th class="num">Avg MPa</th></tr>
+				{% for c in cubes %}
+				<tr><td>{{ c.grade }}</td><td class="num">{{ c.tests }}</td>
+					<td class="num"><span class="pill {{ 'ok' if c.passed == c.tests else 'warn' }}">{{ c.passed }}</span></td>
+					<td class="num">{{ c.avg_mpa }}</td></tr>
+				{% else %}<tr><td colspan="4" style="color:var(--rmc-muted)">No cubes cast.</td></tr>{% endfor %}
+			</table>
+		</div>
+
+		<div class="card wide">
+			<h3>Material consumed — actual against the mix design</h3>
+			<table>
+				<tr><th>Item</th><th>Type</th><th class="num">Recipe</th><th class="num">Actual</th>
+					<th class="num">Variance</th><th class="num">Per m³</th><th class="num">Cost</th></tr>
+				{% for m in materials %}
+				<tr>
+					<td>{{ m.item_code }}</td><td>{{ m.material_type }}</td>
+					<td class="num">{{ "{:,.0f}".format(m.target) }}</td>
+					<td class="num">{{ "{:,.0f}".format(m.actual) }}</td>
+					<td class="num"><span class="pill {{ 'bad' if m.var|abs > 2 else 'ok' }}">{{ m.var }}%</span></td>
+					<td class="num">{{ m.per_m3 }} {{ m.uom }}</td>
+					<td class="num">₹ {{ m.cost_h }}</td>
+				</tr>
+				{% else %}<tr><td colspan="7" style="color:var(--rmc-muted)">No consumption.</td></tr>{% endfor %}
+			</table>
+		</div>
+	</div>
+
+	<div class="foot">
+		<b>MIDHUNATECH</b> · Monitor · Manage · Produce · Deliver<br>
+		Consumption is what the plant actually batched, against the approved mix design · {{ now }}
+	</div>
+</div>
+{% endblock %}

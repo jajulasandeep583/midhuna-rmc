@@ -187,6 +187,15 @@ def opening_stock(rng, start_date):
 	if frappe.db.exists("Stock Entry", {"stock_entry_type": "Material Receipt",
 	                                    "posting_date": start_date, "docstatus": 1}):
 		return
+	# Opening stock is a balance-sheet item. Left to itself ERPNext counter-books
+	# a Material Receipt against Stock Adjustment — an EXPENSE — so a month of
+	# opening silo stock lands in the P&L and the plant looks twice as profitable
+	# as it is. Point it at Temporary Opening instead.
+	opening_account = (frappe.db.get_value("Account", {"company": plant.company,
+	                                                  "account_name": "Temporary Opening"})
+	                   or frappe.db.get_value("Account", {"company": plant.company,
+	                                                     "account_name": "Stock Adjustment"}))
+
 	se = frappe.new_doc("Stock Entry")
 	se.stock_entry_type = "Material Receipt"
 	se.purpose = "Material Receipt"
@@ -198,9 +207,11 @@ def opening_stock(rng, start_date):
 	                           fields=["item_code", "warehouse", "capacity_mt"]):
 		rate = flt(frappe.db.get_value("Item", silo.item_code, "valuation_rate")) or 1
 		qty = flt(silo.capacity_mt) * 1000 * 0.90          # start each silo ~90% full
+		# basic_rate only — allow_zero_valuation_rate would force the opening
+		# stock in at zero and wreck every valuation downstream
 		se.append("items", {"item_code": silo.item_code, "qty": qty,
 		                    "t_warehouse": silo.warehouse, "basic_rate": rate,
-		                    "allow_zero_valuation_rate": 1})
+		                    "expense_account": opening_account})
 	se.flags.ignore_permissions = True
 	se.insert()
 	se.submit()
@@ -587,6 +598,29 @@ def reset():
 	print("  - reset: transactions cleared, masters kept")
 
 
+def drain_reposts(rounds=8):
+	"""Process the valuation reposts this run queued, before anyone reads a number.
+
+	A backdated stock entry does not recost the ledger on the spot: ERPNext
+	queues a Repost Item Valuation and a background worker settles it later.
+	A site served standalone has no worker, so the queue never drains and the
+	stock value — and therefore the P&L — stays wrong, with no error anywhere.
+	Building a month of backdated documents queues hundreds of these, so the
+	builder settles them itself.
+	"""
+	from erpnext.stock.doctype.repost_item_valuation.repost_item_valuation import repost_entries
+
+	for _ in range(rounds):
+		left = frappe.db.count("Repost Item Valuation", {"status": ["in", ["Queued", "In Progress"]]})
+		if not left:
+			break
+		repost_entries()
+		frappe.db.commit()
+	left = frappe.db.count("Repost Item Valuation", {"status": ["in", ["Queued", "In Progress"]]})
+	print("  + valuation reposts settled, %d still queued" % left)
+	return left
+
+
 def build():
 	rng = _rng()
 	start = add_days(getdate(), -(DAYS - 1))
@@ -597,5 +631,6 @@ def build():
 	from rmc import tasks
 	tasks.refresh_order_status()
 	tasks.flag_due_maintenance()
+	drain_reposts()
 	frappe.db.commit()
 	print("Demo data complete.")
