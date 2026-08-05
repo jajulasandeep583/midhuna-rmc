@@ -1,0 +1,38 @@
+app_name = "rmc"
+app_title = "RMC Plant Management"
+app_publisher = "Midhuna Tech"
+app_description = "Ready Mix Concrete plant ERP for Frappe/ERPNext v16"
+app_email = "aimidhunatech@gmail.com"
+app_license = "mit"
+
+required_apps = ["erpnext"]
+
+app_home = "/app/rmc-dashboard"
+
+add_to_apps_screen = [
+	{
+		"name": app_name,
+		"logo": "/assets/rmc/images/rmc-logo.svg",
+		"title": app_title,
+		"route": app_home,
+		"has_permission": "rmc.check_app_permission",
+	}
+]
+
+after_install = "rmc.setup.after_install"
+after_migrate = "rmc.setup.after_migrate"
+
+# ERPNext core doctypes are extended through events + custom fields only, never
+# forked, so the app survives an ERPNext upgrade.
+doc_events = {
+	"Sales Invoice": {
+		"on_cancel": "rmc.events.on_sales_invoice_cancel",
+	},
+}
+
+scheduler_events = {
+	"daily": [
+		"rmc.tasks.refresh_order_status",
+		"rmc.tasks.flag_due_maintenance",
+	],
+}

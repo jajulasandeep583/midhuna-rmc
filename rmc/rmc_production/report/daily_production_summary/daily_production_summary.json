@@ -1,0 +1,44 @@
+{
+ "add_total_row": 0,
+ "add_translate_data": 0,
+ "columns": [],
+ "creation": "2026-08-05 21:01:29.987743",
+ "disabled": 0,
+ "docstatus": 0,
+ "doctype": "Report",
+ "filters": [],
+ "idx": 0,
+ "is_standard": "Yes",
+ "letter_head": null,
+ "modified": "2026-08-05 21:01:29.987743",
+ "modified_by": "Administrator",
+ "module": "RMC Production",
+ "name": "Daily Production Summary",
+ "owner": "Administrator",
+ "prepared_report": 0,
+ "query": "\nSELECT\n  bp.production_date                       AS \"Date:Date:100\",\n  bp.shift                                 AS \"Shift:Data:90\",\n  bp.grade                                 AS \"Grade:Link/Concrete Grade:80\",\n  COUNT(bp.name)                           AS \"Loads:Int:70\",\n  SUM(bp.no_of_batches)                    AS \"Batches:Int:80\",\n  SUM(bp.qty_m3)                           AS \"Produced m3:Float:110\",\n  SUM(bp.total_material_cost)              AS \"Material Cost:Currency:130\",\n  SUM(bp.total_material_cost)/NULLIF(SUM(bp.qty_m3),0) AS \"Cost / m3:Currency:110\"\nFROM `tabBatch Production` bp\nWHERE bp.docstatus = 1\nGROUP BY bp.production_date, bp.shift, bp.grade\nORDER BY bp.production_date DESC, bp.shift, bp.grade\n",
+ "ref_doctype": "Batch Production",
+ "report_name": "Daily Production Summary",
+ "report_type": "Query Report",
+ "roles": [
+  {
+   "role": "System Manager"
+  },
+  {
+   "role": "RMC Manager"
+  },
+  {
+   "role": "Plant Operator"
+  },
+  {
+   "role": "Dispatch Incharge"
+  },
+  {
+   "role": "Quality Engineer"
+  },
+  {
+   "role": "RMC Accounts"
+  }
+ ],
+ "timeout": 0
+}

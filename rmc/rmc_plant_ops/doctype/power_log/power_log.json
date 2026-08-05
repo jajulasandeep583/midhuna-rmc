@@ -1,0 +1,145 @@
+{
+ "actions": [],
+ "allow_bulk_edit": 1,
+ "allow_rename": 1,
+ "autoname": "format:PL-{YY}{MM}-{####}",
+ "creation": "2026-08-05 20:53:25.927672",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "log_date",
+  "plant",
+  "cb1",
+  "eb_units",
+  "eb_hours",
+  "sb_dg",
+  "dg_units",
+  "dg_hours",
+  "cb2",
+  "diesel_litres",
+  "diesel_cost",
+  "remarks"
+ ],
+ "fields": [
+  {
+   "default": "Today",
+   "fieldname": "log_date",
+   "fieldtype": "Date",
+   "in_list_view": 1,
+   "label": "Date",
+   "reqd": 1
+  },
+  {
+   "fieldname": "plant",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Plant",
+   "options": "RMC Plant",
+   "reqd": 1
+  },
+  {
+   "fieldname": "cb1",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "eb_units",
+   "fieldtype": "Float",
+   "in_list_view": 1,
+   "label": "EB Units (kWh)"
+  },
+  {
+   "fieldname": "eb_hours",
+   "fieldtype": "Float",
+   "label": "EB Hours"
+  },
+  {
+   "fieldname": "sb_dg",
+   "fieldtype": "Section Break",
+   "label": "DG Set"
+  },
+  {
+   "fieldname": "dg_units",
+   "fieldtype": "Float",
+   "in_list_view": 1,
+   "label": "DG Units (kWh)"
+  },
+  {
+   "fieldname": "dg_hours",
+   "fieldtype": "Float",
+   "label": "DG Hours"
+  },
+  {
+   "fieldname": "cb2",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "diesel_litres",
+   "fieldtype": "Float",
+   "label": "Diesel Consumed (L)"
+  },
+  {
+   "fieldname": "diesel_cost",
+   "fieldtype": "Currency",
+   "label": "Diesel Cost"
+  },
+  {
+   "fieldname": "remarks",
+   "fieldtype": "Small Text",
+   "label": "Remarks"
+  }
+ ],
+ "grid_page_length": 50,
+ "index_web_pages_for_search": 1,
+ "links": [],
+ "modified": "2026-08-05 20:53:25.927672",
+ "modified_by": "Administrator",
+ "module": "RMC Plant Ops",
+ "name": "Power Log",
+ "naming_rule": "Expression (old style)",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  },
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "RMC Manager",
+   "share": 1,
+   "write": 1
+  },
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "Plant Operator",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "row_format": "Dynamic",
+ "rows_threshold_for_grid_search": 20,
+ "sort_field": "creation",
+ "sort_order": "DESC",
+ "states": [],
+ "track_changes": 1
+}

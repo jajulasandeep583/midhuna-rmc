@@ -1,0 +1,274 @@
+{
+ "app": "rmc",
+ "charts": [
+  {
+   "chart_name": "Production by Grade (m\u00b3)",
+   "label": "Production by Grade (m\u00b3)"
+  },
+  {
+   "chart_name": "Dispatch by Customer (m\u00b3)",
+   "label": "Dispatch by Customer (m\u00b3)"
+  },
+  {
+   "chart_name": "Orders by Status",
+   "label": "Orders by Status"
+  },
+  {
+   "chart_name": "Plant Time by Status (hrs)",
+   "label": "Plant Time by Status (hrs)"
+  }
+ ],
+ "content": "[{\"id\": \"hdr\", \"type\": \"header\", \"data\": {\"text\": \"<span class=\\\"h4\\\"><b>RMC Dashboard</b></span>\", \"col\": 12}}, {\"id\": \"intro\", \"type\": \"paragraph\", \"data\": {\"text\": \"<p>The plant at a glance \\u2014 today's production, dispatches, orders in hand and live plant status. Start here every morning; drill into any number from the cards and charts below.</p>\", \"col\": 12}}, {\"id\": \"nc_today_production\", \"type\": \"number_card\", \"data\": {\"number_card_name\": \"Today's Production (m\\u00b3)\", \"col\": 3}}, {\"id\": \"nc_today_dispatch\", \"type\": \"number_card\", \"data\": {\"number_card_name\": \"Today's Dispatch (m\\u00b3)\", \"col\": 3}}, {\"id\": \"nc_today_trips\", \"type\": \"number_card\", \"data\": {\"number_card_name\": \"Today's Trips\", \"col\": 3}}, {\"id\": \"nc_open_orders\", \"type\": \"number_card\", \"data\": {\"number_card_name\": \"Open Orders\", \"col\": 3}}, {\"id\": \"nc_pending_qty\", \"type\": \"number_card\", \"data\": {\"number_card_name\": \"Pending Order Qty (m\\u00b3)\", \"col\": 3}}, {\"id\": \"nc_month_revenue\", \"type\": \"number_card\", \"data\": {\"number_card_name\": \"This Month Dispatch Value\", \"col\": 3}}, {\"id\": \"nc_open_breakdowns\", \"type\": \"number_card\", \"data\": {\"number_card_name\": \"Open Breakdowns\", \"col\": 3}}, {\"id\": \"nc_mixers_available\", \"type\": \"number_card\", \"data\": {\"number_card_name\": \"Mixers Available\", \"col\": 3}}, {\"id\": \"ch_prod_by_grade\", \"type\": \"chart\", \"data\": {\"chart_name\": \"Production by Grade (m\\u00b3)\", \"col\": 6}}, {\"id\": \"ch_dispatch_customer\", \"type\": \"chart\", \"data\": {\"chart_name\": \"Dispatch by Customer (m\\u00b3)\", \"col\": 6}}, {\"id\": \"ch_order_status\", \"type\": \"chart\", \"data\": {\"chart_name\": \"Orders by Status\", \"col\": 6}}, {\"id\": \"ch_plant_status\", \"type\": \"chart\", \"data\": {\"chart_name\": \"Plant Time by Status (hrs)\", \"col\": 6}}, {\"id\": \"sc_BatchProduc\", \"type\": \"shortcut\", \"data\": {\"shortcut_name\": \"Batch Production\", \"col\": 3}}, {\"id\": \"sc_DeliveryCha\", \"type\": \"shortcut\", \"data\": {\"shortcut_name\": \"Delivery Challan\", \"col\": 3}}, {\"id\": \"sc_ConcreteOrd\", \"type\": \"shortcut\", \"data\": {\"shortcut_name\": \"Concrete Order\", \"col\": 3}}, {\"id\": \"sc_MaterialInw\", \"type\": \"shortcut\", \"data\": {\"shortcut_name\": \"Material Inward\", \"col\": 3}}, {\"id\": \"sc_DailyProduc\", \"type\": \"shortcut\", \"data\": {\"shortcut_name\": \"Daily Production Summary\", \"col\": 3}}, {\"id\": \"sc_PlantAvaila\", \"type\": \"shortcut\", \"data\": {\"shortcut_name\": \"Plant Availability and Downtime\", \"col\": 3}}, {\"id\": \"cd_DailyOperat\", \"type\": \"card\", \"data\": {\"card_name\": \"Daily Operations\", \"col\": 4}}, {\"id\": \"cd_MISReports\", \"type\": \"card\", \"data\": {\"card_name\": \"MIS Reports\", \"col\": 4}}, {\"id\": \"cd_Setup\", \"type\": \"card\", \"data\": {\"card_name\": \"Setup\", \"col\": 4}}]",
+ "creation": "2026-08-05 21:03:38.563886",
+ "custom_blocks": [],
+ "docstatus": 0,
+ "doctype": "Workspace",
+ "hide_custom": 0,
+ "icon": "getting-started",
+ "idx": 0,
+ "indicator_color": "blue",
+ "is_hidden": 0,
+ "label": "RMC Dashboard",
+ "link_type": "DocType",
+ "links": [
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Daily Operations",
+   "link_count": 0,
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Card Break"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Batch Production",
+   "link_count": 0,
+   "link_to": "Batch Production",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Delivery Challan",
+   "link_count": 0,
+   "link_to": "Delivery Challan",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Concrete Order",
+   "link_count": 0,
+   "link_to": "Concrete Order",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Material Inward",
+   "link_count": 0,
+   "link_to": "Material Inward",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "MIS Reports",
+   "link_count": 0,
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Card Break"
+  },
+  {
+   "dependencies": "Batch Production",
+   "hidden": 0,
+   "is_query_report": 1,
+   "label": "Daily Production Summary",
+   "link_count": 0,
+   "link_to": "Daily Production Summary",
+   "link_type": "Report",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "dependencies": "Delivery Challan",
+   "hidden": 0,
+   "is_query_report": 1,
+   "label": "Dispatch Register",
+   "link_count": 0,
+   "link_to": "Dispatch Register",
+   "link_type": "Report",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "dependencies": "Concrete Order",
+   "hidden": 0,
+   "is_query_report": 1,
+   "label": "Customer Order Status",
+   "link_count": 0,
+   "link_to": "Customer Order Status",
+   "link_type": "Report",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "dependencies": "Plant Status Log",
+   "hidden": 0,
+   "is_query_report": 1,
+   "label": "Plant Availability and Downtime",
+   "link_count": 0,
+   "link_to": "Plant Availability and Downtime",
+   "link_type": "Report",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "dependencies": "Silo",
+   "hidden": 0,
+   "is_query_report": 1,
+   "label": "Silo and Stock Status",
+   "link_count": 0,
+   "link_to": "Silo and Stock Status",
+   "link_type": "Report",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Setup",
+   "link_count": 0,
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Card Break"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "RMC Plant",
+   "link_count": 0,
+   "link_to": "RMC Plant",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "RMC Settings",
+   "link_count": 0,
+   "link_to": "RMC Settings",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  }
+ ],
+ "modified": "2026-08-05 21:06:22.988374",
+ "modified_by": "Administrator",
+ "module": "RMC Setup",
+ "name": "RMC Dashboard",
+ "number_cards": [
+  {
+   "number_card_name": "Today's Production (m\u00b3)"
+  },
+  {
+   "number_card_name": "Today's Dispatch (m\u00b3)"
+  },
+  {
+   "number_card_name": "Today's Trips"
+  },
+  {
+   "number_card_name": "Open Orders"
+  },
+  {
+   "number_card_name": "Pending Order Qty (m\u00b3)"
+  },
+  {
+   "number_card_name": "This Month Dispatch Value"
+  },
+  {
+   "number_card_name": "Open Breakdowns"
+  },
+  {
+   "number_card_name": "Mixers Available"
+  }
+ ],
+ "owner": "Administrator",
+ "parent_page": "",
+ "public": 1,
+ "quick_lists": [],
+ "roles": [
+  {
+   "role": "RMC Manager"
+  },
+  {
+   "role": "Plant Operator"
+  },
+  {
+   "role": "Dispatch Incharge"
+  },
+  {
+   "role": "System Manager"
+  }
+ ],
+ "sequence_id": 0.1,
+ "shortcuts": [
+  {
+   "color": "Blue",
+   "doc_view": "",
+   "label": "Batch Production",
+   "link_to": "Batch Production",
+   "type": "DocType"
+  },
+  {
+   "color": "Blue",
+   "doc_view": "",
+   "label": "Delivery Challan",
+   "link_to": "Delivery Challan",
+   "type": "DocType"
+  },
+  {
+   "color": "Blue",
+   "doc_view": "",
+   "label": "Concrete Order",
+   "link_to": "Concrete Order",
+   "type": "DocType"
+  },
+  {
+   "color": "Blue",
+   "doc_view": "",
+   "label": "Material Inward",
+   "link_to": "Material Inward",
+   "type": "DocType"
+  },
+  {
+   "color": "Grey",
+   "doc_view": "",
+   "label": "Daily Production Summary",
+   "link_to": "Daily Production Summary",
+   "report_ref_doctype": "Batch Production",
+   "type": "Report"
+  },
+  {
+   "color": "Grey",
+   "doc_view": "",
+   "label": "Plant Availability and Downtime",
+   "link_to": "Plant Availability and Downtime",
+   "report_ref_doctype": "Plant Status Log",
+   "type": "Report"
+  }
+ ],
+ "title": "RMC Dashboard",
+ "type": "Workspace"
+}

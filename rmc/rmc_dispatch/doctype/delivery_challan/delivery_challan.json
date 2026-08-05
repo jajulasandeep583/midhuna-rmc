@@ -1,0 +1,323 @@
+{
+ "actions": [],
+ "allow_bulk_edit": 1,
+ "allow_rename": 1,
+ "autoname": "format:DC-{YY}{MM}-{#####}",
+ "creation": "2026-08-05 20:53:26.427958",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "concrete_order",
+  "customer",
+  "construction_site",
+  "challan_date",
+  "cb1",
+  "grade",
+  "qty_m3",
+  "rate",
+  "amount",
+  "sb_veh",
+  "transit_mixer",
+  "driver",
+  "driver_name",
+  "batch_production",
+  "cb2",
+  "dispatch_time",
+  "site_arrival_time",
+  "unloading_end_time",
+  "return_time",
+  "cycle_time_min",
+  "sb_qc",
+  "slump_mm",
+  "temperature_c",
+  "cb3",
+  "cubes_taken",
+  "distance_km",
+  "sb_post",
+  "status",
+  "qr_code",
+  "cb4",
+  "sales_invoice",
+  "received_by",
+  "customer_signature",
+  "remarks",
+  "amended_from"
+ ],
+ "fields": [
+  {
+   "fieldname": "concrete_order",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Concrete Order",
+   "options": "Concrete Order",
+   "reqd": 1
+  },
+  {
+   "fieldname": "customer",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Customer",
+   "options": "Customer",
+   "reqd": 1
+  },
+  {
+   "fieldname": "construction_site",
+   "fieldtype": "Link",
+   "label": "Construction Site",
+   "options": "Construction Site",
+   "reqd": 1
+  },
+  {
+   "default": "Today",
+   "fieldname": "challan_date",
+   "fieldtype": "Date",
+   "in_list_view": 1,
+   "label": "Challan Date",
+   "reqd": 1
+  },
+  {
+   "fieldname": "cb1",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "grade",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Grade",
+   "options": "Concrete Grade",
+   "reqd": 1
+  },
+  {
+   "fieldname": "qty_m3",
+   "fieldtype": "Float",
+   "in_list_view": 1,
+   "label": "Qty (m\u00b3)",
+   "precision": "2",
+   "reqd": 1
+  },
+  {
+   "fieldname": "rate",
+   "fieldtype": "Currency",
+   "label": "Rate (\u20b9/m\u00b3)"
+  },
+  {
+   "fieldname": "amount",
+   "fieldtype": "Currency",
+   "label": "Amount",
+   "read_only": 1
+  },
+  {
+   "fieldname": "sb_veh",
+   "fieldtype": "Section Break",
+   "label": "Vehicle & Trip"
+  },
+  {
+   "fieldname": "transit_mixer",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Transit Mixer",
+   "options": "Transit Mixer",
+   "reqd": 1
+  },
+  {
+   "fieldname": "driver",
+   "fieldtype": "Link",
+   "label": "Driver",
+   "options": "Driver"
+  },
+  {
+   "fetch_from": "driver.full_name",
+   "fieldname": "driver_name",
+   "fieldtype": "Data",
+   "label": "Driver Name",
+   "read_only": 1
+  },
+  {
+   "description": "Load that filled this truck \u2014 links the challan back to its mix.",
+   "fieldname": "batch_production",
+   "fieldtype": "Link",
+   "label": "Batch Production",
+   "options": "Batch Production"
+  },
+  {
+   "fieldname": "cb2",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "dispatch_time",
+   "fieldtype": "Datetime",
+   "label": "Dispatch Time",
+   "reqd": 1
+  },
+  {
+   "fieldname": "site_arrival_time",
+   "fieldtype": "Datetime",
+   "label": "Site Arrival Time"
+  },
+  {
+   "fieldname": "unloading_end_time",
+   "fieldtype": "Datetime",
+   "label": "Unloading End Time"
+  },
+  {
+   "fieldname": "return_time",
+   "fieldtype": "Datetime",
+   "label": "Plant Return Time"
+  },
+  {
+   "description": "Dispatch \u2192 plant return. The core RMC productivity number.",
+   "fieldname": "cycle_time_min",
+   "fieldtype": "Int",
+   "label": "Cycle Time (min)",
+   "read_only": 1
+  },
+  {
+   "fieldname": "sb_qc",
+   "fieldtype": "Section Break",
+   "label": "Quality at Site"
+  },
+  {
+   "fieldname": "slump_mm",
+   "fieldtype": "Int",
+   "label": "Slump (mm)"
+  },
+  {
+   "fieldname": "temperature_c",
+   "fieldtype": "Float",
+   "label": "Temperature (\u00b0C)"
+  },
+  {
+   "fieldname": "cb3",
+   "fieldtype": "Column Break"
+  },
+  {
+   "default": "0",
+   "fieldname": "cubes_taken",
+   "fieldtype": "Check",
+   "label": "Cubes Taken"
+  },
+  {
+   "fieldname": "distance_km",
+   "fieldtype": "Float",
+   "label": "Distance (km)"
+  },
+  {
+   "fieldname": "sb_post",
+   "fieldtype": "Section Break",
+   "label": "Status & Posting"
+  },
+  {
+   "default": "Dispatched",
+   "fieldname": "status",
+   "fieldtype": "Select",
+   "in_list_view": 1,
+   "label": "Status",
+   "options": "Dispatched\nDelivered\nReturned\nCancelled"
+  },
+  {
+   "description": "Printed on the challan for site-side verification.",
+   "fieldname": "qr_code",
+   "fieldtype": "Data",
+   "label": "QR Code",
+   "read_only": 1
+  },
+  {
+   "fieldname": "cb4",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "sales_invoice",
+   "fieldtype": "Link",
+   "label": "Sales Invoice",
+   "options": "Sales Invoice",
+   "read_only": 1
+  },
+  {
+   "fieldname": "received_by",
+   "fieldtype": "Data",
+   "label": "Received By"
+  },
+  {
+   "fieldname": "customer_signature",
+   "fieldtype": "Attach Image",
+   "label": "Customer Signature",
+   "print_hide": 1
+  },
+  {
+   "fieldname": "remarks",
+   "fieldtype": "Small Text",
+   "label": "Remarks"
+  },
+  {
+   "fieldname": "amended_from",
+   "fieldtype": "Link",
+   "label": "Amended From",
+   "no_copy": 1,
+   "options": "Delivery Challan",
+   "print_hide": 1,
+   "read_only": 1
+  }
+ ],
+ "grid_page_length": 50,
+ "index_web_pages_for_search": 1,
+ "is_submittable": 1,
+ "links": [],
+ "modified": "2026-08-05 20:53:26.427958",
+ "modified_by": "Administrator",
+ "module": "RMC Dispatch",
+ "name": "Delivery Challan",
+ "naming_rule": "Expression (old style)",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "amend": 1,
+   "cancel": 1,
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "submit": 1,
+   "write": 1
+  },
+  {
+   "amend": 1,
+   "cancel": 1,
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "RMC Manager",
+   "share": 1,
+   "submit": 1,
+   "write": 1
+  },
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "Plant Operator",
+   "share": 1,
+   "submit": 1,
+   "write": 1
+  }
+ ],
+ "row_format": "Dynamic",
+ "rows_threshold_for_grid_search": 20,
+ "sort_field": "creation",
+ "sort_order": "DESC",
+ "states": [],
+ "track_changes": 1
+}

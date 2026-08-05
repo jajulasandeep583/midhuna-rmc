@@ -1,0 +1,239 @@
+{
+ "actions": [],
+ "allow_bulk_edit": 1,
+ "allow_rename": 1,
+ "autoname": "format:BP-{YY}{MM}-{#####}",
+ "creation": "2026-08-05 20:53:26.094322",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "production_date",
+  "plant",
+  "shift",
+  "grade",
+  "mix_design",
+  "cb1",
+  "concrete_order",
+  "qty_m3",
+  "no_of_batches",
+  "start_time",
+  "end_time",
+  "operator",
+  "sb_mat",
+  "materials",
+  "sb_tot",
+  "total_material_cost",
+  "cost_per_m3",
+  "cb2",
+  "stock_entry",
+  "status",
+  "remarks",
+  "amended_from"
+ ],
+ "fields": [
+  {
+   "default": "Today",
+   "fieldname": "production_date",
+   "fieldtype": "Date",
+   "in_list_view": 1,
+   "label": "Production Date",
+   "reqd": 1
+  },
+  {
+   "fieldname": "plant",
+   "fieldtype": "Link",
+   "label": "Plant",
+   "options": "RMC Plant",
+   "reqd": 1
+  },
+  {
+   "default": "Shift A",
+   "fieldname": "shift",
+   "fieldtype": "Select",
+   "in_list_view": 1,
+   "label": "Shift",
+   "options": "Shift A\nShift B\nShift C",
+   "reqd": 1
+  },
+  {
+   "fieldname": "grade",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Concrete Grade",
+   "options": "Concrete Grade",
+   "reqd": 1
+  },
+  {
+   "fieldname": "mix_design",
+   "fieldtype": "Link",
+   "label": "Mix Design",
+   "options": "Mix Design",
+   "reqd": 1
+  },
+  {
+   "fieldname": "cb1",
+   "fieldtype": "Column Break"
+  },
+  {
+   "description": "Order this pour belongs to \u2014 leave blank for stock production.",
+   "fieldname": "concrete_order",
+   "fieldtype": "Link",
+   "label": "Concrete Order",
+   "options": "Concrete Order"
+  },
+  {
+   "fieldname": "qty_m3",
+   "fieldtype": "Float",
+   "in_list_view": 1,
+   "label": "Produced Qty (m\u00b3)",
+   "precision": "2",
+   "reqd": 1
+  },
+  {
+   "default": "1",
+   "fieldname": "no_of_batches",
+   "fieldtype": "Int",
+   "label": "No of Batches"
+  },
+  {
+   "fieldname": "start_time",
+   "fieldtype": "Datetime",
+   "label": "Start Time"
+  },
+  {
+   "fieldname": "end_time",
+   "fieldtype": "Datetime",
+   "label": "End Time"
+  },
+  {
+   "fieldname": "operator",
+   "fieldtype": "Data",
+   "label": "Batching Operator"
+  },
+  {
+   "fieldname": "sb_mat",
+   "fieldtype": "Section Break",
+   "label": "Material Consumption (target vs actual)"
+  },
+  {
+   "fieldname": "materials",
+   "fieldtype": "Table",
+   "label": "Materials",
+   "options": "Batch Material"
+  },
+  {
+   "fieldname": "sb_tot",
+   "fieldtype": "Section Break",
+   "label": "Totals"
+  },
+  {
+   "fieldname": "total_material_cost",
+   "fieldtype": "Currency",
+   "label": "Material Cost",
+   "read_only": 1
+  },
+  {
+   "fieldname": "cost_per_m3",
+   "fieldtype": "Currency",
+   "label": "Cost per m\u00b3",
+   "read_only": 1
+  },
+  {
+   "fieldname": "cb2",
+   "fieldtype": "Column Break"
+  },
+  {
+   "description": "Auto-created Manufacture entry: raw materials out, concrete in.",
+   "fieldname": "stock_entry",
+   "fieldtype": "Link",
+   "label": "Stock Entry",
+   "options": "Stock Entry",
+   "read_only": 1
+  },
+  {
+   "default": "Draft",
+   "fieldname": "status",
+   "fieldtype": "Select",
+   "in_list_view": 1,
+   "label": "Status",
+   "options": "Draft\nProduced\nDispatched\nCancelled",
+   "read_only": 1
+  },
+  {
+   "fieldname": "remarks",
+   "fieldtype": "Small Text",
+   "label": "Remarks"
+  },
+  {
+   "fieldname": "amended_from",
+   "fieldtype": "Link",
+   "label": "Amended From",
+   "no_copy": 1,
+   "options": "Batch Production",
+   "print_hide": 1,
+   "read_only": 1
+  }
+ ],
+ "grid_page_length": 50,
+ "index_web_pages_for_search": 1,
+ "is_submittable": 1,
+ "links": [],
+ "modified": "2026-08-05 20:53:26.094322",
+ "modified_by": "Administrator",
+ "module": "RMC Production",
+ "name": "Batch Production",
+ "naming_rule": "Expression (old style)",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "amend": 1,
+   "cancel": 1,
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "submit": 1,
+   "write": 1
+  },
+  {
+   "amend": 1,
+   "cancel": 1,
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "RMC Manager",
+   "share": 1,
+   "submit": 1,
+   "write": 1
+  },
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "Plant Operator",
+   "share": 1,
+   "submit": 1,
+   "write": 1
+  }
+ ],
+ "row_format": "Dynamic",
+ "rows_threshold_for_grid_search": 20,
+ "sort_field": "creation",
+ "sort_order": "DESC",
+ "states": [],
+ "track_changes": 1
+}

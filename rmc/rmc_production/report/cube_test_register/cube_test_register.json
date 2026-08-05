@@ -1,0 +1,44 @@
+{
+ "add_total_row": 0,
+ "add_translate_data": 0,
+ "columns": [],
+ "creation": "2026-08-05 21:01:30.352951",
+ "disabled": 0,
+ "docstatus": 0,
+ "doctype": "Report",
+ "filters": [],
+ "idx": 0,
+ "is_standard": "Yes",
+ "letter_head": null,
+ "modified": "2026-08-05 21:01:30.352951",
+ "modified_by": "Administrator",
+ "module": "RMC Production",
+ "name": "Cube Test Register",
+ "owner": "Administrator",
+ "prepared_report": 0,
+ "query": "\nSELECT\n  ct.name                 AS \"Test:Link/Cube Test:110\",\n  ct.casting_date         AS \"Cast On:Date:95\",\n  ct.testing_date         AS \"Tested On:Date:100\",\n  ct.age_days             AS \"Age (d):Data:70\",\n  ct.grade                AS \"Grade:Link/Concrete Grade:75\",\n  ct.batch_production     AS \"Batch:Link/Batch Production:130\",\n  ct.no_of_cubes          AS \"Cubes:Int:70\",\n  ct.required_strength_mpa AS \"Required MPa:Float:120\",\n  ct.avg_strength_mpa     AS \"Achieved MPa:Float:120\",\n  ct.strength_pct         AS \"Achieved %:Float:100\",\n  ct.result               AS \"Result:Data:80\",\n  ct.tested_by            AS \"Tested By:Data:120\"\nFROM `tabCube Test` ct\nWHERE ct.docstatus = 1\nORDER BY ct.casting_date DESC, ct.name DESC\n",
+ "ref_doctype": "Cube Test",
+ "report_name": "Cube Test Register",
+ "report_type": "Query Report",
+ "roles": [
+  {
+   "role": "System Manager"
+  },
+  {
+   "role": "RMC Manager"
+  },
+  {
+   "role": "Plant Operator"
+  },
+  {
+   "role": "Dispatch Incharge"
+  },
+  {
+   "role": "Quality Engineer"
+  },
+  {
+   "role": "RMC Accounts"
+  }
+ ],
+ "timeout": 0
+}

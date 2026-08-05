@@ -1,0 +1,44 @@
+{
+ "add_total_row": 0,
+ "add_translate_data": 0,
+ "columns": [],
+ "creation": "2026-08-05 21:01:30.341120",
+ "disabled": 0,
+ "docstatus": 0,
+ "doctype": "Report",
+ "filters": [],
+ "idx": 0,
+ "is_standard": "Yes",
+ "letter_head": null,
+ "modified": "2026-08-05 21:01:30.341120",
+ "modified_by": "Administrator",
+ "module": "RMC Dispatch",
+ "name": "Customer Wise Sales",
+ "owner": "Administrator",
+ "prepared_report": 0,
+ "query": "\nSELECT\n  dc.customer      AS \"Customer:Link/Customer:180\",\n  dc.grade         AS \"Grade:Link/Concrete Grade:80\",\n  COUNT(dc.name)   AS \"Loads:Int:80\",\n  SUM(dc.qty_m3)   AS \"Qty m3:Float:110\",\n  AVG(dc.rate)     AS \"Avg Rate:Currency:120\",\n  SUM(dc.amount)   AS \"Value:Currency:140\"\nFROM `tabDelivery Challan` dc\nWHERE dc.docstatus = 1\nGROUP BY dc.customer, dc.grade\nORDER BY SUM(dc.amount) DESC\n",
+ "ref_doctype": "Delivery Challan",
+ "report_name": "Customer Wise Sales",
+ "report_type": "Query Report",
+ "roles": [
+  {
+   "role": "System Manager"
+  },
+  {
+   "role": "RMC Manager"
+  },
+  {
+   "role": "Plant Operator"
+  },
+  {
+   "role": "Dispatch Incharge"
+  },
+  {
+   "role": "Quality Engineer"
+  },
+  {
+   "role": "RMC Accounts"
+  }
+ ],
+ "timeout": 0
+}

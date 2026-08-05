@@ -1,0 +1,44 @@
+{
+ "add_total_row": 0,
+ "add_translate_data": 0,
+ "columns": [],
+ "creation": "2026-08-05 21:01:30.181213",
+ "disabled": 0,
+ "docstatus": 0,
+ "doctype": "Report",
+ "filters": [],
+ "idx": 0,
+ "is_standard": "Yes",
+ "letter_head": null,
+ "modified": "2026-08-05 21:01:30.181213",
+ "modified_by": "Administrator",
+ "module": "RMC Production",
+ "name": "Batch Register",
+ "owner": "Administrator",
+ "prepared_report": 0,
+ "query": "\nSELECT\n  bp.name                AS \"Batch:Link/Batch Production:130\",\n  bp.production_date     AS \"Date:Date:95\",\n  bp.shift               AS \"Shift:Data:80\",\n  bp.grade               AS \"Grade:Link/Concrete Grade:70\",\n  bp.mix_design          AS \"Mix Design:Link/Mix Design:130\",\n  bp.qty_m3              AS \"Qty m3:Float:80\",\n  bp.no_of_batches       AS \"Batches:Int:75\",\n  bp.concrete_order      AS \"Order:Link/Concrete Order:120\",\n  co.customer            AS \"Customer:Link/Customer:150\",\n  bp.operator            AS \"Operator:Data:110\",\n  bp.cost_per_m3         AS \"Cost/m3:Currency:100\",\n  bp.stock_entry         AS \"Stock Entry:Link/Stock Entry:140\",\n  bp.status              AS \"Status:Data:90\"\nFROM `tabBatch Production` bp\nLEFT JOIN `tabConcrete Order` co ON co.name = bp.concrete_order\nWHERE bp.docstatus = 1\nORDER BY bp.production_date DESC, bp.name DESC\n",
+ "ref_doctype": "Batch Production",
+ "report_name": "Batch Register",
+ "report_type": "Query Report",
+ "roles": [
+  {
+   "role": "System Manager"
+  },
+  {
+   "role": "RMC Manager"
+  },
+  {
+   "role": "Plant Operator"
+  },
+  {
+   "role": "Dispatch Incharge"
+  },
+  {
+   "role": "Quality Engineer"
+  },
+  {
+   "role": "RMC Accounts"
+  }
+ ],
+ "timeout": 0
+}

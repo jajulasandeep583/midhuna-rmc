@@ -1,0 +1,234 @@
+{
+ "actions": [],
+ "allow_bulk_edit": 1,
+ "allow_rename": 1,
+ "autoname": "format:CO-{YY}{MM}-{####}",
+ "creation": "2026-08-05 20:53:25.253805",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "customer",
+  "construction_site",
+  "order_date",
+  "grade",
+  "cb1",
+  "order_qty_m3",
+  "rate",
+  "required_from",
+  "required_to",
+  "pump_required",
+  "sb_sch",
+  "schedule",
+  "sb_prog",
+  "delivered_qty_m3",
+  "pending_qty_m3",
+  "cb2",
+  "order_value",
+  "status",
+  "site_engineer",
+  "contact_no",
+  "remarks",
+  "amended_from"
+ ],
+ "fields": [
+  {
+   "fieldname": "customer",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Customer",
+   "options": "Customer",
+   "reqd": 1
+  },
+  {
+   "fieldname": "construction_site",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Construction Site",
+   "options": "Construction Site",
+   "reqd": 1
+  },
+  {
+   "default": "Today",
+   "fieldname": "order_date",
+   "fieldtype": "Date",
+   "label": "Order Date",
+   "reqd": 1
+  },
+  {
+   "fieldname": "grade",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Concrete Grade",
+   "options": "Concrete Grade",
+   "reqd": 1
+  },
+  {
+   "fieldname": "cb1",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "order_qty_m3",
+   "fieldtype": "Float",
+   "in_list_view": 1,
+   "label": "Ordered Qty (m\u00b3)",
+   "reqd": 1
+  },
+  {
+   "fieldname": "rate",
+   "fieldtype": "Currency",
+   "label": "Rate (\u20b9/m\u00b3)",
+   "reqd": 1
+  },
+  {
+   "fieldname": "required_from",
+   "fieldtype": "Date",
+   "label": "Required From",
+   "reqd": 1
+  },
+  {
+   "fieldname": "required_to",
+   "fieldtype": "Date",
+   "label": "Required To"
+  },
+  {
+   "default": "0",
+   "fieldname": "pump_required",
+   "fieldtype": "Check",
+   "label": "Concrete Pump Required"
+  },
+  {
+   "fieldname": "sb_sch",
+   "fieldtype": "Section Break",
+   "label": "Pour Schedule"
+  },
+  {
+   "fieldname": "schedule",
+   "fieldtype": "Table",
+   "label": "Schedule",
+   "options": "Order Schedule"
+  },
+  {
+   "fieldname": "sb_prog",
+   "fieldtype": "Section Break",
+   "label": "Progress"
+  },
+  {
+   "fieldname": "delivered_qty_m3",
+   "fieldtype": "Float",
+   "in_list_view": 1,
+   "label": "Delivered Qty (m\u00b3)",
+   "read_only": 1
+  },
+  {
+   "fieldname": "pending_qty_m3",
+   "fieldtype": "Float",
+   "label": "Pending Qty (m\u00b3)",
+   "read_only": 1
+  },
+  {
+   "fieldname": "cb2",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "order_value",
+   "fieldtype": "Currency",
+   "label": "Order Value",
+   "read_only": 1
+  },
+  {
+   "default": "Open",
+   "fieldname": "status",
+   "fieldtype": "Select",
+   "in_list_view": 1,
+   "label": "Status",
+   "options": "Open\nIn Progress\nCompleted\nClosed\nCancelled",
+   "read_only": 1
+  },
+  {
+   "fieldname": "site_engineer",
+   "fieldtype": "Data",
+   "label": "Site Engineer"
+  },
+  {
+   "fieldname": "contact_no",
+   "fieldtype": "Data",
+   "label": "Contact No"
+  },
+  {
+   "fieldname": "remarks",
+   "fieldtype": "Small Text",
+   "label": "Remarks"
+  },
+  {
+   "fieldname": "amended_from",
+   "fieldtype": "Link",
+   "label": "Amended From",
+   "no_copy": 1,
+   "options": "Concrete Order",
+   "print_hide": 1,
+   "read_only": 1
+  }
+ ],
+ "grid_page_length": 50,
+ "index_web_pages_for_search": 1,
+ "is_submittable": 1,
+ "links": [],
+ "modified": "2026-08-05 20:53:25.253805",
+ "modified_by": "Administrator",
+ "module": "RMC Dispatch",
+ "name": "Concrete Order",
+ "naming_rule": "Expression (old style)",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "amend": 1,
+   "cancel": 1,
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "submit": 1,
+   "write": 1
+  },
+  {
+   "amend": 1,
+   "cancel": 1,
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "RMC Manager",
+   "share": 1,
+   "submit": 1,
+   "write": 1
+  },
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "Plant Operator",
+   "share": 1,
+   "submit": 1,
+   "write": 1
+  }
+ ],
+ "row_format": "Dynamic",
+ "rows_threshold_for_grid_search": 20,
+ "sort_field": "creation",
+ "sort_order": "DESC",
+ "states": [],
+ "track_changes": 1
+}

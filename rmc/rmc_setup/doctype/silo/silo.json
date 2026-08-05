@@ -1,0 +1,139 @@
+{
+ "actions": [],
+ "allow_bulk_edit": 1,
+ "allow_rename": 1,
+ "autoname": "field:silo_name",
+ "creation": "2026-08-05 20:52:26.428155",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "silo_name",
+  "plant",
+  "material_type",
+  "item_code",
+  "cb1",
+  "warehouse",
+  "capacity_mt",
+  "min_level_mt",
+  "is_active"
+ ],
+ "fields": [
+  {
+   "fieldname": "silo_name",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Silo / Yard Name",
+   "reqd": 1,
+   "unique": 1
+  },
+  {
+   "fieldname": "plant",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Plant",
+   "options": "RMC Plant",
+   "reqd": 1
+  },
+  {
+   "fieldname": "material_type",
+   "fieldtype": "Select",
+   "in_list_view": 1,
+   "label": "Material Type",
+   "options": "Cement\nSand\nAggregate\nFly Ash\nGGBS\nAdmixture\nWater\nOther",
+   "reqd": 1
+  },
+  {
+   "fieldname": "item_code",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Item",
+   "options": "Item",
+   "reqd": 1
+  },
+  {
+   "fieldname": "cb1",
+   "fieldtype": "Column Break"
+  },
+  {
+   "description": "Stock in this warehouse IS the silo level.",
+   "fieldname": "warehouse",
+   "fieldtype": "Link",
+   "label": "Warehouse",
+   "options": "Warehouse",
+   "reqd": 1
+  },
+  {
+   "fieldname": "capacity_mt",
+   "fieldtype": "Float",
+   "in_list_view": 1,
+   "label": "Capacity (MT / m\u00b3)"
+  },
+  {
+   "description": "Below this the Low Stock alert fires on the dashboard.",
+   "fieldname": "min_level_mt",
+   "fieldtype": "Float",
+   "label": "Low Level Alert At"
+  },
+  {
+   "default": "1",
+   "fieldname": "is_active",
+   "fieldtype": "Check",
+   "label": "Is Active"
+  }
+ ],
+ "grid_page_length": 50,
+ "index_web_pages_for_search": 1,
+ "links": [],
+ "modified": "2026-08-05 20:52:26.428155",
+ "modified_by": "Administrator",
+ "module": "RMC Setup",
+ "name": "Silo",
+ "naming_rule": "By fieldname",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  },
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "RMC Manager",
+   "share": 1,
+   "write": 1
+  },
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "Plant Operator",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "row_format": "Dynamic",
+ "rows_threshold_for_grid_search": 20,
+ "sort_field": "creation",
+ "sort_order": "DESC",
+ "states": [],
+ "title_field": "silo_name",
+ "track_changes": 1
+}

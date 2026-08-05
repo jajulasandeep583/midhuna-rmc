@@ -1,0 +1,207 @@
+{
+ "app": "rmc",
+ "charts": [
+  {
+   "chart_name": "Production by Grade (m\u00b3)",
+   "label": "Production by Grade (m\u00b3)"
+  },
+  {
+   "chart_name": "Production by Shift (m\u00b3)",
+   "label": "Production by Shift (m\u00b3)"
+  }
+ ],
+ "content": "[{\"id\": \"hdr\", \"type\": \"header\", \"data\": {\"text\": \"<span class=\\\"h4\\\"><b>RMC Production</b></span>\", \"col\": 12}}, {\"id\": \"intro\", \"type\": \"paragraph\", \"data\": {\"text\": \"<p>Batch the concrete: pick the mix design for the grade, record what was actually consumed against the recipe, and the stock entry writes itself. Used all shift by the batching operator.</p>\", \"col\": 12}}, {\"id\": \"nc_today_production\", \"type\": \"number_card\", \"data\": {\"number_card_name\": \"Today's Production (m\\u00b3)\", \"col\": 3}}, {\"id\": \"nc_pending_qty\", \"type\": \"number_card\", \"data\": {\"number_card_name\": \"Pending Order Qty (m\\u00b3)\", \"col\": 3}}, {\"id\": \"ch_prod_by_grade\", \"type\": \"chart\", \"data\": {\"chart_name\": \"Production by Grade (m\\u00b3)\", \"col\": 6}}, {\"id\": \"ch_prod_by_shift\", \"type\": \"chart\", \"data\": {\"chart_name\": \"Production by Shift (m\\u00b3)\", \"col\": 6}}, {\"id\": \"sc_BatchProduc\", \"type\": \"shortcut\", \"data\": {\"shortcut_name\": \"Batch Production\", \"col\": 3}}, {\"id\": \"sc_MixDesign\", \"type\": \"shortcut\", \"data\": {\"shortcut_name\": \"Mix Design\", \"col\": 3}}, {\"id\": \"sc_ConcreteGra\", \"type\": \"shortcut\", \"data\": {\"shortcut_name\": \"Concrete Grade\", \"col\": 3}}, {\"id\": \"sc_BatchRegist\", \"type\": \"shortcut\", \"data\": {\"shortcut_name\": \"Batch Register\", \"col\": 3}}, {\"id\": \"sc_MaterialCon\", \"type\": \"shortcut\", \"data\": {\"shortcut_name\": \"Material Consumption vs Recipe\", \"col\": 3}}, {\"id\": \"cd_RMCProducti\", \"type\": \"card\", \"data\": {\"card_name\": \"RMC Production\", \"col\": 4}}, {\"id\": \"cd_Recipes\", \"type\": \"card\", \"data\": {\"card_name\": \"Recipes\", \"col\": 4}}, {\"id\": \"cd_Reports\", \"type\": \"card\", \"data\": {\"card_name\": \"Reports\", \"col\": 4}}]",
+ "creation": "2026-08-05 21:03:38.713647",
+ "custom_blocks": [],
+ "docstatus": 0,
+ "doctype": "Workspace",
+ "hide_custom": 0,
+ "icon": "milestone",
+ "idx": 0,
+ "indicator_color": "green",
+ "is_hidden": 0,
+ "label": "RMC Production",
+ "link_type": "DocType",
+ "links": [
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "RMC Production",
+   "link_count": 0,
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Card Break"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Batch Production",
+   "link_count": 0,
+   "link_to": "Batch Production",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Cube Test",
+   "link_count": 0,
+   "link_to": "Cube Test",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Recipes",
+   "link_count": 0,
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Card Break"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Mix Design",
+   "link_count": 0,
+   "link_to": "Mix Design",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Concrete Grade",
+   "link_count": 0,
+   "link_to": "Concrete Grade",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Reports",
+   "link_count": 0,
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Card Break"
+  },
+  {
+   "dependencies": "Batch Production",
+   "hidden": 0,
+   "is_query_report": 1,
+   "label": "Daily Production Summary",
+   "link_count": 0,
+   "link_to": "Daily Production Summary",
+   "link_type": "Report",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "dependencies": "Batch Production",
+   "hidden": 0,
+   "is_query_report": 1,
+   "label": "Batch Register",
+   "link_count": 0,
+   "link_to": "Batch Register",
+   "link_type": "Report",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "dependencies": "Batch Production",
+   "hidden": 0,
+   "is_query_report": 1,
+   "label": "Material Consumption vs Recipe",
+   "link_count": 0,
+   "link_to": "Material Consumption vs Recipe",
+   "link_type": "Report",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "dependencies": "Concrete Order",
+   "hidden": 0,
+   "is_query_report": 1,
+   "label": "Production Target vs Actual",
+   "link_count": 0,
+   "link_to": "Production Target vs Actual",
+   "link_type": "Report",
+   "onboard": 0,
+   "type": "Link"
+  }
+ ],
+ "modified": "2026-08-05 21:06:23.152177",
+ "modified_by": "Administrator",
+ "module": "RMC Setup",
+ "name": "RMC Production",
+ "number_cards": [
+  {
+   "number_card_name": "Today's Production (m\u00b3)"
+  },
+  {
+   "number_card_name": "Pending Order Qty (m\u00b3)"
+  }
+ ],
+ "owner": "Administrator",
+ "parent_page": "",
+ "public": 1,
+ "quick_lists": [],
+ "roles": [
+  {
+   "role": "Plant Operator"
+  },
+  {
+   "role": "RMC Manager"
+  },
+  {
+   "role": "System Manager"
+  }
+ ],
+ "sequence_id": 0.2,
+ "shortcuts": [
+  {
+   "color": "Blue",
+   "doc_view": "",
+   "label": "Batch Production",
+   "link_to": "Batch Production",
+   "type": "DocType"
+  },
+  {
+   "color": "Blue",
+   "doc_view": "",
+   "label": "Mix Design",
+   "link_to": "Mix Design",
+   "type": "DocType"
+  },
+  {
+   "color": "Blue",
+   "doc_view": "",
+   "label": "Concrete Grade",
+   "link_to": "Concrete Grade",
+   "type": "DocType"
+  },
+  {
+   "color": "Grey",
+   "doc_view": "",
+   "label": "Batch Register",
+   "link_to": "Batch Register",
+   "report_ref_doctype": "Batch Production",
+   "type": "Report"
+  },
+  {
+   "color": "Grey",
+   "doc_view": "",
+   "label": "Material Consumption vs Recipe",
+   "link_to": "Material Consumption vs Recipe",
+   "report_ref_doctype": "Batch Production",
+   "type": "Report"
+  }
+ ],
+ "title": "RMC Production",
+ "type": "Workspace"
+}

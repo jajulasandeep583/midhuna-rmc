@@ -1,0 +1,151 @@
+{
+ "actions": [],
+ "allow_bulk_edit": 1,
+ "allow_rename": 1,
+ "autoname": "field:vehicle_no",
+ "creation": "2026-08-05 20:52:25.414585",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "vehicle_no",
+  "vehicle_type",
+  "capacity_m3",
+  "make",
+  "cb1",
+  "plant",
+  "ownership",
+  "default_driver",
+  "status",
+  "fitness_valid_upto",
+  "insurance_valid_upto"
+ ],
+ "fields": [
+  {
+   "fieldname": "vehicle_no",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Vehicle No",
+   "reqd": 1,
+   "unique": 1
+  },
+  {
+   "default": "Transit Mixer",
+   "fieldname": "vehicle_type",
+   "fieldtype": "Select",
+   "in_list_view": 1,
+   "label": "Vehicle Type",
+   "options": "Transit Mixer\nConcrete Pump\nLoader\nTipper",
+   "reqd": 1
+  },
+  {
+   "default": "6",
+   "fieldname": "capacity_m3",
+   "fieldtype": "Float",
+   "in_list_view": 1,
+   "label": "Capacity (m\u00b3)"
+  },
+  {
+   "fieldname": "make",
+   "fieldtype": "Data",
+   "label": "Make / Model"
+  },
+  {
+   "fieldname": "cb1",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "plant",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Plant",
+   "options": "RMC Plant"
+  },
+  {
+   "default": "Own",
+   "fieldname": "ownership",
+   "fieldtype": "Select",
+   "in_list_view": 1,
+   "label": "Ownership",
+   "options": "Own\nHired"
+  },
+  {
+   "fieldname": "default_driver",
+   "fieldtype": "Link",
+   "label": "Default Driver",
+   "options": "Driver"
+  },
+  {
+   "default": "Available",
+   "fieldname": "status",
+   "fieldtype": "Select",
+   "in_list_view": 1,
+   "label": "Status",
+   "options": "Available\nOn Trip\nUnder Maintenance\nInactive"
+  },
+  {
+   "fieldname": "fitness_valid_upto",
+   "fieldtype": "Date",
+   "label": "Fitness Valid Upto"
+  },
+  {
+   "fieldname": "insurance_valid_upto",
+   "fieldtype": "Date",
+   "label": "Insurance Valid Upto"
+  }
+ ],
+ "grid_page_length": 50,
+ "index_web_pages_for_search": 1,
+ "links": [],
+ "modified": "2026-08-05 20:52:25.414585",
+ "modified_by": "Administrator",
+ "module": "RMC Setup",
+ "name": "Transit Mixer",
+ "naming_rule": "By fieldname",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  },
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "RMC Manager",
+   "share": 1,
+   "write": 1
+  },
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "Plant Operator",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "row_format": "Dynamic",
+ "rows_threshold_for_grid_search": 20,
+ "sort_field": "creation",
+ "sort_order": "DESC",
+ "states": [],
+ "title_field": "vehicle_no",
+ "track_changes": 1
+}

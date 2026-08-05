@@ -1,0 +1,44 @@
+{
+ "add_total_row": 0,
+ "add_translate_data": 0,
+ "columns": [],
+ "creation": "2026-08-05 21:01:30.271553",
+ "disabled": 0,
+ "docstatus": 0,
+ "doctype": "Report",
+ "filters": [],
+ "idx": 0,
+ "is_standard": "Yes",
+ "letter_head": null,
+ "modified": "2026-08-05 21:01:30.271553",
+ "modified_by": "Administrator",
+ "module": "RMC Materials",
+ "name": "Silo and Stock Status",
+ "owner": "Administrator",
+ "prepared_report": 0,
+ "query": "\nSELECT\n  s.silo_name        AS \"Silo / Yard:Link/Silo:170\",\n  s.material_type    AS \"Material:Data:110\",\n  s.item_code        AS \"Item:Link/Item:180\",\n  s.capacity_mt      AS \"Capacity:Float:100\",\n  IFNULL(b.actual_qty,0)/1000 AS \"Stock (MT/kL):Float:130\",\n  100 * IFNULL(b.actual_qty,0)/1000 / NULLIF(s.capacity_mt,0) AS \"Filled %:Float:95\",\n  s.min_level_mt     AS \"Low Level:Float:100\",\n  CASE WHEN IFNULL(b.actual_qty,0)/1000 <= s.min_level_mt THEN 'LOW - REORDER'\n       ELSE 'OK' END AS \"Alert:Data:130\",\n  IFNULL(b.stock_value,0) AS \"Stock Value:Currency:130\",\n  s.warehouse        AS \"Warehouse:Link/Warehouse:180\"\nFROM `tabSilo` s\nLEFT JOIN `tabBin` b ON b.warehouse = s.warehouse AND b.item_code = s.item_code\nWHERE s.is_active = 1\nORDER BY s.material_type, s.silo_name\n",
+ "ref_doctype": "Silo",
+ "report_name": "Silo and Stock Status",
+ "report_type": "Query Report",
+ "roles": [
+  {
+   "role": "System Manager"
+  },
+  {
+   "role": "RMC Manager"
+  },
+  {
+   "role": "Plant Operator"
+  },
+  {
+   "role": "Dispatch Incharge"
+  },
+  {
+   "role": "Quality Engineer"
+  },
+  {
+   "role": "RMC Accounts"
+  }
+ ],
+ "timeout": 0
+}

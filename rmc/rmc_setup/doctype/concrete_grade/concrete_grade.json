@@ -1,0 +1,121 @@
+{
+ "actions": [],
+ "allow_bulk_edit": 1,
+ "allow_rename": 1,
+ "autoname": "field:grade",
+ "creation": "2026-08-05 20:52:24.315071",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "grade",
+  "strength_mpa",
+  "application",
+  "cb1",
+  "item_code",
+  "default_rate",
+  "is_active"
+ ],
+ "fields": [
+  {
+   "description": "Standard IS grade designation, e.g. M25.",
+   "fieldname": "grade",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Grade",
+   "reqd": 1,
+   "unique": 1
+  },
+  {
+   "fieldname": "strength_mpa",
+   "fieldtype": "Float",
+   "in_list_view": 1,
+   "label": "Characteristic Strength (MPa)",
+   "reqd": 1
+  },
+  {
+   "fieldname": "application",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Typical Application"
+  },
+  {
+   "fieldname": "cb1",
+   "fieldtype": "Column Break"
+  },
+  {
+   "description": "Auto-created stock item this grade is produced and sold as.",
+   "fieldname": "item_code",
+   "fieldtype": "Link",
+   "label": "Concrete Item",
+   "options": "Item",
+   "read_only": 1
+  },
+  {
+   "fieldname": "default_rate",
+   "fieldtype": "Currency",
+   "in_list_view": 1,
+   "label": "Default Rate (\u20b9/m\u00b3)"
+  },
+  {
+   "default": "1",
+   "fieldname": "is_active",
+   "fieldtype": "Check",
+   "label": "Is Active"
+  }
+ ],
+ "grid_page_length": 50,
+ "index_web_pages_for_search": 1,
+ "links": [],
+ "modified": "2026-08-05 20:52:24.315071",
+ "modified_by": "Administrator",
+ "module": "RMC Setup",
+ "name": "Concrete Grade",
+ "naming_rule": "By fieldname",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  },
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "RMC Manager",
+   "share": 1,
+   "write": 1
+  },
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "Plant Operator",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "row_format": "Dynamic",
+ "rows_threshold_for_grid_search": 20,
+ "sort_field": "creation",
+ "sort_order": "DESC",
+ "states": [],
+ "title_field": "grade",
+ "track_changes": 1
+}

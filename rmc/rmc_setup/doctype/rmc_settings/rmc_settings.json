@@ -1,0 +1,121 @@
+{
+ "actions": [],
+ "allow_bulk_edit": 1,
+ "allow_rename": 1,
+ "creation": "2026-08-05 20:52:26.659588",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "default_plant",
+  "company",
+  "cb1",
+  "auto_create_sales_invoice",
+  "auto_stock_entry",
+  "sb_alerts",
+  "low_stock_alert",
+  "breakdown_alert",
+  "target_availability_pct"
+ ],
+ "fields": [
+  {
+   "fieldname": "default_plant",
+   "fieldtype": "Link",
+   "label": "Default Plant",
+   "options": "RMC Plant"
+  },
+  {
+   "fieldname": "company",
+   "fieldtype": "Link",
+   "label": "Company",
+   "options": "Company"
+  },
+  {
+   "fieldname": "cb1",
+   "fieldtype": "Column Break"
+  },
+  {
+   "default": "1",
+   "description": "Submitting a Delivery Challan raises the sales invoice (with stock update) so revenue and stock stay in step.",
+   "fieldname": "auto_create_sales_invoice",
+   "fieldtype": "Check",
+   "label": "Auto-create Sales Invoice on Challan"
+  },
+  {
+   "default": "1",
+   "fieldname": "auto_stock_entry",
+   "fieldtype": "Check",
+   "label": "Auto Stock Entry on Batch Production"
+  },
+  {
+   "fieldname": "sb_alerts",
+   "fieldtype": "Section Break",
+   "label": "Alerts"
+  },
+  {
+   "default": "1",
+   "fieldname": "low_stock_alert",
+   "fieldtype": "Check",
+   "label": "Low Stock Alerts"
+  },
+  {
+   "default": "1",
+   "fieldname": "breakdown_alert",
+   "fieldtype": "Check",
+   "label": "Breakdown Alerts"
+  },
+  {
+   "default": "90",
+   "fieldname": "target_availability_pct",
+   "fieldtype": "Percent",
+   "label": "Target Plant Availability %"
+  }
+ ],
+ "grid_page_length": 50,
+ "index_web_pages_for_search": 1,
+ "issingle": 1,
+ "links": [],
+ "modified": "2026-08-05 20:52:26.659588",
+ "modified_by": "Administrator",
+ "module": "RMC Setup",
+ "name": "RMC Settings",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "print": 1,
+   "read": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  },
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "print": 1,
+   "read": 1,
+   "role": "RMC Manager",
+   "share": 1,
+   "write": 1
+  },
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "print": 1,
+   "read": 1,
+   "role": "Plant Operator",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "row_format": "Dynamic",
+ "rows_threshold_for_grid_search": 20,
+ "sort_field": "creation",
+ "sort_order": "DESC",
+ "states": [],
+ "track_changes": 1
+}
