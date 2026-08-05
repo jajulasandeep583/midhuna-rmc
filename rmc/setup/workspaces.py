@@ -158,7 +158,12 @@ def _workspaces():
 			"name": "RMC Dashboard", "icon": "getting-started",
 			"roles": ["RMC Manager", "Plant Operator", "Dispatch Incharge"],
 			"shortcuts": [
+				("Page", "RMC Control Tower", "rmc-control-tower"),
 				("Page", "Live Plant Dashboard", "rmc-live-dashboard"),
+				("Page", "Batching Board", "rmc-batch-board"),
+				("Page", "Dispatch Board", "rmc-dispatch-board"),
+				("Page", "Silo & Stock Board", "rmc-silo-board"),
+				("Page", "Quality Board", "rmc-quality-board"),
 				("DocType", "Batch Production", "Batch Production"),
 				("DocType", "Delivery Challan", "Delivery Challan"),
 				("DocType", "Concrete Order", "Concrete Order"),
@@ -170,6 +175,14 @@ def _workspaces():
 			          "pending_qty", "month_revenue", "open_breakdowns", "mixers_available"],
 			"charts": ["prod_by_grade", "dispatch_customer", "order_status", "plant_status"],
 			"links": [
+				("Boards", [
+					("Page", "rmc-control-tower", "RMC Control Tower"),
+					("Page", "rmc-live-dashboard", "Live Plant Dashboard"),
+					("Page", "rmc-batch-board", "Batching Board"),
+					("Page", "rmc-dispatch-board", "Dispatch Board"),
+					("Page", "rmc-silo-board", "Silo & Stock Board"),
+					("Page", "rmc-quality-board", "Quality Board"),
+					("Page", "rmc-order-360", "Order 360")]),
 				("Daily Operations", [
 					("DocType", "Batch Production"), ("DocType", "Delivery Challan"),
 					("DocType", "Concrete Order"), ("DocType", "Material Inward")]),
@@ -187,6 +200,7 @@ def _workspaces():
 			"name": "RMC Production", "icon": "milestone",
 			"roles": ["Plant Operator", "RMC Manager"],
 			"shortcuts": [
+				("Page", "Batching Board", "rmc-batch-board"),
 				("DocType", "Batch Production", "Batch Production"),
 				("DocType", "Mix Design", "Mix Design"),
 				("DocType", "Concrete Grade", "Concrete Grade"),
@@ -211,6 +225,7 @@ def _workspaces():
 			"name": "RMC Materials", "icon": "stock",
 			"roles": ["Plant Operator", "RMC Manager", "RMC Accounts"],
 			"shortcuts": [
+				("Page", "Silo & Stock Board", "rmc-silo-board"),
 				("DocType", "Material Inward", "Material Inward"),
 				("DocType", "Silo", "Silo"),
 				("Report", "Material Inward Register", "Material Inward Register"),
@@ -234,6 +249,8 @@ def _workspaces():
 			"name": "RMC Dispatch", "icon": "delivery",
 			"roles": ["Dispatch Incharge", "RMC Manager"],
 			"shortcuts": [
+				("Page", "Dispatch Board", "rmc-dispatch-board"),
+				("Page", "Order 360", "rmc-order-360"),
 				("DocType", "Delivery Challan", "Delivery Challan"),
 				("DocType", "Concrete Order", "Concrete Order"),
 				("DocType", "Transit Mixer", "Transit Mixer"),
@@ -261,6 +278,7 @@ def _workspaces():
 			"name": "RMC Quality", "icon": "test",
 			"roles": ["Quality Engineer", "Plant Operator", "RMC Manager"],
 			"shortcuts": [
+				("Page", "Quality Board", "rmc-quality-board"),
 				("DocType", "Cube Test", "Cube Test"),
 				("DocType", "Plant Status Log", "Plant Status Log"),
 				("DocType", "Breakdown Log", "Breakdown Log"),
@@ -363,6 +381,9 @@ def _make_workspace(spec, card_ids, chart_ids, seq):
 			if ltype == "DocType" and frappe.db.exists("DocType", lname):
 				links.append({"type": "Link", "link_type": "DocType", "link_to": lname,
 				              "label": llabel, "onboard": 0, "is_query_report": 0})
+			elif ltype == "Page" and frappe.db.exists("Page", lname):
+				links.append({"type": "Link", "link_type": "Page", "link_to": lname,
+				              "label": llabel, "onboard": 0})
 			elif ltype == "Report" and frappe.db.exists("Report", lname):
 				links.append({"type": "Link", "link_type": "Report", "link_to": lname,
 				              "label": llabel, "is_query_report": 1, "onboard": 0,

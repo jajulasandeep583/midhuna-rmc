@@ -6,13 +6,13 @@
    "label": "Material Inward by Type (MT)"
   }
  ],
- "content": "[{\"id\": \"hdr\", \"type\": \"header\", \"data\": {\"text\": \"<span class=\\\"h4\\\"><b>RMC Materials</b></span>\", \"col\": 12}}, {\"id\": \"intro\", \"type\": \"paragraph\", \"data\": {\"text\": \"<p>Weighbridge inwards of cement, sand, aggregate, fly ash and admixture into their silos and yards, and the running stock level of every silo. Used by the stores and weighbridge desk.</p>\", \"col\": 12}}, {\"id\": \"nc_inward_month\", \"type\": \"number_card\", \"data\": {\"number_card_name\": \"Material Inward (MT) - Month\", \"col\": 3}}, {\"id\": \"ch_inward_material\", \"type\": \"chart\", \"data\": {\"chart_name\": \"Material Inward by Type (MT)\", \"col\": 6}}, {\"id\": \"sc_MaterialInw\", \"type\": \"shortcut\", \"data\": {\"shortcut_name\": \"Material Inward\", \"col\": 3}}, {\"id\": \"sc_Silo\", \"type\": \"shortcut\", \"data\": {\"shortcut_name\": \"Silo\", \"col\": 3}}, {\"id\": \"sc_MaterialInw\", \"type\": \"shortcut\", \"data\": {\"shortcut_name\": \"Material Inward Register\", \"col\": 3}}, {\"id\": \"sc_SiloandSto\", \"type\": \"shortcut\", \"data\": {\"shortcut_name\": \"Silo and Stock Status\", \"col\": 3}}, {\"id\": \"sc_StockEntry\", \"type\": \"shortcut\", \"data\": {\"shortcut_name\": \"Stock Entry\", \"col\": 3}}, {\"id\": \"cd_Inward&Sto\", \"type\": \"card\", \"data\": {\"card_name\": \"Inward & Stock\", \"col\": 4}}, {\"id\": \"cd_Reports\", \"type\": \"card\", \"data\": {\"card_name\": \"Reports\", \"col\": 4}}]",
+ "content": "[{\"id\": \"hdr\", \"type\": \"header\", \"data\": {\"text\": \"<span class=\\\"h4\\\"><b>RMC Materials</b></span>\", \"col\": 12}}, {\"id\": \"intro\", \"type\": \"paragraph\", \"data\": {\"text\": \"<p>Weighbridge inwards of cement, sand, aggregate, fly ash and admixture into their silos and yards, and the running stock level of every silo. Used by the stores and weighbridge desk.</p>\", \"col\": 12}}, {\"id\": \"nc_inward_month\", \"type\": \"number_card\", \"data\": {\"number_card_name\": \"Material Inward (MT) - Month\", \"col\": 3}}, {\"id\": \"ch_inward_material\", \"type\": \"chart\", \"data\": {\"chart_name\": \"Material Inward by Type (MT)\", \"col\": 6}}, {\"id\": \"sc_Silo&Stock\", \"type\": \"shortcut\", \"data\": {\"shortcut_name\": \"Silo & Stock Board\", \"col\": 3}}, {\"id\": \"sc_MaterialInw\", \"type\": \"shortcut\", \"data\": {\"shortcut_name\": \"Material Inward\", \"col\": 3}}, {\"id\": \"sc_Silo\", \"type\": \"shortcut\", \"data\": {\"shortcut_name\": \"Silo\", \"col\": 3}}, {\"id\": \"sc_MaterialInw\", \"type\": \"shortcut\", \"data\": {\"shortcut_name\": \"Material Inward Register\", \"col\": 3}}, {\"id\": \"sc_SiloandSto\", \"type\": \"shortcut\", \"data\": {\"shortcut_name\": \"Silo and Stock Status\", \"col\": 3}}, {\"id\": \"sc_StockEntry\", \"type\": \"shortcut\", \"data\": {\"shortcut_name\": \"Stock Entry\", \"col\": 3}}, {\"id\": \"cd_Inward&Sto\", \"type\": \"card\", \"data\": {\"card_name\": \"Inward & Stock\", \"col\": 4}}, {\"id\": \"cd_Reports\", \"type\": \"card\", \"data\": {\"card_name\": \"Reports\", \"col\": 4}}]",
  "creation": "2026-08-05 21:03:38.779935",
  "custom_blocks": [],
  "docstatus": 0,
  "doctype": "Workspace",
  "hide_custom": 0,
- "icon": "stock",
+ "icon": "rmc-silo",
  "idx": 0,
  "indicator_color": "orange",
  "is_hidden": 0,
@@ -21,6 +21,7 @@
  "links": [
   {
    "hidden": 0,
+   "icon": "rmc-inward",
    "is_query_report": 0,
    "label": "Inward & Stock",
    "link_count": 0,
@@ -30,6 +31,7 @@
   },
   {
    "hidden": 0,
+   "icon": "rmc-inward",
    "is_query_report": 0,
    "label": "Material Inward",
    "link_count": 0,
@@ -40,6 +42,7 @@
   },
   {
    "hidden": 0,
+   "icon": "rmc-silo",
    "is_query_report": 0,
    "label": "Silo",
    "link_count": 0,
@@ -50,6 +53,7 @@
   },
   {
    "hidden": 0,
+   "icon": "rmc-stock",
    "is_query_report": 0,
    "label": "Stock Entry",
    "link_count": 0,
@@ -60,6 +64,7 @@
   },
   {
    "hidden": 0,
+   "icon": "rmc-inward",
    "is_query_report": 0,
    "label": "Purchase Receipt",
    "link_count": 0,
@@ -70,6 +75,7 @@
   },
   {
    "hidden": 0,
+   "icon": "rmc-stock",
    "is_query_report": 0,
    "label": "Stock Reconciliation",
    "link_count": 0,
@@ -80,6 +86,7 @@
   },
   {
    "hidden": 0,
+   "icon": "rmc-report",
    "is_query_report": 0,
    "label": "Reports",
    "link_count": 0,
@@ -90,6 +97,7 @@
   {
    "dependencies": "Material Inward",
    "hidden": 0,
+   "icon": "rmc-inward",
    "is_query_report": 1,
    "label": "Material Inward Register",
    "link_count": 0,
@@ -101,6 +109,7 @@
   {
    "dependencies": "Silo",
    "hidden": 0,
+   "icon": "rmc-silo",
    "is_query_report": 1,
    "label": "Silo and Stock Status",
    "link_count": 0,
@@ -112,6 +121,7 @@
   {
    "dependencies": "Batch Production",
    "hidden": 0,
+   "icon": "rmc-mix",
    "is_query_report": 1,
    "label": "Material Consumption vs Recipe",
    "link_count": 0,
@@ -121,7 +131,7 @@
    "type": "Link"
   }
  ],
- "modified": "2026-08-05 21:28:17.148549",
+ "modified": "2026-08-05 23:15:32.906648",
  "modified_by": "Administrator",
  "module": "RMC Setup",
  "name": "RMC Materials",
@@ -151,8 +161,17 @@
  "sequence_id": 0.3,
  "shortcuts": [
   {
+   "color": "Green",
+   "doc_view": "",
+   "icon": "rmc-silo",
+   "label": "Silo & Stock Board",
+   "link_to": "rmc-silo-board",
+   "type": "Page"
+  },
+  {
    "color": "Blue",
    "doc_view": "",
+   "icon": "rmc-inward",
    "label": "Material Inward",
    "link_to": "Material Inward",
    "type": "DocType"
@@ -160,6 +179,7 @@
   {
    "color": "Blue",
    "doc_view": "",
+   "icon": "rmc-silo",
    "label": "Silo",
    "link_to": "Silo",
    "type": "DocType"
@@ -167,6 +187,7 @@
   {
    "color": "Grey",
    "doc_view": "",
+   "icon": "rmc-inward",
    "label": "Material Inward Register",
    "link_to": "Material Inward Register",
    "report_ref_doctype": "Material Inward",
@@ -175,6 +196,7 @@
   {
    "color": "Grey",
    "doc_view": "",
+   "icon": "rmc-silo",
    "label": "Silo and Stock Status",
    "link_to": "Silo and Stock Status",
    "report_ref_doctype": "Silo",
@@ -183,6 +205,7 @@
   {
    "color": "Blue",
    "doc_view": "",
+   "icon": "rmc-stock",
    "label": "Stock Entry",
    "link_to": "Stock Entry",
    "type": "DocType"

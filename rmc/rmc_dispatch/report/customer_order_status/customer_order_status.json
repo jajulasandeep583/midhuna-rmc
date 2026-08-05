@@ -10,16 +10,16 @@
  "idx": 0,
  "is_standard": "Yes",
  "letter_head": null,
- "modified": "2026-08-05 21:29:52.971564",
+ "modified": "2026-08-05 23:07:24.098904",
  "modified_by": "Administrator",
  "module": "RMC Dispatch",
  "name": "Customer Order Status",
  "owner": "Administrator",
  "prepared_report": 0,
- "query": "\nSELECT\n  co.customer          AS \"Customer:Link/Customer:180\",\n  COUNT(co.name)       AS \"Orders:Int:80\",\n  SUM(co.order_qty_m3) AS \"Ordered m3:Float:110\",\n  SUM(co.delivered_qty_m3) AS \"Delivered m3:Float:115\",\n  SUM(co.pending_qty_m3)   AS \"Pending m3:Float:110\",\n  SUM(co.order_value)      AS \"Order Value:Currency:140\",\n  SUM(CASE WHEN co.status IN ('Open','In Progress') THEN 1 ELSE 0 END) AS \"Open Orders:Int:110\"\nFROM `tabConcrete Order` co\nWHERE co.docstatus = 1\nGROUP BY co.customer\nORDER BY SUM(co.order_value) DESC\n",
+ "query": "",
  "ref_doctype": "Concrete Order",
  "report_name": "Customer Order Status",
- "report_type": "Query Report",
+ "report_type": "Script Report",
  "roles": [
   {
    "role": "System Manager"

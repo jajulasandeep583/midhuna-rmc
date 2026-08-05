@@ -10,16 +10,16 @@
  "idx": 0,
  "is_standard": "Yes",
  "letter_head": null,
- "modified": "2026-08-05 21:29:52.841017",
+ "modified": "2026-08-05 23:07:23.927276",
  "modified_by": "Administrator",
  "module": "RMC Materials",
  "name": "Material Inward Register",
  "owner": "Administrator",
  "prepared_report": 0,
- "query": "\nSELECT\n  mi.name             AS \"Inward:Link/Material Inward:130\",\n  mi.inward_date      AS \"Date:Date:95\",\n  mi.supplier         AS \"Supplier:Link/Supplier:170\",\n  mi.item_code        AS \"Item:Link/Item:180\",\n  mi.material_type    AS \"Type:Data:95\",\n  mi.vehicle_no       AS \"Vehicle:Data:110\",\n  mi.gross_weight     AS \"Gross MT:Float:95\",\n  mi.tare_weight      AS \"Tare MT:Float:95\",\n  mi.net_weight       AS \"Net MT:Float:95\",\n  mi.rate             AS \"Rate:Currency:90\",\n  mi.amount           AS \"Amount:Currency:120\",\n  mi.silo             AS \"Silo:Link/Silo:140\",\n  mi.purchase_receipt AS \"Purchase Receipt:Link/Purchase Receipt:150\"\nFROM `tabMaterial Inward` mi\nWHERE mi.docstatus = 1\nORDER BY mi.inward_date DESC, mi.name DESC\n",
+ "query": "",
  "ref_doctype": "Material Inward",
  "report_name": "Material Inward Register",
- "report_type": "Query Report",
+ "report_type": "Script Report",
  "roles": [
   {
    "role": "System Manager"

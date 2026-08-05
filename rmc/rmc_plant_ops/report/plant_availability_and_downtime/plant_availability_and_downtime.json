@@ -10,16 +10,16 @@
  "idx": 0,
  "is_standard": "Yes",
  "letter_head": null,
- "modified": "2026-08-05 21:29:53.167674",
+ "modified": "2026-08-05 23:07:24.162636",
  "modified_by": "Administrator",
  "module": "RMC Plant Ops",
  "name": "Plant Availability and Downtime",
  "owner": "Administrator",
  "prepared_report": 0,
- "query": "\nSELECT\n  psl.log_date  AS \"Date:Date:100\",\n  psl.plant     AS \"Plant:Link/RMC Plant:220\",\n  SUM(CASE WHEN psl.status='Running'   THEN psl.duration_hours ELSE 0 END) AS \"Running hrs:Float:110\",\n  SUM(CASE WHEN psl.status='Idle'      THEN psl.duration_hours ELSE 0 END) AS \"Idle hrs:Float:95\",\n  SUM(CASE WHEN psl.status='Breakdown' THEN psl.duration_hours ELSE 0 END) AS \"Breakdown hrs:Float:125\",\n  SUM(CASE WHEN psl.status='Stopped'   THEN psl.duration_hours ELSE 0 END) AS \"Stopped hrs:Float:110\",\n  SUM(psl.duration_hours) AS \"Logged hrs:Float:105\",\n  100 * SUM(CASE WHEN psl.status IN ('Running','Idle') THEN psl.duration_hours ELSE 0 END)\n      / NULLIF(SUM(psl.duration_hours),0) AS \"Availability %%:Float:120\"\nFROM `tabPlant Status Log` psl\nGROUP BY psl.log_date, psl.plant\nORDER BY psl.log_date DESC\n",
+ "query": "",
  "ref_doctype": "Plant Status Log",
  "report_name": "Plant Availability and Downtime",
- "report_type": "Query Report",
+ "report_type": "Script Report",
  "roles": [
   {
    "role": "System Manager"

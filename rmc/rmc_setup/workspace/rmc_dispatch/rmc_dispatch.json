@@ -14,13 +14,13 @@
    "label": "Orders by Status"
   }
  ],
- "content": "[{\"id\": \"hdr\", \"type\": \"header\", \"data\": {\"text\": \"<span class=\\\"h4\\\"><b>RMC Dispatch</b></span>\", \"col\": 12}}, {\"id\": \"intro\", \"type\": \"paragraph\", \"data\": {\"text\": \"<p>Customer orders, truck allocation and the delivery challan that travels with every load \\u2014 dispatch time, site arrival, slump and the signed return. Used by the dispatch incharge.</p>\", \"col\": 12}}, {\"id\": \"nc_today_dispatch\", \"type\": \"number_card\", \"data\": {\"number_card_name\": \"Today's Dispatch (m\\u00b3)\", \"col\": 3}}, {\"id\": \"nc_today_trips\", \"type\": \"number_card\", \"data\": {\"number_card_name\": \"Today's Trips\", \"col\": 3}}, {\"id\": \"nc_open_orders\", \"type\": \"number_card\", \"data\": {\"number_card_name\": \"Open Orders\", \"col\": 3}}, {\"id\": \"nc_mixers_available\", \"type\": \"number_card\", \"data\": {\"number_card_name\": \"Mixers Available\", \"col\": 3}}, {\"id\": \"ch_dispatch_customer\", \"type\": \"chart\", \"data\": {\"chart_name\": \"Dispatch by Customer (m\\u00b3)\", \"col\": 6}}, {\"id\": \"ch_mixer_trips\", \"type\": \"chart\", \"data\": {\"chart_name\": \"Trips by Transit Mixer\", \"col\": 6}}, {\"id\": \"ch_order_status\", \"type\": \"chart\", \"data\": {\"chart_name\": \"Orders by Status\", \"col\": 6}}, {\"id\": \"sc_DeliveryCha\", \"type\": \"shortcut\", \"data\": {\"shortcut_name\": \"Delivery Challan\", \"col\": 3}}, {\"id\": \"sc_ConcreteOrd\", \"type\": \"shortcut\", \"data\": {\"shortcut_name\": \"Concrete Order\", \"col\": 3}}, {\"id\": \"sc_TransitMixe\", \"type\": \"shortcut\", \"data\": {\"shortcut_name\": \"Transit Mixer\", \"col\": 3}}, {\"id\": \"sc_Construction\", \"type\": \"shortcut\", \"data\": {\"shortcut_name\": \"Construction Site\", \"col\": 3}}, {\"id\": \"sc_DispatchReg\", \"type\": \"shortcut\", \"data\": {\"shortcut_name\": \"Dispatch Register\", \"col\": 3}}, {\"id\": \"sc_VehicleUtil\", \"type\": \"shortcut\", \"data\": {\"shortcut_name\": \"Vehicle Utilisation and Trips\", \"col\": 3}}, {\"id\": \"cd_Dispatch\", \"type\": \"card\", \"data\": {\"card_name\": \"Dispatch\", \"col\": 4}}, {\"id\": \"cd_Customers\", \"type\": \"card\", \"data\": {\"card_name\": \"Customers\", \"col\": 4}}, {\"id\": \"cd_Reports\", \"type\": \"card\", \"data\": {\"card_name\": \"Reports\", \"col\": 4}}]",
+ "content": "[{\"id\": \"hdr\", \"type\": \"header\", \"data\": {\"text\": \"<span class=\\\"h4\\\"><b>RMC Dispatch</b></span>\", \"col\": 12}}, {\"id\": \"intro\", \"type\": \"paragraph\", \"data\": {\"text\": \"<p>Customer orders, truck allocation and the delivery challan that travels with every load \\u2014 dispatch time, site arrival, slump and the signed return. Used by the dispatch incharge.</p>\", \"col\": 12}}, {\"id\": \"nc_today_dispatch\", \"type\": \"number_card\", \"data\": {\"number_card_name\": \"Today's Dispatch (m\\u00b3)\", \"col\": 3}}, {\"id\": \"nc_today_trips\", \"type\": \"number_card\", \"data\": {\"number_card_name\": \"Today's Trips\", \"col\": 3}}, {\"id\": \"nc_open_orders\", \"type\": \"number_card\", \"data\": {\"number_card_name\": \"Open Orders\", \"col\": 3}}, {\"id\": \"nc_mixers_available\", \"type\": \"number_card\", \"data\": {\"number_card_name\": \"Mixers Available\", \"col\": 3}}, {\"id\": \"ch_dispatch_customer\", \"type\": \"chart\", \"data\": {\"chart_name\": \"Dispatch by Customer (m\\u00b3)\", \"col\": 6}}, {\"id\": \"ch_mixer_trips\", \"type\": \"chart\", \"data\": {\"chart_name\": \"Trips by Transit Mixer\", \"col\": 6}}, {\"id\": \"ch_order_status\", \"type\": \"chart\", \"data\": {\"chart_name\": \"Orders by Status\", \"col\": 6}}, {\"id\": \"sc_DispatchBoa\", \"type\": \"shortcut\", \"data\": {\"shortcut_name\": \"Dispatch Board\", \"col\": 3}}, {\"id\": \"sc_Order360\", \"type\": \"shortcut\", \"data\": {\"shortcut_name\": \"Order 360\", \"col\": 3}}, {\"id\": \"sc_DeliveryCha\", \"type\": \"shortcut\", \"data\": {\"shortcut_name\": \"Delivery Challan\", \"col\": 3}}, {\"id\": \"sc_ConcreteOrd\", \"type\": \"shortcut\", \"data\": {\"shortcut_name\": \"Concrete Order\", \"col\": 3}}, {\"id\": \"sc_TransitMixe\", \"type\": \"shortcut\", \"data\": {\"shortcut_name\": \"Transit Mixer\", \"col\": 3}}, {\"id\": \"sc_Construction\", \"type\": \"shortcut\", \"data\": {\"shortcut_name\": \"Construction Site\", \"col\": 3}}, {\"id\": \"sc_DispatchReg\", \"type\": \"shortcut\", \"data\": {\"shortcut_name\": \"Dispatch Register\", \"col\": 3}}, {\"id\": \"sc_VehicleUtil\", \"type\": \"shortcut\", \"data\": {\"shortcut_name\": \"Vehicle Utilisation and Trips\", \"col\": 3}}, {\"id\": \"cd_Dispatch\", \"type\": \"card\", \"data\": {\"card_name\": \"Dispatch\", \"col\": 4}}, {\"id\": \"cd_Customers\", \"type\": \"card\", \"data\": {\"card_name\": \"Customers\", \"col\": 4}}, {\"id\": \"cd_Reports\", \"type\": \"card\", \"data\": {\"card_name\": \"Reports\", \"col\": 4}}]",
  "creation": "2026-08-05 21:03:38.859442",
  "custom_blocks": [],
  "docstatus": 0,
  "doctype": "Workspace",
  "hide_custom": 0,
- "icon": "delivery",
+ "icon": "rmc-dispatch",
  "idx": 0,
  "indicator_color": "purple",
  "is_hidden": 0,
@@ -29,6 +29,7 @@
  "links": [
   {
    "hidden": 0,
+   "icon": "rmc-dispatch",
    "is_query_report": 0,
    "label": "Dispatch",
    "link_count": 0,
@@ -38,6 +39,7 @@
   },
   {
    "hidden": 0,
+   "icon": "rmc-challan",
    "is_query_report": 0,
    "label": "Delivery Challan",
    "link_count": 0,
@@ -48,6 +50,7 @@
   },
   {
    "hidden": 0,
+   "icon": "rmc-order",
    "is_query_report": 0,
    "label": "Concrete Order",
    "link_count": 0,
@@ -58,6 +61,7 @@
   },
   {
    "hidden": 0,
+   "icon": "rmc-mixer",
    "is_query_report": 0,
    "label": "Transit Mixer",
    "link_count": 0,
@@ -68,6 +72,7 @@
   },
   {
    "hidden": 0,
+   "icon": "rmc-driver",
    "is_query_report": 0,
    "label": "Driver",
    "link_count": 0,
@@ -78,6 +83,7 @@
   },
   {
    "hidden": 0,
+   "icon": "rmc-customer",
    "is_query_report": 0,
    "label": "Customers",
    "link_count": 0,
@@ -87,6 +93,7 @@
   },
   {
    "hidden": 0,
+   "icon": "rmc-customer",
    "is_query_report": 0,
    "label": "Customer",
    "link_count": 0,
@@ -97,6 +104,7 @@
   },
   {
    "hidden": 0,
+   "icon": "rmc-site",
    "is_query_report": 0,
    "label": "Construction Site",
    "link_count": 0,
@@ -107,6 +115,7 @@
   },
   {
    "hidden": 0,
+   "icon": "rmc-invoice",
    "is_query_report": 0,
    "label": "Sales Invoice",
    "link_count": 0,
@@ -117,6 +126,7 @@
   },
   {
    "hidden": 0,
+   "icon": "rmc-report",
    "is_query_report": 0,
    "label": "Reports",
    "link_count": 0,
@@ -127,6 +137,7 @@
   {
    "dependencies": "Delivery Challan",
    "hidden": 0,
+   "icon": "rmc-challan",
    "is_query_report": 1,
    "label": "Dispatch Register",
    "link_count": 0,
@@ -138,6 +149,7 @@
   {
    "dependencies": "Concrete Order",
    "hidden": 0,
+   "icon": "rmc-order",
    "is_query_report": 1,
    "label": "Customer Order Status",
    "link_count": 0,
@@ -149,6 +161,7 @@
   {
    "dependencies": "Delivery Challan",
    "hidden": 0,
+   "icon": "rmc-cycle",
    "is_query_report": 1,
    "label": "Vehicle Utilisation and Trips",
    "link_count": 0,
@@ -160,6 +173,7 @@
   {
    "dependencies": "Delivery Challan",
    "hidden": 0,
+   "icon": "rmc-invoice",
    "is_query_report": 1,
    "label": "Customer Wise Sales",
    "link_count": 0,
@@ -169,7 +183,7 @@
    "type": "Link"
   }
  ],
- "modified": "2026-08-05 21:28:17.217287",
+ "modified": "2026-08-05 23:15:33.088120",
  "modified_by": "Administrator",
  "module": "RMC Setup",
  "name": "RMC Dispatch",
@@ -205,8 +219,25 @@
  "sequence_id": 0.4,
  "shortcuts": [
   {
+   "color": "Green",
+   "doc_view": "",
+   "icon": "rmc-dispatch",
+   "label": "Dispatch Board",
+   "link_to": "rmc-dispatch-board",
+   "type": "Page"
+  },
+  {
+   "color": "Green",
+   "doc_view": "",
+   "icon": "rmc-order",
+   "label": "Order 360",
+   "link_to": "rmc-order-360",
+   "type": "Page"
+  },
+  {
    "color": "Blue",
    "doc_view": "",
+   "icon": "rmc-challan",
    "label": "Delivery Challan",
    "link_to": "Delivery Challan",
    "type": "DocType"
@@ -214,6 +245,7 @@
   {
    "color": "Blue",
    "doc_view": "",
+   "icon": "rmc-order",
    "label": "Concrete Order",
    "link_to": "Concrete Order",
    "type": "DocType"
@@ -221,6 +253,7 @@
   {
    "color": "Blue",
    "doc_view": "",
+   "icon": "rmc-mixer",
    "label": "Transit Mixer",
    "link_to": "Transit Mixer",
    "type": "DocType"
@@ -228,6 +261,7 @@
   {
    "color": "Blue",
    "doc_view": "",
+   "icon": "rmc-site",
    "label": "Construction Site",
    "link_to": "Construction Site",
    "type": "DocType"
@@ -235,6 +269,7 @@
   {
    "color": "Grey",
    "doc_view": "",
+   "icon": "rmc-challan",
    "label": "Dispatch Register",
    "link_to": "Dispatch Register",
    "report_ref_doctype": "Delivery Challan",
@@ -243,6 +278,7 @@
   {
    "color": "Grey",
    "doc_view": "",
+   "icon": "rmc-cycle",
    "label": "Vehicle Utilisation and Trips",
    "link_to": "Vehicle Utilisation and Trips",
    "report_ref_doctype": "Delivery Challan",

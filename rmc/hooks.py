@@ -7,6 +7,10 @@ app_license = "mit"
 
 required_apps = ["erpnext"]
 
+# Purpose-drawn icon set, so every doctype, workspace and shortcut reads as an
+# RMC plant rather than sharing one generic glyph.
+app_include_icons = ["/assets/rmc/icons/rmc-icons.svg"]
+
 app_home = "/app/rmc-dashboard"
 
 add_to_apps_screen = [

@@ -232,20 +232,94 @@ def _stock():
 
 # ---------------------------------------------------------------- reports
 def _reports():
+	"""Every report must be a Script Report, take its filters, and return rows."""
 	from frappe.desk.query_report import run as run_report
-	from rmc.setup.reports import REPORTS
+	from frappe.utils import add_days, nowdate
+	from rmc.setup.script_reports import REPORTS
 
-	for r in REPORTS:
-		name = r["name"]
+	to_date = getdate(nowdate())
+	base = {"from_date": str(add_days(to_date, -35)), "to_date": str(to_date)}
+
+	for name, module, _ref in REPORTS:
 		if not frappe.db.exists("Report", name):
 			_fail("Report %s exists" % name)
 			continue
+		rtype = frappe.db.get_value("Report", name, "report_type")
+		_check(rtype == "Script Report", "Report is a Script Report: %s" % name, rtype)
 		try:
-			res = run_report(name, ignore_prepared_report=True)
+			res = run_report(name, filters=dict(base), ignore_prepared_report=True)
 			rows = res.get("result") or []
 			_check(len(rows) > 0, "Report runs with data: %s" % name, "%d rows" % len(rows))
 		except Exception as e:
-			_fail("Report runs: %s" % name, str(e)[:120])
+			_fail("Report runs: %s" % name, str(e)[:140])
+
+	# a filter must actually narrow the result, not be ignored
+	try:
+		wide = run_report("Daily Production Summary", filters=dict(base),
+		                  ignore_prepared_report=True).get("result") or []
+		narrow = run_report("Daily Production Summary",
+		                    filters={**base, "grade": "M25"},
+		                    ignore_prepared_report=True).get("result") or []
+		_check(0 < len(narrow) < len(wide), "Report filters actually filter",
+		       "%d rows unfiltered vs %d for M25" % (len(wide), len(narrow)))
+	except Exception as e:
+		_fail("Report filters actually filter", str(e)[:140])
+
+
+def _ui():
+	"""Icons and desk pages — the things the user sees before any data."""
+	import os
+
+	sprite = frappe.get_app_path("rmc", "public", "icons", "rmc-icons.svg")
+	_check(os.path.exists(sprite), "Icon sprite ships with the app")
+	if os.path.exists(sprite):
+		symbols = open(sprite, encoding="utf-8").read().count("<symbol")
+		_check(symbols >= 30, "Icon sprite has a full set", "%d symbols" % symbols)
+
+	built = os.path.join(frappe.utils.get_bench_path(), "sites", "assets", "rmc",
+	                     "icons", "rmc-icons.svg")
+	_check(os.path.exists(built), "Icon sprite is built into assets")
+
+	from rmc.setup.icons import DOCTYPE_ICONS
+	missing = [dt for dt, _i in DOCTYPE_ICONS.items()
+	           if frappe.db.exists("DocType", dt)
+	           and not frappe.db.get_value("DocType", dt, "icon")]
+	_check(not missing, "Every RMC doctype carries an icon", str(missing))
+
+	no_ws_icon = [w for w in ("RMC Dashboard", "RMC Production", "RMC Materials",
+	                          "RMC Dispatch", "RMC Quality", "RMC Setup")
+	              if frappe.db.exists("Workspace", w)
+	              and not frappe.db.get_value("Workspace", w, "icon")]
+	_check(not no_ws_icon, "Every workspace carries an icon", str(no_ws_icon))
+
+	pages = ["rmc-control-tower", "rmc-live-dashboard", "rmc-batch-board",
+	         "rmc-dispatch-board", "rmc-silo-board", "rmc-quality-board",
+	         "rmc-order-360"]
+	for p in pages:
+		_check(frappe.db.exists("Page", p), "Desk page %s" % p)
+
+	# the boards must return real payloads, not empty shells
+	from rmc import dashboard
+	checks = [
+		("control_tower", lambda: dashboard.control_tower(), lambda d: d.get("series")),
+		("batch_board", lambda: dashboard.batch_board(
+			frappe.db.get_value("Batch Production", {"docstatus": 1}, "production_date")),
+		 lambda d: d.get("batches")),
+		("dispatch_board", lambda: dashboard.dispatch_board(
+			frappe.db.get_value("Delivery Challan", {"docstatus": 1}, "challan_date")),
+		 lambda d: d.get("trips")),
+		("silo_board", lambda: dashboard.silo_board(), lambda d: d),
+		("quality_board", lambda: dashboard.quality_board(), lambda d: d.get("by_grade")),
+		("order_360", lambda: dashboard.order_360(
+			frappe.db.get_value("Concrete Order", {"docstatus": 1}, "name")),
+		 lambda d: d.get("challans") is not None and d.get("order")),
+	]
+	for label, fn, ok in checks:
+		try:
+			data = fn()
+			_check(bool(ok(data)), "Board API returns data: %s" % label)
+		except Exception as e:
+			_fail("Board API runs: %s" % label, str(e)[:140])
 
 
 # ---------------------------------------------------------------- desk
@@ -352,7 +426,8 @@ def _rules():
 def run():
 	global RESULTS
 	RESULTS = []
-	for fn in (_schema, _masters, _volume, _chain, _derived, _stock, _reports, _desk, _rules):
+	for fn in (_schema, _masters, _volume, _chain, _derived, _stock, _reports, _ui,
+	           _desk, _rules):
 		try:
 			fn()
 		except Exception:

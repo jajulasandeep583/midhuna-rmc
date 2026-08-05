@@ -7,7 +7,7 @@
  "docstatus": 0,
  "doctype": "Workspace",
  "hide_custom": 0,
- "icon": "setting",
+ "icon": "rmc-settings",
  "idx": 0,
  "indicator_color": "gray",
  "is_hidden": 0,
@@ -16,6 +16,7 @@
  "links": [
   {
    "hidden": 0,
+   "icon": "rmc-plant",
    "is_query_report": 0,
    "label": "Plant Masters",
    "link_count": 0,
@@ -25,6 +26,7 @@
   },
   {
    "hidden": 0,
+   "icon": "rmc-plant",
    "is_query_report": 0,
    "label": "RMC Plant",
    "link_count": 0,
@@ -35,6 +37,7 @@
   },
   {
    "hidden": 0,
+   "icon": "rmc-silo",
    "is_query_report": 0,
    "label": "Silo",
    "link_count": 0,
@@ -45,6 +48,7 @@
   },
   {
    "hidden": 0,
+   "icon": "rmc-settings",
    "is_query_report": 0,
    "label": "RMC Settings",
    "link_count": 0,
@@ -55,6 +59,7 @@
   },
   {
    "hidden": 0,
+   "icon": "rmc-grade",
    "is_query_report": 0,
    "label": "Product Masters",
    "link_count": 0,
@@ -64,6 +69,7 @@
   },
   {
    "hidden": 0,
+   "icon": "rmc-grade",
    "is_query_report": 0,
    "label": "Concrete Grade",
    "link_count": 0,
@@ -74,6 +80,7 @@
   },
   {
    "hidden": 0,
+   "icon": "rmc-mix",
    "is_query_report": 0,
    "label": "Mix Design",
    "link_count": 0,
@@ -84,6 +91,7 @@
   },
   {
    "hidden": 0,
+   "icon": "rmc-cement",
    "is_query_report": 0,
    "label": "Item",
    "link_count": 0,
@@ -94,6 +102,7 @@
   },
   {
    "hidden": 0,
+   "icon": "rmc-mixer",
    "is_query_report": 0,
    "label": "Fleet & Customers",
    "link_count": 0,
@@ -103,6 +112,7 @@
   },
   {
    "hidden": 0,
+   "icon": "rmc-mixer",
    "is_query_report": 0,
    "label": "Transit Mixer",
    "link_count": 0,
@@ -113,6 +123,7 @@
   },
   {
    "hidden": 0,
+   "icon": "rmc-driver",
    "is_query_report": 0,
    "label": "Driver",
    "link_count": 0,
@@ -123,6 +134,7 @@
   },
   {
    "hidden": 0,
+   "icon": "rmc-site",
    "is_query_report": 0,
    "label": "Construction Site",
    "link_count": 0,
@@ -133,6 +145,7 @@
   },
   {
    "hidden": 0,
+   "icon": "rmc-customer",
    "is_query_report": 0,
    "label": "Customer",
    "link_count": 0,
@@ -143,6 +156,7 @@
   },
   {
    "hidden": 0,
+   "icon": "rmc-supplier",
    "is_query_report": 0,
    "label": "Supplier",
    "link_count": 0,
@@ -152,7 +166,7 @@
    "type": "Link"
   }
  ],
- "modified": "2026-08-05 21:28:17.369715",
+ "modified": "2026-08-05 23:15:33.341775",
  "modified_by": "Administrator",
  "module": "RMC Setup",
  "name": "RMC Setup",
@@ -181,6 +195,7 @@
   {
    "color": "Blue",
    "doc_view": "",
+   "icon": "rmc-plant",
    "label": "RMC Plant",
    "link_to": "RMC Plant",
    "type": "DocType"
@@ -188,6 +203,7 @@
   {
    "color": "Blue",
    "doc_view": "",
+   "icon": "rmc-grade",
    "label": "Concrete Grade",
    "link_to": "Concrete Grade",
    "type": "DocType"
@@ -195,6 +211,7 @@
   {
    "color": "Blue",
    "doc_view": "",
+   "icon": "rmc-mix",
    "label": "Mix Design",
    "link_to": "Mix Design",
    "type": "DocType"
@@ -202,6 +219,7 @@
   {
    "color": "Blue",
    "doc_view": "",
+   "icon": "rmc-silo",
    "label": "Silo",
    "link_to": "Silo",
    "type": "DocType"
@@ -209,6 +227,7 @@
   {
    "color": "Blue",
    "doc_view": "",
+   "icon": "rmc-mixer",
    "label": "Transit Mixer",
    "link_to": "Transit Mixer",
    "type": "DocType"
@@ -216,6 +235,7 @@
   {
    "color": "Blue",
    "doc_view": "",
+   "icon": "rmc-site",
    "label": "Construction Site",
    "link_to": "Construction Site",
    "type": "DocType"

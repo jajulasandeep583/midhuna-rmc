@@ -10,16 +10,16 @@
  "idx": 0,
  "is_standard": "Yes",
  "letter_head": null,
- "modified": "2026-08-05 21:29:53.233337",
+ "modified": "2026-08-05 23:07:24.197669",
  "modified_by": "Administrator",
  "module": "RMC Plant Ops",
  "name": "Breakdown and Maintenance Log",
  "owner": "Administrator",
  "prepared_report": 0,
- "query": "\nSELECT\n  bd.name          AS \"Breakdown:Link/Breakdown Log:120\",\n  bd.plant         AS \"Plant:Link/RMC Plant:200\",\n  bd.equipment     AS \"Equipment:Data:140\",\n  bd.reported_on   AS \"Reported:Datetime:150\",\n  bd.resolved_on   AS \"Resolved:Datetime:150\",\n  bd.downtime_hours AS \"Downtime hrs:Float:120\",\n  bd.severity      AS \"Severity:Data:90\",\n  bd.status        AS \"Status:Data:90\",\n  bd.reason        AS \"Reason:Data:240\",\n  bd.spare_cost    AS \"Repair Cost:Currency:120\"\nFROM `tabBreakdown Log` bd\nORDER BY bd.reported_on DESC\n",
+ "query": "",
  "ref_doctype": "Breakdown Log",
  "report_name": "Breakdown and Maintenance Log",
- "report_type": "Query Report",
+ "report_type": "Script Report",
  "roles": [
   {
    "role": "System Manager"

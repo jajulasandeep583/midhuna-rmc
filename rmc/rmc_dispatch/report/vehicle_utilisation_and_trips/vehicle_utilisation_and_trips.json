@@ -10,16 +10,16 @@
  "idx": 0,
  "is_standard": "Yes",
  "letter_head": null,
- "modified": "2026-08-05 21:29:53.008992",
+ "modified": "2026-08-05 23:07:24.119269",
  "modified_by": "Administrator",
  "module": "RMC Dispatch",
  "name": "Vehicle Utilisation and Trips",
  "owner": "Administrator",
  "prepared_report": 0,
- "query": "\nSELECT\n  dc.transit_mixer      AS \"Vehicle:Link/Transit Mixer:120\",\n  tm.vehicle_type       AS \"Type:Data:120\",\n  tm.capacity_m3        AS \"Capacity m3:Float:110\",\n  COUNT(dc.name)        AS \"Trips:Int:80\",\n  SUM(dc.qty_m3)        AS \"Delivered m3:Float:120\",\n  SUM(dc.qty_m3)/NULLIF(COUNT(dc.name),0) AS \"Avg Load m3:Float:115\",\n  AVG(dc.cycle_time_min) AS \"Avg Cycle (min):Float:130\",\n  SUM(dc.distance_km)   AS \"Distance km:Float:110\",\n  SUM(dc.amount)        AS \"Revenue Carried:Currency:150\"\nFROM `tabDelivery Challan` dc\nLEFT JOIN `tabTransit Mixer` tm ON tm.name = dc.transit_mixer\nWHERE dc.docstatus = 1\nGROUP BY dc.transit_mixer, tm.vehicle_type, tm.capacity_m3\nORDER BY COUNT(dc.name) DESC\n",
+ "query": "",
  "ref_doctype": "Delivery Challan",
  "report_name": "Vehicle Utilisation and Trips",
- "report_type": "Query Report",
+ "report_type": "Script Report",
  "roles": [
   {
    "role": "System Manager"

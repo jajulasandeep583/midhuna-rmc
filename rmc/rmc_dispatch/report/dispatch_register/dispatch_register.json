@@ -10,16 +10,16 @@
  "idx": 0,
  "is_standard": "Yes",
  "letter_head": null,
- "modified": "2026-08-05 21:29:52.925317",
+ "modified": "2026-08-05 23:07:24.007352",
  "modified_by": "Administrator",
  "module": "RMC Dispatch",
  "name": "Dispatch Register",
  "owner": "Administrator",
  "prepared_report": 0,
- "query": "\nSELECT\n  dc.name              AS \"Challan:Link/Delivery Challan:130\",\n  dc.challan_date      AS \"Date:Date:95\",\n  dc.customer          AS \"Customer:Link/Customer:160\",\n  cs.site_name         AS \"Site:Data:150\",\n  dc.grade             AS \"Grade:Link/Concrete Grade:70\",\n  dc.qty_m3            AS \"Qty m3:Float:80\",\n  dc.rate              AS \"Rate:Currency:95\",\n  dc.amount            AS \"Amount:Currency:120\",\n  dc.transit_mixer     AS \"Vehicle:Link/Transit Mixer:110\",\n  dc.driver_name       AS \"Driver:Data:130\",\n  dc.dispatch_time     AS \"Dispatch:Datetime:140\",\n  dc.cycle_time_min    AS \"Cycle (min):Int:100\",\n  dc.slump_mm          AS \"Slump:Int:70\",\n  dc.status            AS \"Status:Data:95\",\n  dc.sales_invoice     AS \"Invoice:Link/Sales Invoice:140\"\nFROM `tabDelivery Challan` dc\nLEFT JOIN `tabConstruction Site` cs ON cs.name = dc.construction_site\nWHERE dc.docstatus = 1\nORDER BY dc.challan_date DESC, dc.dispatch_time DESC\n",
+ "query": "",
  "ref_doctype": "Delivery Challan",
  "report_name": "Dispatch Register",
- "report_type": "Query Report",
+ "report_type": "Script Report",
  "roles": [
   {
    "role": "System Manager"

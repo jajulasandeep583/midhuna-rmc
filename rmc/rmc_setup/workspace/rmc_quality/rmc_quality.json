@@ -14,13 +14,13 @@
    "label": "Breakdowns by Equipment"
   }
  ],
- "content": "[{\"id\": \"hdr\", \"type\": \"header\", \"data\": {\"text\": \"<span class=\\\"h4\\\"><b>RMC Quality</b></span>\", \"col\": 12}}, {\"id\": \"intro\", \"type\": \"paragraph\", \"data\": {\"text\": \"<p>Cube tests against the design strength, plus plant running / idle / breakdown time, power consumption and maintenance due. Used by the quality engineer and plant maintenance.</p>\", \"col\": 12}}, {\"id\": \"nc_cube_fails\", \"type\": \"number_card\", \"data\": {\"number_card_name\": \"Failed Cube Tests\", \"col\": 3}}, {\"id\": \"nc_open_breakdowns\", \"type\": \"number_card\", \"data\": {\"number_card_name\": \"Open Breakdowns\", \"col\": 3}}, {\"id\": \"nc_maint_due\", \"type\": \"number_card\", \"data\": {\"number_card_name\": \"Maintenance Due\", \"col\": 3}}, {\"id\": \"ch_cube_result\", \"type\": \"chart\", \"data\": {\"chart_name\": \"Cube Test Results\", \"col\": 6}}, {\"id\": \"ch_plant_status\", \"type\": \"chart\", \"data\": {\"chart_name\": \"Plant Time by Status (hrs)\", \"col\": 6}}, {\"id\": \"ch_breakdown_equip\", \"type\": \"chart\", \"data\": {\"chart_name\": \"Breakdowns by Equipment\", \"col\": 6}}, {\"id\": \"sc_CubeTest\", \"type\": \"shortcut\", \"data\": {\"shortcut_name\": \"Cube Test\", \"col\": 3}}, {\"id\": \"sc_PlantStatus\", \"type\": \"shortcut\", \"data\": {\"shortcut_name\": \"Plant Status Log\", \"col\": 3}}, {\"id\": \"sc_BreakdownLo\", \"type\": \"shortcut\", \"data\": {\"shortcut_name\": \"Breakdown Log\", \"col\": 3}}, {\"id\": \"sc_RMCMaintena\", \"type\": \"shortcut\", \"data\": {\"shortcut_name\": \"RMC Maintenance Task\", \"col\": 3}}, {\"id\": \"sc_PowerLog\", \"type\": \"shortcut\", \"data\": {\"shortcut_name\": \"Power Log\", \"col\": 3}}, {\"id\": \"sc_CubeTestRe\", \"type\": \"shortcut\", \"data\": {\"shortcut_name\": \"Cube Test Register\", \"col\": 3}}, {\"id\": \"cd_Quality\", \"type\": \"card\", \"data\": {\"card_name\": \"Quality\", \"col\": 4}}, {\"id\": \"cd_PlantOperat\", \"type\": \"card\", \"data\": {\"card_name\": \"Plant Operations\", \"col\": 4}}, {\"id\": \"cd_Reports\", \"type\": \"card\", \"data\": {\"card_name\": \"Reports\", \"col\": 4}}]",
+ "content": "[{\"id\": \"hdr\", \"type\": \"header\", \"data\": {\"text\": \"<span class=\\\"h4\\\"><b>RMC Quality</b></span>\", \"col\": 12}}, {\"id\": \"intro\", \"type\": \"paragraph\", \"data\": {\"text\": \"<p>Cube tests against the design strength, plus plant running / idle / breakdown time, power consumption and maintenance due. Used by the quality engineer and plant maintenance.</p>\", \"col\": 12}}, {\"id\": \"nc_cube_fails\", \"type\": \"number_card\", \"data\": {\"number_card_name\": \"Failed Cube Tests\", \"col\": 3}}, {\"id\": \"nc_open_breakdowns\", \"type\": \"number_card\", \"data\": {\"number_card_name\": \"Open Breakdowns\", \"col\": 3}}, {\"id\": \"nc_maint_due\", \"type\": \"number_card\", \"data\": {\"number_card_name\": \"Maintenance Due\", \"col\": 3}}, {\"id\": \"ch_cube_result\", \"type\": \"chart\", \"data\": {\"chart_name\": \"Cube Test Results\", \"col\": 6}}, {\"id\": \"ch_plant_status\", \"type\": \"chart\", \"data\": {\"chart_name\": \"Plant Time by Status (hrs)\", \"col\": 6}}, {\"id\": \"ch_breakdown_equip\", \"type\": \"chart\", \"data\": {\"chart_name\": \"Breakdowns by Equipment\", \"col\": 6}}, {\"id\": \"sc_QualityBoar\", \"type\": \"shortcut\", \"data\": {\"shortcut_name\": \"Quality Board\", \"col\": 3}}, {\"id\": \"sc_CubeTest\", \"type\": \"shortcut\", \"data\": {\"shortcut_name\": \"Cube Test\", \"col\": 3}}, {\"id\": \"sc_PlantStatus\", \"type\": \"shortcut\", \"data\": {\"shortcut_name\": \"Plant Status Log\", \"col\": 3}}, {\"id\": \"sc_BreakdownLo\", \"type\": \"shortcut\", \"data\": {\"shortcut_name\": \"Breakdown Log\", \"col\": 3}}, {\"id\": \"sc_RMCMaintena\", \"type\": \"shortcut\", \"data\": {\"shortcut_name\": \"RMC Maintenance Task\", \"col\": 3}}, {\"id\": \"sc_PowerLog\", \"type\": \"shortcut\", \"data\": {\"shortcut_name\": \"Power Log\", \"col\": 3}}, {\"id\": \"sc_CubeTestRe\", \"type\": \"shortcut\", \"data\": {\"shortcut_name\": \"Cube Test Register\", \"col\": 3}}, {\"id\": \"cd_Quality\", \"type\": \"card\", \"data\": {\"card_name\": \"Quality\", \"col\": 4}}, {\"id\": \"cd_PlantOperat\", \"type\": \"card\", \"data\": {\"card_name\": \"Plant Operations\", \"col\": 4}}, {\"id\": \"cd_Reports\", \"type\": \"card\", \"data\": {\"card_name\": \"Reports\", \"col\": 4}}]",
  "creation": "2026-08-05 21:03:38.930560",
  "custom_blocks": [],
  "docstatus": 0,
  "doctype": "Workspace",
  "hide_custom": 0,
- "icon": "test",
+ "icon": "rmc-quality",
  "idx": 0,
  "indicator_color": "red",
  "is_hidden": 0,
@@ -29,6 +29,7 @@
  "links": [
   {
    "hidden": 0,
+   "icon": "rmc-quality",
    "is_query_report": 0,
    "label": "Quality",
    "link_count": 0,
@@ -38,6 +39,7 @@
   },
   {
    "hidden": 0,
+   "icon": "rmc-cube-test",
    "is_query_report": 0,
    "label": "Cube Test",
    "link_count": 0,
@@ -48,6 +50,7 @@
   },
   {
    "hidden": 0,
+   "icon": "rmc-status",
    "is_query_report": 0,
    "label": "Plant Operations",
    "link_count": 0,
@@ -57,6 +60,7 @@
   },
   {
    "hidden": 0,
+   "icon": "rmc-status",
    "is_query_report": 0,
    "label": "Plant Status Log",
    "link_count": 0,
@@ -67,6 +71,7 @@
   },
   {
    "hidden": 0,
+   "icon": "rmc-breakdown",
    "is_query_report": 0,
    "label": "Breakdown Log",
    "link_count": 0,
@@ -77,6 +82,7 @@
   },
   {
    "hidden": 0,
+   "icon": "rmc-maintenance",
    "is_query_report": 0,
    "label": "RMC Maintenance Task",
    "link_count": 0,
@@ -87,6 +93,7 @@
   },
   {
    "hidden": 0,
+   "icon": "rmc-power",
    "is_query_report": 0,
    "label": "Power Log",
    "link_count": 0,
@@ -97,6 +104,7 @@
   },
   {
    "hidden": 0,
+   "icon": "rmc-report",
    "is_query_report": 0,
    "label": "Reports",
    "link_count": 0,
@@ -107,6 +115,7 @@
   {
    "dependencies": "Cube Test",
    "hidden": 0,
+   "icon": "rmc-cube-test",
    "is_query_report": 1,
    "label": "Cube Test Register",
    "link_count": 0,
@@ -118,6 +127,7 @@
   {
    "dependencies": "Plant Status Log",
    "hidden": 0,
+   "icon": "rmc-status",
    "is_query_report": 1,
    "label": "Plant Availability and Downtime",
    "link_count": 0,
@@ -129,6 +139,7 @@
   {
    "dependencies": "Power Log",
    "hidden": 0,
+   "icon": "rmc-power",
    "is_query_report": 1,
    "label": "Power and Diesel Consumption",
    "link_count": 0,
@@ -138,7 +149,7 @@
    "type": "Link"
   }
  ],
- "modified": "2026-08-05 21:28:17.298555",
+ "modified": "2026-08-05 23:15:33.195935",
  "modified_by": "Administrator",
  "module": "RMC Setup",
  "name": "RMC Quality",
@@ -174,8 +185,17 @@
  "sequence_id": 0.5,
  "shortcuts": [
   {
+   "color": "Green",
+   "doc_view": "",
+   "icon": "rmc-quality",
+   "label": "Quality Board",
+   "link_to": "rmc-quality-board",
+   "type": "Page"
+  },
+  {
    "color": "Blue",
    "doc_view": "",
+   "icon": "rmc-cube-test",
    "label": "Cube Test",
    "link_to": "Cube Test",
    "type": "DocType"
@@ -183,6 +203,7 @@
   {
    "color": "Blue",
    "doc_view": "",
+   "icon": "rmc-status",
    "label": "Plant Status Log",
    "link_to": "Plant Status Log",
    "type": "DocType"
@@ -190,6 +211,7 @@
   {
    "color": "Blue",
    "doc_view": "",
+   "icon": "rmc-breakdown",
    "label": "Breakdown Log",
    "link_to": "Breakdown Log",
    "type": "DocType"
@@ -197,6 +219,7 @@
   {
    "color": "Blue",
    "doc_view": "",
+   "icon": "rmc-maintenance",
    "label": "RMC Maintenance Task",
    "link_to": "Maintenance Schedule",
    "type": "DocType"
@@ -204,6 +227,7 @@
   {
    "color": "Blue",
    "doc_view": "",
+   "icon": "rmc-power",
    "label": "Power Log",
    "link_to": "Power Log",
    "type": "DocType"
@@ -211,6 +235,7 @@
   {
    "color": "Grey",
    "doc_view": "",
+   "icon": "rmc-cube-test",
    "label": "Cube Test Register",
    "link_to": "Cube Test Register",
    "report_ref_doctype": "Cube Test",
