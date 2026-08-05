@@ -286,8 +286,8 @@ def _ui():
 	           and not frappe.db.get_value("DocType", dt, "icon")]
 	_check(not missing, "Every RMC doctype carries an icon", str(missing))
 
-	no_ws_icon = [w for w in ("RMC Dashboard", "RMC Production", "RMC Materials",
-	                          "RMC Dispatch", "RMC Quality", "RMC Setup")
+	no_ws_icon = [w for w in ("RMC Management", "RMC Dashboard", "RMC Production",
+	                          "RMC Materials", "RMC Dispatch", "RMC Quality", "RMC Setup")
 	              if frappe.db.exists("Workspace", w)
 	              and not frappe.db.get_value("Workspace", w, "icon")]
 	_check(not no_ws_icon, "Every workspace carries an icon", str(no_ws_icon))
@@ -331,9 +331,9 @@ def _ui():
 			                     frappe.scrub(label) + ".svg")
 			_check(os.path.exists(built), "Desktop tile built: %s/%s" % (variant, label))
 
-	pages = ["rmc-control-tower", "rmc-live-dashboard", "rmc-batch-board",
-	         "rmc-dispatch-board", "rmc-silo-board", "rmc-quality-board",
-	         "rmc-order-360"]
+	pages = ["rmc-manage", "rmc-guide", "rmc-reports", "rmc-control-tower",
+	         "rmc-live-dashboard", "rmc-batch-board", "rmc-dispatch-board",
+	         "rmc-silo-board", "rmc-quality-board", "rmc-order-360"]
 	for p in pages:
 		_check(frappe.db.exists("Page", p), "Desk page %s" % p)
 
@@ -349,6 +349,9 @@ def _ui():
 		 lambda d: d.get("trips")),
 		("silo_board", lambda: dashboard.silo_board(), lambda d: d),
 		("quality_board", lambda: dashboard.quality_board(), lambda d: d.get("by_grade")),
+		("management", lambda: dashboard.management(), lambda d: d.get("sales")),
+		("management filtered", lambda: dashboard.management(
+			from_date="2026-07-10", to_date="2026-07-20"), lambda d: d.get("daily")),
 		("order_360", lambda: dashboard.order_360(
 			frappe.db.get_value("Concrete Order", {"docstatus": 1}, "name")),
 		 lambda d: d.get("challans") is not None and d.get("order")),
@@ -385,6 +388,15 @@ def _desk():
 	_check(len(mine) >= 10, "RMC number cards created", "%d of %d" % (len(mine), len(_cards())))
 	_check(len(chart_names) >= 8, "RMC dashboard charts created",
 	       "%d of %d" % (len(chart_names), len(_charts())))
+
+	_check(frappe.db.exists("Custom HTML Block", "RMC Navigator"),
+	       "Navigator HTML block exists")
+	import json as _json
+	no_nav = [w for w in ("RMC Management", "RMC Dashboard", "RMC Production",
+	                      "RMC Materials", "RMC Dispatch", "RMC Quality", "RMC Setup")
+	          if frappe.db.exists("Workspace", w)
+	          and "custom_block" not in (frappe.db.get_value("Workspace", w, "content") or "")]
+	_check(not no_nav, "Navigator block on every workspace", str(no_nav))
 
 	_check(frappe.db.exists("Print Format", "RMC Delivery Challan"),
 	       "Delivery Challan print format")

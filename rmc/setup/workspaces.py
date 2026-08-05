@@ -13,6 +13,7 @@ SM = "System Manager"
 
 COLORS = {
 	"RMC Dashboard": "blue",
+	"RMC Management": "purple",
 	"RMC Production": "green",
 	"RMC Materials": "orange",
 	"RMC Dispatch": "purple",
@@ -21,6 +22,7 @@ COLORS = {
 }
 
 INTRO = {
+	"RMC Management": "Sales, production, purchase, stock and receivables in one place — the owner's view of the plant. Pick any period; every number drills down.",
 	"RMC Dashboard": "The plant at a glance — today's production, dispatches, orders in hand and "
 	             "live plant status. Start here every morning; drill into any number from the "
 	             "cards and charts below.",
@@ -155,9 +157,41 @@ def _ensure_charts():
 def _workspaces():
 	return [
 		{
+			"name": "RMC Management", "icon": "rmc-dashboard",
+			"roles": ["RMC Manager", "RMC Accounts"],
+			"shortcuts": [
+				("Page", "Management", "rmc-manage"),
+				("Page", "Report Hub", "rmc-reports"),
+				("Page", "How to Use RMC", "rmc-guide"),
+				("Report", "Grade Profitability", "Grade Profitability"),
+				("Report", "Monthly Plant Summary", "Monthly Plant Summary"),
+				("Report", "Customer Wise Sales", "Customer Wise Sales"),
+				("DocType", "Sales Invoice", "Sales Invoice"),
+			],
+			"cards": ["month_revenue", "open_orders", "pending_qty", "today_dispatch"],
+			"charts": ["dispatch_customer", "order_status"],
+			"links": [
+				("Management", [
+					("Page", "rmc-manage", "Management view"),
+					("Page", "rmc-reports", "Report Hub"),
+					("Page", "rmc-guide", "How to Use RMC")]),
+				("Money", [
+					("DocType", "Sales Invoice"), ("DocType", "Purchase Receipt"),
+					("DocType", "Customer"), ("DocType", "Supplier")]),
+				("Management Reports", [
+					("Report", "Monthly Plant Summary"),
+					("Report", "Grade Profitability"),
+					("Report", "Customer Wise Sales"),
+					("Report", "Customer Order Status"),
+					("Report", "Supplier Purchase Summary"),
+					("Report", "Order Book and Pour Schedule")]),
+			],
+		},
+		{
 			"name": "RMC Dashboard", "icon": "getting-started",
 			"roles": ["RMC Manager", "Plant Operator", "Dispatch Incharge"],
 			"shortcuts": [
+				("Page", "Management", "rmc-manage"),
 				("Page", "RMC Control Tower", "rmc-control-tower"),
 				("Page", "Live Plant Dashboard", "rmc-live-dashboard"),
 				("Page", "Batching Board", "rmc-batch-board"),
@@ -182,7 +216,9 @@ def _workspaces():
 					("Page", "rmc-dispatch-board", "Dispatch Board"),
 					("Page", "rmc-silo-board", "Silo & Stock Board"),
 					("Page", "rmc-quality-board", "Quality Board"),
-					("Page", "rmc-order-360", "Order 360")]),
+					("Page", "rmc-order-360", "Order 360"),
+					("Page", "rmc-reports", "Report Hub"),
+					("Page", "rmc-guide", "How to Use RMC")]),
 				("Daily Operations", [
 					("DocType", "Batch Production"), ("DocType", "Delivery Challan"),
 					("DocType", "Concrete Order"), ("DocType", "Material Inward")]),
@@ -218,7 +254,9 @@ def _workspaces():
 					("Report", "Daily Production Summary"),
 					("Report", "Batch Register"),
 					("Report", "Material Consumption vs Recipe"),
-					("Report", "Production Target vs Actual")]),
+					("Report", "Production Target vs Actual"),
+					("Report", "Grade Profitability"),
+					("Report", "Slump Compliance")]),
 			],
 		},
 		{
@@ -242,7 +280,8 @@ def _workspaces():
 				("Reports", [
 					("Report", "Material Inward Register"),
 					("Report", "Silo and Stock Status"),
-					("Report", "Material Consumption vs Recipe")]),
+					("Report", "Material Consumption vs Recipe"),
+					("Report", "Supplier Purchase Summary")]),
 			],
 		},
 		{
@@ -271,7 +310,9 @@ def _workspaces():
 					("Report", "Dispatch Register"),
 					("Report", "Customer Order Status"),
 					("Report", "Vehicle Utilisation and Trips"),
-					("Report", "Customer Wise Sales")]),
+					("Report", "Customer Wise Sales"),
+					("Report", "Order Book and Pour Schedule"),
+					("Report", "Driver Performance")]),
 			],
 		},
 		{
@@ -296,7 +337,8 @@ def _workspaces():
 				("Reports", [
 					("Report", "Cube Test Register"),
 					("Report", "Plant Availability and Downtime"),
-					("Report", "Power and Diesel Consumption")]),
+					("Report", "Power and Diesel Consumption"),
+					("Report", "Monthly Plant Summary")]),
 			],
 		},
 		{

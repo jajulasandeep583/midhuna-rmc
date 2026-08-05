@@ -18,9 +18,14 @@
    "label": "Plant Time by Status (hrs)"
   }
  ],
- "content": "[{\"id\": \"hdr\", \"type\": \"header\", \"data\": {\"text\": \"<span class=\\\"h4\\\"><b>RMC Dashboard</b></span>\", \"col\": 12}}, {\"id\": \"intro\", \"type\": \"paragraph\", \"data\": {\"text\": \"<p>The plant at a glance \\u2014 today's production, dispatches, orders in hand and live plant status. Start here every morning; drill into any number from the cards and charts below.</p>\", \"col\": 12}}, {\"id\": \"nc_today_production\", \"type\": \"number_card\", \"data\": {\"number_card_name\": \"Today's Production (m\\u00b3)\", \"col\": 3}}, {\"id\": \"nc_today_dispatch\", \"type\": \"number_card\", \"data\": {\"number_card_name\": \"Today's Dispatch (m\\u00b3)\", \"col\": 3}}, {\"id\": \"nc_today_trips\", \"type\": \"number_card\", \"data\": {\"number_card_name\": \"Today's Trips\", \"col\": 3}}, {\"id\": \"nc_open_orders\", \"type\": \"number_card\", \"data\": {\"number_card_name\": \"Open Orders\", \"col\": 3}}, {\"id\": \"nc_pending_qty\", \"type\": \"number_card\", \"data\": {\"number_card_name\": \"Pending Order Qty (m\\u00b3)\", \"col\": 3}}, {\"id\": \"nc_month_revenue\", \"type\": \"number_card\", \"data\": {\"number_card_name\": \"This Month Dispatch Value\", \"col\": 3}}, {\"id\": \"nc_open_breakdowns\", \"type\": \"number_card\", \"data\": {\"number_card_name\": \"Open Breakdowns\", \"col\": 3}}, {\"id\": \"nc_mixers_available\", \"type\": \"number_card\", \"data\": {\"number_card_name\": \"Mixers Available\", \"col\": 3}}, {\"id\": \"ch_prod_by_grade\", \"type\": \"chart\", \"data\": {\"chart_name\": \"Production by Grade (m\\u00b3)\", \"col\": 6}}, {\"id\": \"ch_dispatch_customer\", \"type\": \"chart\", \"data\": {\"chart_name\": \"Dispatch by Customer (m\\u00b3)\", \"col\": 6}}, {\"id\": \"ch_order_status\", \"type\": \"chart\", \"data\": {\"chart_name\": \"Orders by Status\", \"col\": 6}}, {\"id\": \"ch_plant_status\", \"type\": \"chart\", \"data\": {\"chart_name\": \"Plant Time by Status (hrs)\", \"col\": 6}}, {\"id\": \"sc_RMCControl\", \"type\": \"shortcut\", \"data\": {\"shortcut_name\": \"RMC Control Tower\", \"col\": 3}}, {\"id\": \"sc_LivePlantD\", \"type\": \"shortcut\", \"data\": {\"shortcut_name\": \"Live Plant Dashboard\", \"col\": 3}}, {\"id\": \"sc_BatchingBoa\", \"type\": \"shortcut\", \"data\": {\"shortcut_name\": \"Batching Board\", \"col\": 3}}, {\"id\": \"sc_DispatchBoa\", \"type\": \"shortcut\", \"data\": {\"shortcut_name\": \"Dispatch Board\", \"col\": 3}}, {\"id\": \"sc_Silo&Stock\", \"type\": \"shortcut\", \"data\": {\"shortcut_name\": \"Silo & Stock Board\", \"col\": 3}}, {\"id\": \"sc_QualityBoar\", \"type\": \"shortcut\", \"data\": {\"shortcut_name\": \"Quality Board\", \"col\": 3}}, {\"id\": \"sc_BatchProduc\", \"type\": \"shortcut\", \"data\": {\"shortcut_name\": \"Batch Production\", \"col\": 3}}, {\"id\": \"sc_DeliveryCha\", \"type\": \"shortcut\", \"data\": {\"shortcut_name\": \"Delivery Challan\", \"col\": 3}}, {\"id\": \"sc_ConcreteOrd\", \"type\": \"shortcut\", \"data\": {\"shortcut_name\": \"Concrete Order\", \"col\": 3}}, {\"id\": \"sc_MaterialInw\", \"type\": \"shortcut\", \"data\": {\"shortcut_name\": \"Material Inward\", \"col\": 3}}, {\"id\": \"sc_DailyProduc\", \"type\": \"shortcut\", \"data\": {\"shortcut_name\": \"Daily Production Summary\", \"col\": 3}}, {\"id\": \"sc_PlantAvaila\", \"type\": \"shortcut\", \"data\": {\"shortcut_name\": \"Plant Availability and Downtime\", \"col\": 3}}, {\"id\": \"cd_Boards\", \"type\": \"card\", \"data\": {\"card_name\": \"Boards\", \"col\": 4}}, {\"id\": \"cd_DailyOperat\", \"type\": \"card\", \"data\": {\"card_name\": \"Daily Operations\", \"col\": 4}}, {\"id\": \"cd_MISReports\", \"type\": \"card\", \"data\": {\"card_name\": \"MIS Reports\", \"col\": 4}}, {\"id\": \"cd_Setup\", \"type\": \"card\", \"data\": {\"card_name\": \"Setup\", \"col\": 4}}]",
+ "content": "[{\"id\": \"hdr\", \"type\": \"header\", \"data\": {\"text\": \"<span class=\\\"h4\\\"><b>RMC Dashboard</b></span>\", \"col\": 12}}, {\"id\": \"intro\", \"type\": \"paragraph\", \"data\": {\"text\": \"<p>The plant at a glance \\u2014 today's production, dispatches, orders in hand and live plant status. Start here every morning; drill into any number from the cards and charts below.</p>\", \"col\": 12}}, {\"id\": \"rmcnav000\", \"type\": \"custom_block\", \"data\": {\"custom_block_name\": \"RMC Navigator\", \"col\": 12}}, {\"id\": \"nc_today_production\", \"type\": \"number_card\", \"data\": {\"number_card_name\": \"Today's Production (m\\u00b3)\", \"col\": 3}}, {\"id\": \"nc_today_dispatch\", \"type\": \"number_card\", \"data\": {\"number_card_name\": \"Today's Dispatch (m\\u00b3)\", \"col\": 3}}, {\"id\": \"nc_today_trips\", \"type\": \"number_card\", \"data\": {\"number_card_name\": \"Today's Trips\", \"col\": 3}}, {\"id\": \"nc_open_orders\", \"type\": \"number_card\", \"data\": {\"number_card_name\": \"Open Orders\", \"col\": 3}}, {\"id\": \"nc_pending_qty\", \"type\": \"number_card\", \"data\": {\"number_card_name\": \"Pending Order Qty (m\\u00b3)\", \"col\": 3}}, {\"id\": \"nc_month_revenue\", \"type\": \"number_card\", \"data\": {\"number_card_name\": \"This Month Dispatch Value\", \"col\": 3}}, {\"id\": \"nc_open_breakdowns\", \"type\": \"number_card\", \"data\": {\"number_card_name\": \"Open Breakdowns\", \"col\": 3}}, {\"id\": \"nc_mixers_available\", \"type\": \"number_card\", \"data\": {\"number_card_name\": \"Mixers Available\", \"col\": 3}}, {\"id\": \"ch_prod_by_grade\", \"type\": \"chart\", \"data\": {\"chart_name\": \"Production by Grade (m\\u00b3)\", \"col\": 6}}, {\"id\": \"ch_dispatch_customer\", \"type\": \"chart\", \"data\": {\"chart_name\": \"Dispatch by Customer (m\\u00b3)\", \"col\": 6}}, {\"id\": \"ch_order_status\", \"type\": \"chart\", \"data\": {\"chart_name\": \"Orders by Status\", \"col\": 6}}, {\"id\": \"ch_plant_status\", \"type\": \"chart\", \"data\": {\"chart_name\": \"Plant Time by Status (hrs)\", \"col\": 6}}, {\"id\": \"sc_Management\", \"type\": \"shortcut\", \"data\": {\"shortcut_name\": \"Management\", \"col\": 3}}, {\"id\": \"sc_RMCControl\", \"type\": \"shortcut\", \"data\": {\"shortcut_name\": \"RMC Control Tower\", \"col\": 3}}, {\"id\": \"sc_LivePlantD\", \"type\": \"shortcut\", \"data\": {\"shortcut_name\": \"Live Plant Dashboard\", \"col\": 3}}, {\"id\": \"sc_BatchingBoa\", \"type\": \"shortcut\", \"data\": {\"shortcut_name\": \"Batching Board\", \"col\": 3}}, {\"id\": \"sc_DispatchBoa\", \"type\": \"shortcut\", \"data\": {\"shortcut_name\": \"Dispatch Board\", \"col\": 3}}, {\"id\": \"sc_Silo&Stock\", \"type\": \"shortcut\", \"data\": {\"shortcut_name\": \"Silo & Stock Board\", \"col\": 3}}, {\"id\": \"sc_QualityBoar\", \"type\": \"shortcut\", \"data\": {\"shortcut_name\": \"Quality Board\", \"col\": 3}}, {\"id\": \"sc_BatchProduc\", \"type\": \"shortcut\", \"data\": {\"shortcut_name\": \"Batch Production\", \"col\": 3}}, {\"id\": \"sc_DeliveryCha\", \"type\": \"shortcut\", \"data\": {\"shortcut_name\": \"Delivery Challan\", \"col\": 3}}, {\"id\": \"sc_ConcreteOrd\", \"type\": \"shortcut\", \"data\": {\"shortcut_name\": \"Concrete Order\", \"col\": 3}}, {\"id\": \"sc_MaterialInw\", \"type\": \"shortcut\", \"data\": {\"shortcut_name\": \"Material Inward\", \"col\": 3}}, {\"id\": \"sc_DailyProduc\", \"type\": \"shortcut\", \"data\": {\"shortcut_name\": \"Daily Production Summary\", \"col\": 3}}, {\"id\": \"sc_PlantAvaila\", \"type\": \"shortcut\", \"data\": {\"shortcut_name\": \"Plant Availability and Downtime\", \"col\": 3}}, {\"id\": \"cd_Boards\", \"type\": \"card\", \"data\": {\"card_name\": \"Boards\", \"col\": 4}}, {\"id\": \"cd_DailyOperat\", \"type\": \"card\", \"data\": {\"card_name\": \"Daily Operations\", \"col\": 4}}, {\"id\": \"cd_MISReports\", \"type\": \"card\", \"data\": {\"card_name\": \"MIS Reports\", \"col\": 4}}, {\"id\": \"cd_Setup\", \"type\": \"card\", \"data\": {\"card_name\": \"Setup\", \"col\": 4}}]",
  "creation": "2026-08-05 21:03:38.563886",
- "custom_blocks": [],
+ "custom_blocks": [
+  {
+   "custom_block_name": "RMC Navigator",
+   "label": "RMC Navigator"
+  }
+ ],
  "docstatus": 0,
  "doctype": "Workspace",
  "hide_custom": 0,
@@ -113,6 +118,28 @@
    "label": "Order 360",
    "link_count": 0,
    "link_to": "rmc-order-360",
+   "link_type": "Page",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "icon": "rmc-report",
+   "is_query_report": 0,
+   "label": "Report Hub",
+   "link_count": 0,
+   "link_to": "rmc-reports",
+   "link_type": "Page",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "icon": "rmc-guide",
+   "is_query_report": 0,
+   "label": "How to Use RMC",
+   "link_count": 0,
+   "link_to": "rmc-guide",
    "link_type": "Page",
    "onboard": 0,
    "type": "Link"
@@ -274,7 +301,7 @@
    "type": "Link"
   }
  ],
- "modified": "2026-08-05 23:23:25.375777",
+ "modified": "2026-08-05 23:43:22.172483",
  "modified_by": "Administrator",
  "module": "RMC Setup",
  "name": "RMC Dashboard",
@@ -322,8 +349,16 @@
    "role": "System Manager"
   }
  ],
- "sequence_id": 0.1,
+ "sequence_id": 0.2,
  "shortcuts": [
+  {
+   "color": "Green",
+   "doc_view": "",
+   "icon": "rmc-invoice",
+   "label": "Management",
+   "link_to": "rmc-manage",
+   "type": "Page"
+  },
   {
    "color": "Green",
    "doc_view": "",

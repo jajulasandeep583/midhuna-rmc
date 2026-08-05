@@ -1,0 +1,308 @@
+{
+ "app": "rmc",
+ "charts": [
+  {
+   "chart_name": "Dispatch by Customer (m\u00b3)",
+   "label": "Dispatch by Customer (m\u00b3)"
+  },
+  {
+   "chart_name": "Orders by Status",
+   "label": "Orders by Status"
+  }
+ ],
+ "content": "[{\"id\": \"hdr\", \"type\": \"header\", \"data\": {\"text\": \"<span class=\\\"h4\\\"><b>RMC Management</b></span>\", \"col\": 12}}, {\"id\": \"intro\", \"type\": \"paragraph\", \"data\": {\"text\": \"<p>Sales, production, purchase, stock and receivables in one place \\u2014 the owner's view of the plant. Pick any period; every number drills down.</p>\", \"col\": 12}}, {\"id\": \"rmcnav000\", \"type\": \"custom_block\", \"data\": {\"custom_block_name\": \"RMC Navigator\", \"col\": 12}}, {\"id\": \"nc_month_revenue\", \"type\": \"number_card\", \"data\": {\"number_card_name\": \"This Month Dispatch Value\", \"col\": 3}}, {\"id\": \"nc_open_orders\", \"type\": \"number_card\", \"data\": {\"number_card_name\": \"Open Orders\", \"col\": 3}}, {\"id\": \"nc_pending_qty\", \"type\": \"number_card\", \"data\": {\"number_card_name\": \"Pending Order Qty (m\\u00b3)\", \"col\": 3}}, {\"id\": \"nc_today_dispatch\", \"type\": \"number_card\", \"data\": {\"number_card_name\": \"Today's Dispatch (m\\u00b3)\", \"col\": 3}}, {\"id\": \"ch_dispatch_customer\", \"type\": \"chart\", \"data\": {\"chart_name\": \"Dispatch by Customer (m\\u00b3)\", \"col\": 6}}, {\"id\": \"ch_order_status\", \"type\": \"chart\", \"data\": {\"chart_name\": \"Orders by Status\", \"col\": 6}}, {\"id\": \"sc_Management\", \"type\": \"shortcut\", \"data\": {\"shortcut_name\": \"Management\", \"col\": 3}}, {\"id\": \"sc_ReportHub\", \"type\": \"shortcut\", \"data\": {\"shortcut_name\": \"Report Hub\", \"col\": 3}}, {\"id\": \"sc_HowtoUseR\", \"type\": \"shortcut\", \"data\": {\"shortcut_name\": \"How to Use RMC\", \"col\": 3}}, {\"id\": \"sc_GradeProfit\", \"type\": \"shortcut\", \"data\": {\"shortcut_name\": \"Grade Profitability\", \"col\": 3}}, {\"id\": \"sc_MonthlyPlan\", \"type\": \"shortcut\", \"data\": {\"shortcut_name\": \"Monthly Plant Summary\", \"col\": 3}}, {\"id\": \"sc_CustomerWis\", \"type\": \"shortcut\", \"data\": {\"shortcut_name\": \"Customer Wise Sales\", \"col\": 3}}, {\"id\": \"sc_SalesInvoic\", \"type\": \"shortcut\", \"data\": {\"shortcut_name\": \"Sales Invoice\", \"col\": 3}}, {\"id\": \"cd_Management\", \"type\": \"card\", \"data\": {\"card_name\": \"Management\", \"col\": 4}}, {\"id\": \"cd_Money\", \"type\": \"card\", \"data\": {\"card_name\": \"Money\", \"col\": 4}}, {\"id\": \"cd_ManagementR\", \"type\": \"card\", \"data\": {\"card_name\": \"Management Reports\", \"col\": 4}}]",
+ "creation": "2026-08-05 23:42:58.127293",
+ "custom_blocks": [
+  {
+   "custom_block_name": "RMC Navigator",
+   "label": "RMC Navigator"
+  }
+ ],
+ "docstatus": 0,
+ "doctype": "Workspace",
+ "hide_custom": 0,
+ "icon": "rmc-invoice",
+ "idx": 0,
+ "indicator_color": "purple",
+ "is_hidden": 0,
+ "label": "RMC Management",
+ "link_type": "DocType",
+ "links": [
+  {
+   "hidden": 0,
+   "icon": "rmc-invoice",
+   "is_query_report": 0,
+   "label": "Management",
+   "link_count": 0,
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Card Break"
+  },
+  {
+   "hidden": 0,
+   "icon": "rmc-invoice",
+   "is_query_report": 0,
+   "label": "Management view",
+   "link_count": 0,
+   "link_to": "rmc-manage",
+   "link_type": "Page",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "icon": "rmc-report",
+   "is_query_report": 0,
+   "label": "Report Hub",
+   "link_count": 0,
+   "link_to": "rmc-reports",
+   "link_type": "Page",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "icon": "rmc-guide",
+   "is_query_report": 0,
+   "label": "How to Use RMC",
+   "link_count": 0,
+   "link_to": "rmc-guide",
+   "link_type": "Page",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "icon": "rmc-invoice",
+   "is_query_report": 0,
+   "label": "Money",
+   "link_count": 0,
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Card Break"
+  },
+  {
+   "hidden": 0,
+   "icon": "rmc-invoice",
+   "is_query_report": 0,
+   "label": "Sales Invoice",
+   "link_count": 0,
+   "link_to": "Sales Invoice",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "icon": "rmc-inward",
+   "is_query_report": 0,
+   "label": "Purchase Receipt",
+   "link_count": 0,
+   "link_to": "Purchase Receipt",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "icon": "rmc-customer",
+   "is_query_report": 0,
+   "label": "Customer",
+   "link_count": 0,
+   "link_to": "Customer",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "icon": "rmc-supplier",
+   "is_query_report": 0,
+   "label": "Supplier",
+   "link_count": 0,
+   "link_to": "Supplier",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "icon": "rmc-report",
+   "is_query_report": 0,
+   "label": "Management Reports",
+   "link_count": 0,
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Card Break"
+  },
+  {
+   "dependencies": "Batch Production",
+   "hidden": 0,
+   "icon": "rmc-report",
+   "is_query_report": 1,
+   "label": "Monthly Plant Summary",
+   "link_count": 0,
+   "link_to": "Monthly Plant Summary",
+   "link_type": "Report",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "dependencies": "Delivery Challan",
+   "hidden": 0,
+   "icon": "rmc-invoice",
+   "is_query_report": 1,
+   "label": "Grade Profitability",
+   "link_count": 0,
+   "link_to": "Grade Profitability",
+   "link_type": "Report",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "dependencies": "Delivery Challan",
+   "hidden": 0,
+   "icon": "rmc-invoice",
+   "is_query_report": 1,
+   "label": "Customer Wise Sales",
+   "link_count": 0,
+   "link_to": "Customer Wise Sales",
+   "link_type": "Report",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "dependencies": "Concrete Order",
+   "hidden": 0,
+   "icon": "rmc-order",
+   "is_query_report": 1,
+   "label": "Customer Order Status",
+   "link_count": 0,
+   "link_to": "Customer Order Status",
+   "link_type": "Report",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "dependencies": "Material Inward",
+   "hidden": 0,
+   "icon": "rmc-supplier",
+   "is_query_report": 1,
+   "label": "Supplier Purchase Summary",
+   "link_count": 0,
+   "link_to": "Supplier Purchase Summary",
+   "link_type": "Report",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "dependencies": "Concrete Order",
+   "hidden": 0,
+   "icon": "rmc-order",
+   "is_query_report": 1,
+   "label": "Order Book and Pour Schedule",
+   "link_count": 0,
+   "link_to": "Order Book and Pour Schedule",
+   "link_type": "Report",
+   "onboard": 0,
+   "type": "Link"
+  }
+ ],
+ "modified": "2026-08-05 23:43:22.534570",
+ "modified_by": "Administrator",
+ "module": "RMC Setup",
+ "name": "RMC Management",
+ "number_cards": [
+  {
+   "number_card_name": "This Month Dispatch Value"
+  },
+  {
+   "number_card_name": "Open Orders"
+  },
+  {
+   "number_card_name": "Pending Order Qty (m\u00b3)"
+  },
+  {
+   "number_card_name": "Today's Dispatch (m\u00b3)"
+  }
+ ],
+ "owner": "Administrator",
+ "parent_page": "",
+ "public": 1,
+ "quick_lists": [],
+ "roles": [
+  {
+   "role": "RMC Manager"
+  },
+  {
+   "role": "RMC Accounts"
+  },
+  {
+   "role": "System Manager"
+  }
+ ],
+ "sequence_id": 0.1,
+ "shortcuts": [
+  {
+   "color": "Green",
+   "doc_view": "",
+   "icon": "rmc-invoice",
+   "label": "Management",
+   "link_to": "rmc-manage",
+   "type": "Page"
+  },
+  {
+   "color": "Green",
+   "doc_view": "",
+   "icon": "rmc-report",
+   "label": "Report Hub",
+   "link_to": "rmc-reports",
+   "type": "Page"
+  },
+  {
+   "color": "Green",
+   "doc_view": "",
+   "icon": "rmc-guide",
+   "label": "How to Use RMC",
+   "link_to": "rmc-guide",
+   "type": "Page"
+  },
+  {
+   "color": "Grey",
+   "doc_view": "",
+   "icon": "rmc-invoice",
+   "label": "Grade Profitability",
+   "link_to": "Grade Profitability",
+   "report_ref_doctype": "Delivery Challan",
+   "type": "Report"
+  },
+  {
+   "color": "Grey",
+   "doc_view": "",
+   "icon": "rmc-report",
+   "label": "Monthly Plant Summary",
+   "link_to": "Monthly Plant Summary",
+   "report_ref_doctype": "Batch Production",
+   "type": "Report"
+  },
+  {
+   "color": "Grey",
+   "doc_view": "",
+   "icon": "rmc-invoice",
+   "label": "Customer Wise Sales",
+   "link_to": "Customer Wise Sales",
+   "report_ref_doctype": "Delivery Challan",
+   "type": "Report"
+  },
+  {
+   "color": "Blue",
+   "doc_view": "",
+   "icon": "rmc-invoice",
+   "label": "Sales Invoice",
+   "link_to": "Sales Invoice",
+   "type": "DocType"
+  }
+ ],
+ "title": "RMC Management",
+ "type": "Workspace"
+}

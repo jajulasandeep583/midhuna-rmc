@@ -29,6 +29,13 @@ REPORTS = [
 	("Plant Availability and Downtime", "RMC Plant Ops", "Plant Status Log"),
 	("Power and Diesel Consumption", "RMC Plant Ops", "Power Log"),
 	("Breakdown and Maintenance Log", "RMC Plant Ops", "Breakdown Log"),
+	# second wave
+	("Order Book and Pour Schedule", "RMC Dispatch", "Concrete Order"),
+	("Supplier Purchase Summary", "RMC Materials", "Material Inward"),
+	("Driver Performance", "RMC Dispatch", "Delivery Challan"),
+	("Slump Compliance", "RMC Production", "Delivery Challan"),
+	("Grade Profitability", "RMC Production", "Delivery Challan"),
+	("Monthly Plant Summary", "RMC Plant Ops", "Batch Production"),
 ]
 
 ROLES = ("System Manager", "RMC Manager", "Plant Operator",

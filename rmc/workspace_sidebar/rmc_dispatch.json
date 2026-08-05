@@ -149,10 +149,35 @@
    "link_type": "Report",
    "show_arrow": 0,
    "type": "Link"
+  },
+  {
+   "child": 0,
+   "collapsible": 1,
+   "icon": "rmc-driver",
+   "indent": 0,
+   "keep_closed": 0,
+   "label": "Driver Performance",
+   "link_to": "Driver Performance",
+   "link_type": "Report",
+   "show_arrow": 0,
+   "type": "Link"
+  },
+  {
+   "child": 0,
+   "collapsible": 1,
+   "icon": "rmc-order",
+   "indent": 0,
+   "keep_closed": 0,
+   "label": "Order Book",
+   "link_to": "Order Book and Pour Schedule",
+   "link_type": "Report",
+   "show_arrow": 0,
+   "type": "Link"
   }
  ],
- "modified": "2026-08-05 23:23:21.931939",
+ "modified": "2026-08-05 23:42:59.433356",
  "modified_by": "Administrator",
+ "module": "RMC Dispatch",
  "name": "RMC Dispatch",
  "owner": "Administrator",
  "standard": 1,

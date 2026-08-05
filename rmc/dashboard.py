@@ -13,21 +13,141 @@ def _plant():
 
 
 @frappe.whitelist()
-def control_tower(days=7):
+def management(from_date=None, to_date=None, plant=None):
+	"""One page for the owner: what we sold, what we bought, what we hold, what
+	we made, and who owes us — for any period."""
+	to_date = getdate(to_date or nowdate())
+	from_date = getdate(from_date or add_days(to_date, -29))
+	rng = {"from_date": from_date, "to_date": to_date}
+
+	plant_cond = " AND bp.plant = %(plant)s" if plant else ""
+	if plant:
+		rng["plant"] = plant
+
+	sales = frappe.db.sql("""
+		SELECT COUNT(dc.name) loads, SUM(dc.qty_m3) qty, SUM(dc.amount) value,
+		       COUNT(DISTINCT dc.customer) customers
+		FROM `tabDelivery Challan` dc
+		WHERE dc.docstatus = 1 AND dc.challan_date BETWEEN %(from_date)s AND %(to_date)s
+	""", rng, as_dict=True)[0]
+
+	production = frappe.db.sql("""
+		SELECT COUNT(bp.name) batches, SUM(bp.qty_m3) qty,
+		       SUM(bp.total_material_cost) cost
+		FROM `tabBatch Production` bp
+		WHERE bp.docstatus = 1
+		  AND bp.production_date BETWEEN %(from_date)s AND %(to_date)s {plant}
+	""".format(plant=plant_cond), rng, as_dict=True)[0]
+
+	purchase = frappe.db.sql("""
+		SELECT COUNT(mi.name) trucks, SUM(mi.net_weight) mt, SUM(mi.amount) value,
+		       COUNT(DISTINCT mi.supplier) suppliers
+		FROM `tabMaterial Inward` mi
+		WHERE mi.docstatus = 1 AND mi.inward_date BETWEEN %(from_date)s AND %(to_date)s
+	""", rng, as_dict=True)[0]
+
+	top_customers = frappe.db.sql("""
+		SELECT dc.customer, SUM(dc.qty_m3) qty, SUM(dc.amount) value, COUNT(*) loads
+		FROM `tabDelivery Challan` dc
+		WHERE dc.docstatus = 1 AND dc.challan_date BETWEEN %(from_date)s AND %(to_date)s
+		GROUP BY dc.customer ORDER BY SUM(dc.amount) DESC LIMIT 8
+	""", rng, as_dict=True)
+
+	by_grade = frappe.db.sql("""
+		SELECT dc.grade, SUM(dc.qty_m3) qty, SUM(dc.amount) value
+		FROM `tabDelivery Challan` dc
+		WHERE dc.docstatus = 1 AND dc.challan_date BETWEEN %(from_date)s AND %(to_date)s
+		GROUP BY dc.grade ORDER BY SUM(dc.qty_m3) DESC
+	""", rng, as_dict=True)
+
+	top_materials = frappe.db.sql("""
+		SELECT mi.item_code, mi.material_type, SUM(mi.net_weight) mt, SUM(mi.amount) value
+		FROM `tabMaterial Inward` mi
+		WHERE mi.docstatus = 1 AND mi.inward_date BETWEEN %(from_date)s AND %(to_date)s
+		GROUP BY mi.item_code, mi.material_type ORDER BY SUM(mi.amount) DESC LIMIT 8
+	""", rng, as_dict=True)
+
+	daily = frappe.db.sql("""
+		SELECT d, SUM(produced) produced, SUM(dispatched) dispatched, SUM(value) value FROM (
+			SELECT production_date d, SUM(qty_m3) produced, 0 dispatched, 0 value
+			FROM `tabBatch Production` WHERE docstatus = 1
+			  AND production_date BETWEEN %(from_date)s AND %(to_date)s
+			GROUP BY production_date
+			UNION ALL
+			SELECT challan_date d, 0, SUM(qty_m3), SUM(amount)
+			FROM `tabDelivery Challan` WHERE docstatus = 1
+			  AND challan_date BETWEEN %(from_date)s AND %(to_date)s
+			GROUP BY challan_date
+		) x GROUP BY d ORDER BY d
+	""", rng, as_dict=True)
+
+	# what customers still owe, straight out of the GL
+	receivables = frappe.db.sql("""
+		SELECT si.customer, SUM(si.grand_total) billed, SUM(si.outstanding_amount) outstanding
+		FROM `tabSales Invoice` si
+		WHERE si.docstatus = 1
+		GROUP BY si.customer HAVING SUM(si.outstanding_amount) > 0
+		ORDER BY SUM(si.outstanding_amount) DESC LIMIT 8
+	""", as_dict=True)
+
+	stock = frappe.db.sql("""
+		SELECT i.item_group, SUM(b.actual_qty) qty, SUM(b.stock_value) value
+		FROM `tabBin` b JOIN `tabItem` i ON i.name = b.item_code
+		GROUP BY i.item_group ORDER BY SUM(b.stock_value) DESC
+	""", as_dict=True)
+
+	revenue = flt(sales.value)
+	mat_cost = flt(production.cost)
+	return {
+		"period": {"from": str(from_date), "to": str(to_date)},
+		"sales": {"loads": sales.loads or 0, "qty": round(flt(sales.qty), 2),
+		          "value": round(revenue, 2), "customers": sales.customers or 0,
+		          "avg_rate": round(revenue / flt(sales.qty), 2) if flt(sales.qty) else 0},
+		"production": {"batches": production.batches or 0,
+		               "qty": round(flt(production.qty), 2),
+		               "cost": round(mat_cost, 2),
+		               "cost_per_m3": round(mat_cost / flt(production.qty), 2)
+		               if flt(production.qty) else 0},
+		"purchase": {"trucks": purchase.trucks or 0, "mt": round(flt(purchase.mt), 2),
+		             "value": round(flt(purchase.value), 2),
+		             "suppliers": purchase.suppliers or 0},
+		"margin": {"revenue": round(revenue, 2), "material_cost": round(mat_cost, 2),
+		           "gross": round(revenue - mat_cost, 2),
+		           "pct": round(100.0 * (revenue - mat_cost) / revenue, 1) if revenue else 0},
+		"top_customers": top_customers, "by_grade": by_grade,
+		"top_materials": top_materials, "daily": daily,
+		"receivables": receivables,
+		"receivable_total": round(sum(flt(r.outstanding) for r in receivables), 2),
+		"stock": stock,
+		"stock_value": round(sum(flt(s.value) for s in stock), 2),
+		"open_orders": frappe.db.count("Concrete Order",
+		                               {"docstatus": 1,
+		                                "status": ["in", ["Open", "In Progress"]]}),
+		"pending_m3": round(flt(frappe.db.sql("""
+			SELECT SUM(pending_qty_m3) FROM `tabConcrete Order`
+			WHERE docstatus = 1 AND status IN ('Open','In Progress')""")[0][0]), 2),
+		"low_silos": [s for s in silo_board() if s["low"]],
+	}
+
+
+@frappe.whitelist()
+def control_tower(days=7, plant=None):
 	"""The morning view: yesterday and today, orders in hand, plant health."""
 	days = int(days)
 	today = getdate(nowdate())
 	start = add_days(today, -(days - 1))
 
+	pc = " AND plant = %(plant)s" if plant else ""
+	args = {"start": start, "plant": plant}
 	trend = frappe.db.sql("""
 		SELECT production_date d, SUM(qty_m3) q FROM `tabBatch Production`
-		WHERE docstatus = 1 AND production_date >= %s
-		GROUP BY production_date""", start, as_dict=True)
+		WHERE docstatus = 1 AND production_date >= %(start)s""" + pc + """
+		GROUP BY production_date""", args, as_dict=True)
 	disp = frappe.db.sql("""
 		SELECT challan_date d, SUM(qty_m3) q, SUM(amount) v, COUNT(name) trips
 		FROM `tabDelivery Challan`
-		WHERE docstatus = 1 AND challan_date >= %s
-		GROUP BY challan_date""", start, as_dict=True)
+		WHERE docstatus = 1 AND challan_date >= %(start)s
+		GROUP BY challan_date""", args, as_dict=True)
 
 	pmap = {str(r.d): flt(r.q) for r in trend}
 	dmap = {str(r.d): r for r in disp}
@@ -45,11 +165,11 @@ def control_tower(days=7):
 
 	grades = frappe.db.sql("""
 		SELECT grade, SUM(qty_m3) q FROM `tabBatch Production`
-		WHERE docstatus = 1 AND production_date >= %s
-		GROUP BY grade ORDER BY q DESC""", start, as_dict=True)
+		WHERE docstatus = 1 AND production_date >= %(start)s""" + pc + """
+		GROUP BY grade ORDER BY q DESC""", args, as_dict=True)
 
 	return {
-		"plant": _plant(),
+		"plant": plant or _plant(),
 		"period": {"from": str(start), "to": str(today)},
 		"series": series,
 		"grades": [{"grade": g.grade, "qty": round(flt(g.q), 2)} for g in grades],
@@ -70,26 +190,29 @@ def control_tower(days=7):
 
 
 @frappe.whitelist()
-def batch_board(date=None):
+def batch_board(date=None, shift=None, grade=None):
 	"""Everything batched on one day, by shift, with material consumption."""
 	date = getdate(date or nowdate())
+	extra = ((" AND bp.shift = %(shift)s" if shift else "")
+	         + (" AND bp.grade = %(grade)s" if grade else ""))
+	args = {"date": date, "shift": shift, "grade": grade}
 	batches = frappe.db.sql("""
 		SELECT bp.name, bp.shift, bp.grade, bp.qty_m3, bp.no_of_batches, bp.operator,
 		       bp.start_time, bp.end_time, bp.cost_per_m3, bp.concrete_order,
 		       co.customer, bp.stock_entry, bp.status
 		FROM `tabBatch Production` bp
 		LEFT JOIN `tabConcrete Order` co ON co.name = bp.concrete_order
-		WHERE bp.docstatus = 1 AND bp.production_date = %s
-		ORDER BY bp.start_time""", date, as_dict=True)
+		WHERE bp.docstatus = 1 AND bp.production_date = %(date)s""" + extra + """
+		ORDER BY bp.start_time""", args, as_dict=True)
 
 	materials = frappe.db.sql("""
 		SELECT bm.item_code, bm.material_type, SUM(bm.target_qty) target,
 		       SUM(bm.actual_qty) actual, SUM(bm.amount) cost, bm.uom
 		FROM `tabBatch Material` bm
 		JOIN `tabBatch Production` bp ON bp.name = bm.parent
-		WHERE bp.docstatus = 1 AND bp.production_date = %s
+		WHERE bp.docstatus = 1 AND bp.production_date = %(date)s""" + extra + """
 		GROUP BY bm.item_code, bm.material_type, bm.uom
-		ORDER BY SUM(bm.amount) DESC""", date, as_dict=True)
+		ORDER BY SUM(bm.amount) DESC""", args, as_dict=True)
 
 	for m in materials:
 		m["variance_pct"] = round(
@@ -112,7 +235,7 @@ def batch_board(date=None):
 
 
 @frappe.whitelist()
-def dispatch_board(date=None):
+def dispatch_board(date=None, customer=None, status=None):
 	"""Today's trips: who is out, who is back, and how long the cycle took."""
 	date = getdate(date or nowdate())
 	trips = frappe.db.sql("""
@@ -122,8 +245,11 @@ def dispatch_board(date=None):
 		       dc.sales_invoice, cs.distance_km
 		FROM `tabDelivery Challan` dc
 		LEFT JOIN `tabConstruction Site` cs ON cs.name = dc.construction_site
-		WHERE dc.docstatus = 1 AND dc.challan_date = %s
-		ORDER BY dc.dispatch_time DESC""", date, as_dict=True)
+		WHERE dc.docstatus = 1 AND dc.challan_date = %(date)s"""
+		+ (" AND dc.customer = %(customer)s" if customer else "")
+		+ (" AND dc.status = %(status)s" if status else "")
+		+ """ ORDER BY dc.dispatch_time DESC""",
+		{"date": date, "customer": customer, "status": status}, as_dict=True)
 
 	fleet = frappe.get_all("Transit Mixer",
 	                       filters={"vehicle_type": "Transit Mixer"},
@@ -178,10 +304,13 @@ def order_360(order):
 
 
 @frappe.whitelist()
-def silo_board():
+def silo_board(material_type=None):
 	"""Live level of every silo, with days of cover at the recent burn rate."""
 	out = []
-	for s in frappe.get_all("Silo", filters={"is_active": 1},
+	silo_filters = {"is_active": 1}
+	if material_type:
+		silo_filters["material_type"] = material_type
+	for s in frappe.get_all("Silo", filters=silo_filters,
 	                        fields=["name", "silo_name", "material_type", "item_code",
 	                                "warehouse", "capacity_mt", "min_level_mt"],
 	                        order_by="material_type, silo_name"):
@@ -208,7 +337,7 @@ def silo_board():
 
 
 @frappe.whitelist()
-def quality_board(days=90):
+def quality_board(days=90, grade=None):
 	"""Cube tests, pass rate by grade, and the loads still awaiting a 28-day break."""
 	days = int(days)
 	start = add_days(getdate(nowdate()), -days)
@@ -218,8 +347,10 @@ def quality_board(days=90):
 		       SUM(CASE WHEN result = 'Pass' THEN 1 ELSE 0 END) passed,
 		       AVG(avg_strength_mpa) avg_strength, AVG(strength_pct) avg_pct
 		FROM `tabCube Test`
-		WHERE docstatus = 1 AND casting_date >= %s
-		GROUP BY grade ORDER BY grade""", start, as_dict=True)
+		WHERE docstatus = 1 AND casting_date >= %(start)s"""
+		+ (" AND grade = %(grade)s" if grade else "")
+		+ """ GROUP BY grade ORDER BY grade""",
+		{"start": start, "grade": grade}, as_dict=True)
 	for g in by_grade:
 		g["pass_rate"] = round(100.0 * g.passed / g.tests, 1) if g.tests else 0
 		g["avg_strength"] = round(flt(g.avg_strength), 1)

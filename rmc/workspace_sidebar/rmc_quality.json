@@ -125,10 +125,23 @@
    "link_type": "Report",
    "show_arrow": 0,
    "type": "Link"
+  },
+  {
+   "child": 0,
+   "collapsible": 1,
+   "icon": "rmc-report",
+   "indent": 0,
+   "keep_closed": 0,
+   "label": "Monthly Summary",
+   "link_to": "Monthly Plant Summary",
+   "link_type": "Report",
+   "show_arrow": 0,
+   "type": "Link"
   }
  ],
- "modified": "2026-08-05 23:23:22.091327",
+ "modified": "2026-08-05 23:42:59.477233",
  "modified_by": "Administrator",
+ "module": "RMC Plant Ops",
  "name": "RMC Quality",
  "owner": "Administrator",
  "standard": 1,

@@ -21,6 +21,18 @@
   {
    "child": 0,
    "collapsible": 1,
+   "icon": "rmc-invoice",
+   "indent": 0,
+   "keep_closed": 0,
+   "label": "Management",
+   "link_to": "rmc-manage",
+   "link_type": "Page",
+   "show_arrow": 0,
+   "type": "Link"
+  },
+  {
+   "child": 0,
+   "collapsible": 1,
    "icon": "rmc-dashboard",
    "indent": 0,
    "keep_closed": 0,
@@ -38,6 +50,18 @@
    "keep_closed": 0,
    "label": "Live Plant Dashboard",
    "link_to": "rmc-live-dashboard",
+   "link_type": "Page",
+   "show_arrow": 0,
+   "type": "Link"
+  },
+  {
+   "child": 0,
+   "collapsible": 1,
+   "icon": "rmc-report",
+   "indent": 0,
+   "keep_closed": 0,
+   "label": "Report Hub",
+   "link_to": "rmc-reports",
    "link_type": "Page",
    "show_arrow": 0,
    "type": "Link"
@@ -101,10 +125,23 @@
    "link_type": "Workspace",
    "show_arrow": 0,
    "type": "Link"
+  },
+  {
+   "child": 0,
+   "collapsible": 1,
+   "icon": "rmc-guide",
+   "indent": 0,
+   "keep_closed": 0,
+   "label": "How to Use RMC",
+   "link_to": "rmc-guide",
+   "link_type": "Page",
+   "show_arrow": 0,
+   "type": "Link"
   }
  ],
- "modified": "2026-08-05 23:23:19.589919",
+ "modified": "2026-08-05 23:42:59.289067",
  "modified_by": "Administrator",
+ "module": "RMC Setup",
  "name": "RMC Dashboard",
  "owner": "Administrator",
  "standard": 1,

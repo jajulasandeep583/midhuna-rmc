@@ -18,6 +18,7 @@ import frappe
 
 # workspace -> (sprite symbol, tile colour)
 TILES = {
+	"RMC Management": ("rmc-invoice", "#7C3AED"),
 	"RMC Dashboard": ("rmc-dashboard", "#1E40AF"),
 	"RMC Production": ("rmc-batch", "#16A34A"),
 	"RMC Materials": ("rmc-silo", "#B45309"),

@@ -8,12 +8,30 @@ one sidebar per workspace, each scoped to that job.
 import frappe
 
 SIDEBARS = {
+	"RMC Management": {
+		"icon": "rmc-invoice",
+		"items": [
+			("Home", "Workspace", "RMC Management", "home"),
+			("Management View", "Page", "rmc-manage", "rmc-invoice"),
+			("Control Tower", "Page", "rmc-control-tower", "rmc-dashboard"),
+			("Report Hub", "Page", "rmc-reports", "rmc-report"),
+			("Monthly Plant Summary", "Report", "Monthly Plant Summary", "rmc-report"),
+			("Grade Profitability", "Report", "Grade Profitability", "rmc-invoice"),
+			("Customer Wise Sales", "Report", "Customer Wise Sales", "rmc-customer"),
+			("Order Book", "Report", "Order Book and Pour Schedule", "rmc-order"),
+			("Sales Invoice", "DocType", "Sales Invoice", "rmc-invoice"),
+			("Purchase Receipt", "DocType", "Purchase Receipt", "rmc-inward"),
+			("How to Use RMC", "Page", "rmc-guide", "rmc-guide"),
+		],
+	},
 	"RMC Dashboard": {
 		"icon": "rmc-dashboard",
 		"items": [
 			("Home", "Workspace", "RMC Dashboard", "home"),
+			("Management", "Page", "rmc-manage", "rmc-invoice"),
 			("Control Tower", "Page", "rmc-control-tower", "rmc-dashboard"),
 			("Live Plant Dashboard", "Page", "rmc-live-dashboard", "rmc-status"),
+			("Report Hub", "Page", "rmc-reports", "rmc-report"),
 			("Production", "Workspace", "RMC Production", "rmc-batch"),
 			("Materials", "Workspace", "RMC Materials", "rmc-silo"),
 			("Dispatch", "Workspace", "RMC Dispatch", "rmc-dispatch"),
@@ -34,6 +52,8 @@ SIDEBARS = {
 			("Daily Production Summary", "Report", "Daily Production Summary", "rmc-report"),
 			("Batch Register", "Report", "Batch Register", "rmc-batch"),
 			("Consumption vs Recipe", "Report", "Material Consumption vs Recipe", "rmc-mix"),
+			("Grade Profitability", "Report", "Grade Profitability", "rmc-invoice"),
+			("Slump Compliance", "Report", "Slump Compliance", "rmc-slump"),
 			("Stock Entry", "DocType", "Stock Entry", "rmc-stock"),
 		],
 	},
@@ -50,6 +70,7 @@ SIDEBARS = {
 			("Stock Entry", "DocType", "Stock Entry", "rmc-stock"),
 			("Material Inward Register", "Report", "Material Inward Register", "rmc-weighbridge"),
 			("Silo and Stock Status", "Report", "Silo and Stock Status", "rmc-silo"),
+			("Supplier Purchases", "Report", "Supplier Purchase Summary", "rmc-supplier"),
 		],
 	},
 	"RMC Dispatch": {
@@ -67,6 +88,8 @@ SIDEBARS = {
 			("Sales Invoice", "DocType", "Sales Invoice", "rmc-invoice"),
 			("Dispatch Register", "Report", "Dispatch Register", "rmc-challan"),
 			("Vehicle Utilisation", "Report", "Vehicle Utilisation and Trips", "rmc-cycle"),
+			("Driver Performance", "Report", "Driver Performance", "rmc-driver"),
+			("Order Book", "Report", "Order Book and Pour Schedule", "rmc-order"),
 		],
 	},
 	"RMC Quality": {
@@ -82,6 +105,7 @@ SIDEBARS = {
 			("Cube Test Register", "Report", "Cube Test Register", "rmc-cube-test"),
 			("Availability & Downtime", "Report", "Plant Availability and Downtime", "rmc-status"),
 			("Power & Diesel", "Report", "Power and Diesel Consumption", "rmc-power"),
+			("Monthly Summary", "Report", "Monthly Plant Summary", "rmc-report"),
 		],
 	},
 	"RMC Setup": {

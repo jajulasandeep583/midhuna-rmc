@@ -1,0 +1,36 @@
+{
+ "content": null,
+ "creation": "2026-08-05 00:00:00.000000",
+ "docstatus": 0,
+ "doctype": "Page",
+ "idx": 0,
+ "modified": "2026-08-05 00:00:00.000000",
+ "modified_by": "Administrator",
+ "module": "RMC Plant Ops",
+ "name": "rmc-guide",
+ "owner": "Administrator",
+ "page_name": "rmc-guide",
+ "roles": [
+  {
+   "role": "RMC Manager"
+  },
+  {
+   "role": "Plant Operator"
+  },
+  {
+   "role": "Dispatch Incharge"
+  },
+  {
+   "role": "Quality Engineer"
+  },
+  {
+   "role": "RMC Accounts"
+  },
+  {
+   "role": "System Manager"
+  }
+ ],
+ "standard": "Yes",
+ "system_page": 0,
+ "title": "How to Use RMC"
+}

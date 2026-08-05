@@ -1,0 +1,22 @@
+{
+ "app": "rmc",
+ "bg_color": "gray",
+ "creation": "2026-08-05 23:42:59.723598",
+ "docstatus": 0,
+ "doctype": "Desktop Icon",
+ "hidden": 0,
+ "icon": "rmc-invoice",
+ "icon_type": "Link",
+ "idx": 0,
+ "label": "RMC Management",
+ "link_to": "RMC Management",
+ "link_type": "Workspace Sidebar",
+ "modified": "2026-08-05 23:42:59.723598",
+ "modified_by": "Administrator",
+ "name": "RMC Management",
+ "owner": "Administrator",
+ "restrict_removal": 0,
+ "roles": [],
+ "sidebar": "RMC Management",
+ "standard": 1
+}

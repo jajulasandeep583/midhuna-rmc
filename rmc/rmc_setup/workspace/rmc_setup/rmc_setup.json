@@ -1,9 +1,14 @@
 {
  "app": "rmc",
  "charts": [],
- "content": "[{\"id\": \"hdr\", \"type\": \"header\", \"data\": {\"text\": \"<span class=\\\"h4\\\"><b>RMC Setup</b></span>\", \"col\": 12}}, {\"id\": \"intro\", \"type\": \"paragraph\", \"data\": {\"text\": \"<p>Master data \\u2014 plant, grades, mix designs, transit mixers, customer sites and silos. Set this up once before daily operations begin.</p>\", \"col\": 12}}, {\"id\": \"nc_active_sites\", \"type\": \"number_card\", \"data\": {\"number_card_name\": \"Active Customer Sites\", \"col\": 3}}, {\"id\": \"nc_mixers_available\", \"type\": \"number_card\", \"data\": {\"number_card_name\": \"Mixers Available\", \"col\": 3}}, {\"id\": \"sc_RMCPlant\", \"type\": \"shortcut\", \"data\": {\"shortcut_name\": \"RMC Plant\", \"col\": 3}}, {\"id\": \"sc_ConcreteGra\", \"type\": \"shortcut\", \"data\": {\"shortcut_name\": \"Concrete Grade\", \"col\": 3}}, {\"id\": \"sc_MixDesign\", \"type\": \"shortcut\", \"data\": {\"shortcut_name\": \"Mix Design\", \"col\": 3}}, {\"id\": \"sc_Silo\", \"type\": \"shortcut\", \"data\": {\"shortcut_name\": \"Silo\", \"col\": 3}}, {\"id\": \"sc_TransitMixe\", \"type\": \"shortcut\", \"data\": {\"shortcut_name\": \"Transit Mixer\", \"col\": 3}}, {\"id\": \"sc_Construction\", \"type\": \"shortcut\", \"data\": {\"shortcut_name\": \"Construction Site\", \"col\": 3}}, {\"id\": \"cd_PlantMaster\", \"type\": \"card\", \"data\": {\"card_name\": \"Plant Masters\", \"col\": 4}}, {\"id\": \"cd_ProductMast\", \"type\": \"card\", \"data\": {\"card_name\": \"Product Masters\", \"col\": 4}}, {\"id\": \"cd_Fleet&Cust\", \"type\": \"card\", \"data\": {\"card_name\": \"Fleet & Customers\", \"col\": 4}}]",
+ "content": "[{\"id\": \"hdr\", \"type\": \"header\", \"data\": {\"text\": \"<span class=\\\"h4\\\"><b>RMC Setup</b></span>\", \"col\": 12}}, {\"id\": \"intro\", \"type\": \"paragraph\", \"data\": {\"text\": \"<p>Master data \\u2014 plant, grades, mix designs, transit mixers, customer sites and silos. Set this up once before daily operations begin.</p>\", \"col\": 12}}, {\"id\": \"rmcnav000\", \"type\": \"custom_block\", \"data\": {\"custom_block_name\": \"RMC Navigator\", \"col\": 12}}, {\"id\": \"nc_active_sites\", \"type\": \"number_card\", \"data\": {\"number_card_name\": \"Active Customer Sites\", \"col\": 3}}, {\"id\": \"nc_mixers_available\", \"type\": \"number_card\", \"data\": {\"number_card_name\": \"Mixers Available\", \"col\": 3}}, {\"id\": \"sc_RMCPlant\", \"type\": \"shortcut\", \"data\": {\"shortcut_name\": \"RMC Plant\", \"col\": 3}}, {\"id\": \"sc_ConcreteGra\", \"type\": \"shortcut\", \"data\": {\"shortcut_name\": \"Concrete Grade\", \"col\": 3}}, {\"id\": \"sc_MixDesign\", \"type\": \"shortcut\", \"data\": {\"shortcut_name\": \"Mix Design\", \"col\": 3}}, {\"id\": \"sc_Silo\", \"type\": \"shortcut\", \"data\": {\"shortcut_name\": \"Silo\", \"col\": 3}}, {\"id\": \"sc_TransitMixe\", \"type\": \"shortcut\", \"data\": {\"shortcut_name\": \"Transit Mixer\", \"col\": 3}}, {\"id\": \"sc_Construction\", \"type\": \"shortcut\", \"data\": {\"shortcut_name\": \"Construction Site\", \"col\": 3}}, {\"id\": \"cd_PlantMaster\", \"type\": \"card\", \"data\": {\"card_name\": \"Plant Masters\", \"col\": 4}}, {\"id\": \"cd_ProductMast\", \"type\": \"card\", \"data\": {\"card_name\": \"Product Masters\", \"col\": 4}}, {\"id\": \"cd_Fleet&Cust\", \"type\": \"card\", \"data\": {\"card_name\": \"Fleet & Customers\", \"col\": 4}}]",
  "creation": "2026-08-05 21:03:39.026515",
- "custom_blocks": [],
+ "custom_blocks": [
+  {
+   "custom_block_name": "RMC Navigator",
+   "label": "RMC Navigator"
+  }
+ ],
  "docstatus": 0,
  "doctype": "Workspace",
  "hide_custom": 0,
@@ -166,7 +171,7 @@
    "type": "Link"
   }
  ],
- "modified": "2026-08-05 23:23:27.347089",
+ "modified": "2026-08-05 23:43:22.984634",
  "modified_by": "Administrator",
  "module": "RMC Setup",
  "name": "RMC Setup",
@@ -190,7 +195,7 @@
    "role": "System Manager"
   }
  ],
- "sequence_id": 0.6,
+ "sequence_id": 0.7,
  "shortcuts": [
   {
    "color": "Blue",

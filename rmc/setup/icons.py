@@ -32,6 +32,7 @@ DOCTYPE_ICONS = {
 }
 
 WORKSPACE_ICONS = {
+	"RMC Management": "rmc-invoice",
 	"RMC Dashboard": "rmc-dashboard",
 	"RMC Production": "rmc-batch",
 	"RMC Materials": "rmc-silo",
@@ -60,6 +61,17 @@ EXTRA_ICONS = {
 	"Silo & Stock Board": "rmc-silo",
 	"Quality Board": "rmc-quality",
 	"How to Use RMC": "rmc-guide",
+	"Management": "rmc-invoice",
+	"Management view": "rmc-invoice",
+	"Report Hub": "rmc-report",
+	"Order Book and Pour Schedule": "rmc-order",
+	"Supplier Purchase Summary": "rmc-supplier",
+	"Driver Performance": "rmc-driver",
+	"Slump Compliance": "rmc-slump",
+	"Grade Profitability": "rmc-invoice",
+	"Monthly Plant Summary": "rmc-report",
+	"Money": "rmc-invoice",
+	"Management Reports": "rmc-report",
 	# reports, by name
 	"Daily Production Summary": "rmc-report",
 	"Batch Register": "rmc-batch",
@@ -124,7 +136,9 @@ def install():
 		n_ws += 1
 
 	# desk pages get the app icon in the sidebar / awesomebar
-	for page, icon in (("rmc-live-dashboard", "rmc-dashboard"),
+	for page, icon in (("rmc-manage", "rmc-invoice"),
+	                   ("rmc-reports", "rmc-report"),
+	                   ("rmc-live-dashboard", "rmc-dashboard"),
 	                   ("rmc-control-tower", "rmc-dashboard"),
 	                   ("rmc-batch-board", "rmc-batch"),
 	                   ("rmc-dispatch-board", "rmc-dispatch"),
