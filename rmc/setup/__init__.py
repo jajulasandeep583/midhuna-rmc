@@ -32,13 +32,16 @@ def _desk_objects():
 	Order matters: sidebars must exist before the desktop icons that link
 	through them, and the workspaces before either.
 	"""
-	from rmc.setup import (custom_fields, desktop_icons, icons, permissions,
+	from rmc.setup import (custom_fields, desktop_icons, icons, navblock, permissions,
 	                       print_formats, script_reports, sidebar, workspaces)
 
 	custom_fields.install()
 	print_formats.install()
 	script_reports.install()
 	workspaces.install()
+	# navblock AFTER workspaces: workspaces.install() rewrites each workspace's
+	# content block, which drops the navigator tiles if they were added first.
+	navblock.install()
 	sidebar.install()
 	desktop_icons.install()
 	icons.install()
