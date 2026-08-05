@@ -92,7 +92,11 @@ CONCRETE_HSN = "38245010"          # ready-mix concrete
 
 def _complete_wizard():
 	"""Mark the wizard done for frappe and erpnext so the banner stops."""
-	for app in ("frappe", "erpnext"):
+	# rmc is included deliberately: it ships no setup wizard of its own, and
+	# frappe hides an app's tile on the /apps screen from anyone without System
+	# Manager until that app is flagged complete — which would leave the
+	# operator, dispatch and quality logins staring at a desk with no RMC tile.
+	for app in ("frappe", "erpnext", "rmc"):
 		if frappe.db.exists("Installed Application", {"app_name": app}):
 			frappe.db.set_value("Installed Application", {"app_name": app},
 			                    "is_setup_complete", 1)
