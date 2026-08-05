@@ -70,6 +70,10 @@ class MaterialInward(Document):
 		pr.company = plant.company
 		pr.posting_date = self.inward_date
 		pr.set_posting_time = 1
+		# Post at the weigh-in time, not "now" — otherwise a receipt entered late
+		# in the day lands in the ledger *after* the shift that consumed it, and
+		# backdated entries fail with insufficient stock.
+		pr.posting_time = self.inward_time or "05:00:00"
 		pr.supplier_delivery_note = self.supplier_dc_no
 		pr.rmc_material_inward = self.name
 		pr.append("items", {

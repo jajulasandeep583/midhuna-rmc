@@ -34,7 +34,8 @@
   "warehouse",
   "purchase_receipt",
   "remarks",
-  "amended_from"
+  "amended_from",
+  "inward_time"
  ],
  "fields": [
   {
@@ -202,13 +203,20 @@
    "options": "Material Inward",
    "print_hide": 1,
    "read_only": 1
+  },
+  {
+   "default": "05:00:00",
+   "description": "When the truck was weighed in. The stock receipt posts at this moment, so material is in the silo before the shift consumes it.",
+   "fieldname": "inward_time",
+   "fieldtype": "Time",
+   "label": "Inward Time"
   }
  ],
  "grid_page_length": 50,
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2026-08-05 20:52:26.851501",
+ "modified": "2026-08-05 21:25:47.539879",
  "modified_by": "Administrator",
  "module": "RMC Materials",
  "name": "Material Inward",

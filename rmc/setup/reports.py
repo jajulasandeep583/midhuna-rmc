@@ -4,6 +4,10 @@ Created with is_standard = Yes so, in developer mode, each report is written to
 its module folder as version-controlled files and ships with the app.
 
     bench --site rmc.local execute rmc.setup.reports.install
+
+NOTE: query reports are run through Python %-formatting, so any literal percent
+sign in a query — including one inside a column label like "Filled %%" — must be
+doubled or the report dies with "not enough arguments for format string".
 """
 
 import frappe
@@ -65,7 +69,7 @@ SELECT
   SUM(bm.actual_qty)        AS "Actual Qty:Float:120",
   SUM(bm.actual_qty) - SUM(bm.target_qty) AS "Variance:Float:110",
   100 * (SUM(bm.actual_qty) - SUM(bm.target_qty)) / NULLIF(SUM(bm.target_qty),0)
-                            AS "Variance %:Float:110",
+                            AS "Variance %%:Float:110",
   SUM(bm.amount)            AS "Cost:Currency:120"
 FROM `tabBatch Material` bm
 JOIN `tabBatch Production` bp ON bp.name = bm.parent
@@ -86,7 +90,7 @@ SELECT
   co.order_qty_m3        AS "Ordered m3:Float:100",
   co.delivered_qty_m3    AS "Delivered m3:Float:110",
   co.pending_qty_m3      AS "Pending m3:Float:100",
-  100 * co.delivered_qty_m3 / NULLIF(co.order_qty_m3,0) AS "Achieved %:Float:100",
+  100 * co.delivered_qty_m3 / NULLIF(co.order_qty_m3,0) AS "Achieved %%:Float:100",
   co.required_from       AS "Required From:Date:110",
   co.status              AS "Status:Data:100"
 FROM `tabConcrete Order` co
@@ -128,7 +132,7 @@ SELECT
   s.item_code        AS "Item:Link/Item:180",
   s.capacity_mt      AS "Capacity:Float:100",
   IFNULL(b.actual_qty,0)/1000 AS "Stock (MT/kL):Float:130",
-  100 * IFNULL(b.actual_qty,0)/1000 / NULLIF(s.capacity_mt,0) AS "Filled %:Float:95",
+  100 * IFNULL(b.actual_qty,0)/1000 / NULLIF(s.capacity_mt,0) AS "Filled %%:Float:95",
   s.min_level_mt     AS "Low Level:Float:100",
   CASE WHEN IFNULL(b.actual_qty,0)/1000 <= s.min_level_mt THEN 'LOW - REORDER'
        ELSE 'OK' END AS "Alert:Data:130",
@@ -236,7 +240,7 @@ SELECT
   ct.no_of_cubes          AS "Cubes:Int:70",
   ct.required_strength_mpa AS "Required MPa:Float:120",
   ct.avg_strength_mpa     AS "Achieved MPa:Float:120",
-  ct.strength_pct         AS "Achieved %:Float:100",
+  ct.strength_pct         AS "Achieved %%:Float:100",
   ct.result               AS "Result:Data:80",
   ct.tested_by            AS "Tested By:Data:120"
 FROM `tabCube Test` ct
@@ -257,7 +261,7 @@ SELECT
   SUM(CASE WHEN psl.status='Stopped'   THEN psl.duration_hours ELSE 0 END) AS "Stopped hrs:Float:110",
   SUM(psl.duration_hours) AS "Logged hrs:Float:105",
   100 * SUM(CASE WHEN psl.status IN ('Running','Idle') THEN psl.duration_hours ELSE 0 END)
-      / NULLIF(SUM(psl.duration_hours),0) AS "Availability %:Float:120"
+      / NULLIF(SUM(psl.duration_hours),0) AS "Availability %%:Float:120"
 FROM `tabPlant Status Log` psl
 GROUP BY psl.log_date, psl.plant
 ORDER BY psl.log_date DESC

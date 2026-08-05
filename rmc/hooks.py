@@ -19,6 +19,12 @@ add_to_apps_screen = [
 	}
 ]
 
+# The challan's QR must be embedded in the HTML: the PDF renderer cannot fetch
+# an authenticated endpoint, so a <img src="/api/..."> prints as a broken image.
+jinja = {
+	"methods": ["rmc.utils.qr_data_uri"],
+}
+
 after_install = "rmc.setup.after_install"
 after_migrate = "rmc.setup.after_migrate"
 

@@ -158,6 +158,7 @@ def _workspaces():
 			"name": "RMC Dashboard", "icon": "getting-started",
 			"roles": ["RMC Manager", "Plant Operator", "Dispatch Incharge"],
 			"shortcuts": [
+				("Page", "Live Plant Dashboard", "rmc-live-dashboard"),
 				("DocType", "Batch Production", "Batch Production"),
 				("DocType", "Delivery Challan", "Delivery Challan"),
 				("DocType", "Concrete Order", "Concrete Order"),
@@ -339,7 +340,11 @@ def _make_workspace(spec, card_ids, chart_ids, seq):
 	ws_shortcuts = []
 	for sc in spec["shortcuts"]:
 		stype, label, link_to = sc[0], sc[1], sc[2]
-		if stype == "Report":
+		if stype == "Page":
+			if frappe.db.exists("Page", link_to):
+				ws_shortcuts.append({"type": "Page", "label": label, "link_to": link_to,
+				                     "color": "Green"})
+		elif stype == "Report":
 			if frappe.db.exists("Report", link_to):
 				ws_shortcuts.append({
 					"type": "Report", "label": label, "link_to": link_to,

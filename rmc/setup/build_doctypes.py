@@ -203,6 +203,9 @@ def doctypes():
 			"autoname": "format:MI-{YY}{MM}-{#####}",
 			"fields": [
 				F("inward_date", "Inward Date", "Date", default="Today", reqd=1, in_list_view=1),
+				F("inward_time", "Inward Time", "Time", default="05:00:00",
+				  description="When the truck was weighed in. The stock receipt posts at this "
+				              "moment, so material is in the silo before the shift consumes it."),
 				F("plant", "Plant", "Link", options="RMC Plant", reqd=1),
 				F("supplier", "Supplier", "Link", options="Supplier", reqd=1, in_list_view=1),
 				F("supplier_dc_no", "Supplier DC / Invoice No", "Data"),
@@ -522,6 +525,30 @@ def build():
 	print("CREATED:", len(made), made)
 	print("SKIPPED:", len(skipped), skipped)
 	return {"created": made, "skipped": skipped}
+
+
+def sync_fields():
+	"""Add fields that exist in the spec but not yet on the live DocType.
+
+	build() only creates whole DocTypes; once one is live, new fields added to
+	the spec have to be pushed in separately. Existing fields are left alone.
+	"""
+	added = []
+	for dt in doctypes():
+		if not frappe.db.exists("DocType", dt["name"]):
+			continue
+		doc = frappe.get_doc("DocType", dt["name"])
+		have = {f.fieldname for f in doc.fields}
+		missing = [f for f in dt["fields"] if f["fieldname"] not in have]
+		if not missing:
+			continue
+		for f in missing:
+			doc.append("fields", f)
+			added.append("%s.%s" % (dt["name"], f["fieldname"]))
+		doc.save(ignore_permissions=True)
+	frappe.db.commit()
+	print("FIELDS ADDED:", added or "none")
+	return added
 
 
 def _create(dt):

@@ -262,10 +262,16 @@ def _desk():
 		       "%d blocks, %d links, %d shortcuts" % (len(blocks), len(doc.links),
 		                                              len(doc.shortcuts)))
 
-	cards = frappe.db.count("Number Card", {"is_public": 1})
-	charts = frappe.db.count("Dashboard Chart", {"is_public": 1})
-	_check(cards >= 10, "Number cards created", "%d" % cards)
-	_check(charts >= 8, "Dashboard charts created", "%d" % charts)
+	# count only this app's cards/charts — the site also carries ERPNext's own
+	from rmc.setup.workspaces import _cards, _charts
+
+	mine = [c for _k, label, dt, *_r in _cards()
+	        if (c := frappe.db.get_value("Number Card", {"label": label, "document_type": dt}))]
+	chart_names = [c for _k, label, *_r in _charts()
+	               if (c := frappe.db.get_value("Dashboard Chart", {"chart_name": label}))]
+	_check(len(mine) >= 10, "RMC number cards created", "%d of %d" % (len(mine), len(_cards())))
+	_check(len(chart_names) >= 8, "RMC dashboard charts created",
+	       "%d of %d" % (len(chart_names), len(_charts())))
 
 	_check(frappe.db.exists("Print Format", "RMC Delivery Challan"),
 	       "Delivery Challan print format")

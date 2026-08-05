@@ -257,6 +257,7 @@ def top_up_before_batch(rng, day, plant, mix_design, qty_m3):
 		rate = flt(frappe.db.get_value("Item", d.item_code, "valuation_rate")) * 1000
 		doc = frappe.get_doc({
 			"doctype": "Material Inward", "inward_date": day, "plant": plant,
+			"inward_time": "04:%02d:00" % rng.randint(0, 59),
 			"supplier": rng.choice(suppliers),
 			"supplier_dc_no": "DC%s" % rng.randint(10000, 99999),
 			"item_code": d.item_code, "silo": silo.name,
@@ -302,6 +303,7 @@ def replenish_silos(rng, day, plant):
 			rate = flt(frappe.db.get_value("Item", silo.item_code, "valuation_rate")) * 1000
 			doc = frappe.get_doc({
 				"doctype": "Material Inward", "inward_date": day, "plant": plant,
+				"inward_time": "0%d:%02d:00" % (rng.randint(4, 5), rng.randint(0, 59)),
 				"supplier": rng.choice(suppliers),
 				"supplier_dc_no": "DC%s" % rng.randint(10000, 99999),
 				"item_code": silo.item_code, "silo": silo.name,

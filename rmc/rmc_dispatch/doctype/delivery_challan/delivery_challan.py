@@ -120,6 +120,10 @@ class DeliveryChallan(Document):
 		si.plc_conversion_rate = 1
 		si.posting_date = self.challan_date
 		si.set_posting_time = 1
+		# Bill at the moment the truck left, so the stock movement sits after the
+		# batch that produced the load rather than at whatever time the clerk saved.
+		if self.dispatch_time:
+			si.posting_time = str(self.dispatch_time).split(" ")[-1]
 		si.due_date = self.challan_date
 		si.update_stock = 1
 		si.rmc_delivery_challan = self.name

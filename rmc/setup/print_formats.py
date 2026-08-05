@@ -62,9 +62,8 @@ CHALLAN_HTML = """
   <table class="foot">
     <tr>
       <td class="qrcell">
-        {% if doc.qr_code %}
-          <img class="qr" src="/api/method/frappe.utils.print_format.get_qr_code?data={{ doc.qr_code|urlencode }}" />
-        {% endif %}
+        {% set qr = qr_data_uri(doc.qr_code or doc.name) %}
+        {% if qr %}<img class="qr" src="{{ qr }}" />{% endif %}
         <div class="qrtext">Scan to verify<br/>{{ doc.qr_code or doc.name }}</div>
       </td>
       <td class="notecell">
