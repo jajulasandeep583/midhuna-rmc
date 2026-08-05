@@ -121,6 +121,15 @@ def _complete_wizard():
 	frappe.db.set_default("company", COMPANY)
 	frappe.db.set_default("country", "India")
 	frappe.db.set_default("currency", "INR")
+
+	# THE one that actually keeps users out of the desk: a fresh site is created
+	# with desktop:home_page = "setup-wizard", and only the wizard's completion
+	# step clears it. Boot then hands the browser home_page "setup-wizard", the
+	# wizard page redirects to /desk without stopping its own load, and the two
+	# bounce off each other — which looks exactly like the site failing to open.
+	frappe.db.set_default("desktop:home_page", "workspace")
+	frappe.db.set_default("setup_complete", "1")
+
 	frappe.db.commit()
 	frappe.clear_cache()          # boot info caches setup_complete
 
