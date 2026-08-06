@@ -18,8 +18,10 @@ accounting rather than beside it.
 | **Dispatch** | Customer orders with pour schedules, truck allocation, delivery challan with QR + signature, cycle-time tracking, automatic Sales Invoice |
 | **Customers** | Customer master, construction sites with distance, order book, credit hold |
 | **Plant ops** | Running / idle / breakdown clock, availability %, breakdown log, maintenance schedule, EB + DG power and diesel log |
-| **Reports** | 14 query reports covering production, batches, consumption vs recipe, inward, silo stock, dispatch, vehicles, customers, quality, availability, power |
-| **Desk** | 6 role-scoped workspaces, 12 number cards, 9 charts, a live plant dashboard page |
+| **Reports** | 24 script reports covering production, batches, consumption vs recipe, inward, silo stock, dispatch, vehicles, customers, quality, availability, power, profitability and a GL-backed profit &amp; loss — every one with period presets (today / this week / last 30 / this month / this quarter / custom) |
+| **Desk** | 7 role-scoped workspaces, 12 number cards, 9 charts and 10 desk pages — control tower, live dashboard, batch / dispatch / silo / quality boards, order 360, management one-view, report hub and an in-app how-to-use guide |
+| **Live plant (PLC)** | `RMC PLC Tag` + `RMC PLC Reading` — 29 signals per plant polled on a cron, with a desk PLC board (silo gauges, status lamps, alarm panel, 24 h traces) |
+| **Public pages** | Login-free plant pages at `/rmc`, `/rmc/pl`, `/rmc/production`, `/rmc/stock`, `/rmc/plc` |
 
 Everything is code-first: the whole product rebuilds from this repository with
 `bench install-app rmc` — no manual desk configuration.
@@ -27,7 +29,7 @@ Everything is code-first: the whole product rebuilds from this repository with
 ## Install
 
 ```bash
-bench get-app rmc <repo-url>
+bench get-app rmc https://github.com/jajulasandeep583/midhuna-rmc.git
 bench new-site rmc.local --install-app erpnext
 bench --site rmc.local install-app rmc
 ```
@@ -60,8 +62,15 @@ reconciliation, derived values, every report, every workspace, and the guard
 rails (over-delivery, wrong mix design, credit hold):
 
 ```bash
-bench --site rmc.local execute rmc.setup.audit.run
+bench --site rmc.local execute rmc.setup.audit.run   # 193 static checks
+bench --site rmc.local execute rmc.setup.e2e.run     # 42 live checks
 ```
+
+`audit` is static: schema, masters, ledger reconciliation, every report and
+filter, icons, pages, boards, guard rails. `e2e` is live — it logs in as each
+of the five roles and books a real order through batching, dispatch, invoicing
+and cube testing, then proves the counts, ledgers, boards and reports all
+moved and the guard rails still refuse.
 
 ## The document chain
 
